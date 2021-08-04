@@ -17,7 +17,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all dep
 pip install -r requirements.txt
 ```
 
-When new depencies are installed, update requirements.txt.
+When new dependencies are installed, update requirements.txt.
 ```bash
 pip freeze > requirements.txt
 ````
