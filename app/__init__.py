@@ -52,5 +52,11 @@ def list():
 def analyze():
 	return render_template('analytics.html')
 	#return('Analytics will be here')
+    
+
+@app.route('/userauth')
+def userauth():
+    return render_template('userauth.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
