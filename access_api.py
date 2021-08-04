@@ -22,8 +22,9 @@ headers = {
 }
 
 BASE_URL = 'https://api.spotify.com/v1/'
+USER = os.getenv("USERNAME")
 
-r = requests.get('https://api.spotify.com/v1/users/linda_nayeli104/playlists/', headers=headers)
+r = requests.get('https://api.spotify.com/v1/users/{user}/playlists/'.format(user=USER), headers=headers)
 
 r = r.json()
 
