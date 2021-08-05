@@ -49,9 +49,10 @@ def adduser():
             )
             db.commit()
             msg = f"User {uname} created successfully"
+            
             return render_template("login.html")        
-        
-        return render_template("result.html", msg=msg)
+        flash(msg)
+        return render_template("register.html")
 
 @app.route('/confirmlogin', methods= ['POST'])
 def confirmlogin():
