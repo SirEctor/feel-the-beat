@@ -37,13 +37,13 @@ def adduser():
         elif not psw:
             msg = 'Password is required.'
         elif cur.execute(
-            'SELECT id FROM user WHERE username = ?', (uname,)
+            'SELECT id FROM users WHERE username = ?', (uname,)
         ).fetchone() is not None:
             msg = f"User {uname} is already registered."
 
         if not msg:
             cur.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
+                'INSERT INTO users (username, password) VALUES (?, ?)',
                 (uname, generate_password_hash(psw))
             )
             db.commit()
