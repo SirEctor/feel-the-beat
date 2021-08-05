@@ -2,15 +2,16 @@ from flask import Flask, render_template, request
 import sqlite3 as sql
 import requests
 import json 
+import os
+from . import db 
 
 app = Flask(__name__)
+app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
+db.init_app(app)
 
 @app.route('/')
 def home():
-    if request.method == 'POST':
-        return render_template('userauth.html')
-    else:
-        return render_template('index.html')
+    return render_template('index.html')
 	
 @app.route('/login')
 def login():
@@ -72,8 +73,8 @@ def get_jsvar(jsvar):
             'redirect_uri':'http://localhost:5000/'
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
+    
     s = json.loads(r.text)
-
     access_token = s['access_token']
     token_type = s['token_type']
     expires_in = s['expires_in']
