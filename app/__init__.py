@@ -41,7 +41,7 @@ def adduser():
         ).fetchone() is not None:
             msg = f"User {uname} is already registered."
 
-        if msg is None:
+        if not msg:
             cur.execute(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
                 (uname, generate_password_hash(psw))
@@ -58,7 +58,7 @@ def confirmlogin():
         psw = request.form.get('psw')
         db = get_db()
         cur = db.cursor()
-        msg = ""
+        msg = None
         user = cur.execute(
             'SELECT * FROM user WHERE username = ?', (uname,)
         ).fetchone()
@@ -68,7 +68,7 @@ def confirmlogin():
         elif not check_password_hash(user['password'], psw):
             msg = 'Incorrect password.'
 
-        if msg is None:
+        if not msg:
             msg = "Login Successful"
         return render_template("result.html", msg=msg)
 
