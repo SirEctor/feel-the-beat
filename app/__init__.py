@@ -60,7 +60,7 @@ def confirmlogin():
         cur = db.cursor()
         msg = None
         user = cur.execute(
-            'SELECT * FROM user WHERE username = ?', (uname,)
+            'SELECT * FROM users WHERE username = ?', (uname,)
         ).fetchone()
 
         if user is None:
@@ -76,7 +76,7 @@ def confirmlogin():
 def list():
    db = get_db()   
    cur = db.cursor()
-   cur.execute("SELECT * FROM user")
+   cur.execute("SELECT * FROM users")
    rows = cur.fetchall()
    return render_template("list.html",rows = rows)
 
