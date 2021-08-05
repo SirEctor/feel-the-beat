@@ -38,18 +38,19 @@ def adduser():
             msg = 'Username is required.'
         elif not psw:
             msg = 'Password is required.'
-        elif cur.execute(
+        elif db.execute(
             'SELECT id FROM users WHERE username = ?', (uname,)
         ).fetchone() is not None:
             msg = f"User {uname} is already registered."
 
         if not msg:
-            cur.execute(
+            db.execute(
                 'INSERT INTO users (username, password) VALUES (?, ?)',
                 (uname, generate_password_hash(psw))
             )
             db.commit()
             msg = f"User {uname} created successfully"
+            return render_template("login.html")        
         
         return render_template("result.html", msg=msg)
 
@@ -61,7 +62,7 @@ def confirmlogin():
         db = get_db()
         cur = db.cursor()
         msg = None
-        user = cur.execute(
+        user = db.execute(
             'SELECT * FROM users WHERE username = ?', (uname,)
         ).fetchone()
 
@@ -72,6 +73,8 @@ def confirmlogin():
 
         if not msg:
             msg = "Login Successful"
+            return render_template("analytics.html")
+        
         return render_template("result.html", msg=msg)
 
 @app.route('/list')
