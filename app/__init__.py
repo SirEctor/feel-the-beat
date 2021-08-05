@@ -26,7 +26,7 @@ def adduser():
             with sql.connect("database.db") as c:
                 cur = c.cursor()
                 cur.execute("INSERT INTO users (username, password) VALUES (?,?)", (uname, psw) )
-                c.commit();
+                c.commit()
                 msg = "You have been succesfully registered!"
         except:
             c.rollback()
