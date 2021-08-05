@@ -107,6 +107,7 @@ def get_jsvar(jsvar):
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
     
     s = json.loads(r.text)
+    print(s)
     access_token = s['access_token']
     token_type = s['token_type']
     expires_in = s['expires_in']
