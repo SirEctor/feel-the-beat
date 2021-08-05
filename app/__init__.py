@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 import sqlite3 as sql
 import requests
 import json 
@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
+app.secret_key = os.getenv('SECRET_KEY')
 db.init_app(app)
 
 
@@ -19,11 +20,9 @@ def home():
 @app.route('/login')
 def login():
 	return render_template('login.html')
-	#return('Login Page Here')
 @app.route('/register')
 def register():
 	return render_template('register.html')
-	#return('Register Page here')
     
 @app.route('/adduser', methods= ['POST', 'GET'])
 def adduser():
@@ -54,7 +53,7 @@ def adduser():
         
         return render_template("result.html", msg=msg)
 
-@app.route('/confirmlogin', methods= ['POST', 'GET'])
+@app.route('/confirmlogin', methods= ['POST'])
 def confirmlogin():
     if request.method == 'POST':
         uname = request.form.get('uname')
@@ -74,8 +73,8 @@ def confirmlogin():
         if not msg:
             msg = "Login Successful"
             return render_template("analytics.html")
-        
-        return render_template("result.html", msg=msg)
+        flash(msg)
+        return render_template("login.html")
 
 @app.route('/list')
 def list():

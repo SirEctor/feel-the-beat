@@ -22,6 +22,11 @@
  <body>
 	<h1>LOGIN PAGE</h1>
 	<div class="login-container">
+        {% extends "layout.html" %}
+	{% block body %}
+        {% if error %}
+            <p class=error><strong>Error:</strong> {{ error }}
+        {% endif %}
 		<form action = "{{ url_for('confirmlogin') }}" method = "POST">
 			<label for="uname"><b>Username</b></label>
 			<input type="text" placeholder="Enter Username" name="uname" required>
@@ -36,6 +41,7 @@
             		</div>
 			<button type="submit">Login</button>	
 	</form>
+	{% endblock %}
 	</div>
 	
 	<ul>			

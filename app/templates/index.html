@@ -33,7 +33,7 @@
 	var field = 'code';
 	var url = window.location.href;
 	if(url.indexOf('?' + field + '=') != -1)
-		code = url.substring(url.indexOf('?' + field + '=') + 1 + field.length + 1, url.length);
+		var code = url.substring(url.indexOf('?' + field + '=') + 1 + field.length + 1, url.length);
 		document.write("CODE: ");
 		console.log("CODE: ");
 		document.write(code);
