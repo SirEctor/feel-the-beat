@@ -13,5 +13,5 @@ CREATE TABLE songs (
   listen_time TIMESTAMP NOT NULL,
   mood TEXT NOT NULL,
   song_uri TEXT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user (id)
+  FOREIGN KEY (user_id) REFERENCES users (id)
 );
