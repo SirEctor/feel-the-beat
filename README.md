@@ -1,4 +1,7 @@
-# spotifyspike
+# Feel The Beat!
+
+## About
+A tool to help recommend new songs based on your moods as well give you general analytics on your musical tastes based on the Spotify API.
 
 ## Installation
 
