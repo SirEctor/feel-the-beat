@@ -144,37 +144,53 @@ def userauth():
 
 @app.route('/getjs/<jsvar>')
 def get_jsvar(jsvar):
-    data = {'client_id':'78fe8a00ad4249f8a5afcf3ae5a5f2bd', 
-            'client_secret':'c4e3fe8f364a4edc880a211e1b648617', 
+    data = {'client_id':os.getenv("CLIENT_ID"), 
+            'client_secret':os.getenv("CLIENT_SECRET"), 
             'grant_type':'authorization_code',
             'code':jsvar,
             'redirect_uri':'http://localhost:5000/'
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
+    #r.json()
+    if r.status_code == 200:
+        s = json.loads(r.text)
     
-    s = json.loads(r.text)
-    print(s)
-    access_token = s['access_token']
-    token_type = s['token_type']
-    expires_in = s['expires_in']
-    refresh_token = s['refresh_token']
-    scope = s['scope']
     
-    headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + access_token
-    }
+        access_token = s['access_token']
+        token_type = s['token_type']
+        expires_in = s['expires_in']
+        refresh_token = s['refresh_token']
+        scope = s['scope']
     
-    response = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=1',headers=headers)
-    s = json.loads(response.text)
-    sItems = s['items']
-    sTrack = sItems[0]['track']
-    sAlbum = sTrack['album']
-    sAT = sAlbum['album_type']
-    name = sTrack['name']
-    return render_template('testanalytics.html', recentlyplayed=name)
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + access_token
+        }
     
+        response = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=1',headers=headers)
+        s = json.loads(response.text)
+        sItems = s['items']
+        sTrack = sItems[0]['track']
+   #     for t in s['tracks']['items']:
+   #     print('---------------')
+   #     for a in t['track']['artists']:
+   #         print(a['name'])
+   #     songName = t['track']['name']
+   #    print(songName)
+
+        sAlbum = sTrack['album']
+        sAT = sAlbum['album_type']
+        name = sTrack['name']
+        sId = sTrack['id']
+        
+        dresponse = requests.get('https://api.spotify.com/v1/audio-features/'+sId)
+        #jDR = json.load(dresponse.text)
+        
+        dance="Placehold"
+        return render_template('testanalytics.html', recentlyplayed=name)
+    else:
+        return render_template('result.html')
     #return render_template('refreshcode.html', headers=r.headers, access_token=access_token, token_type=token_type, expires_in=expires_in, refresh_token=refresh_token,scope=scope)
 if __name__ == '__main__':
     app.run(debug=True)
