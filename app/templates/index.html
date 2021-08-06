@@ -32,16 +32,12 @@
 	var field = 'code';
 	var url = window.location.href;
 	if(url.indexOf('?' + field + '=') != -1) {
-		var code = url.substring(url.indexOf('?' + field + '=') + 1 + field.length + 1, url.length);
-		console.log("CODE: ");
-		console.log(code);
-	
-                	
+		var code = url.substring(url.indexOf('?' + field + '=') + 1 + field.length + 1, url.length);                	
 	var marker = document.getElementById("marker");
 	var a = document.createElement('a');
-	var link = document.createTextNode('Click here to get access token/refresh token from access code');
+	var link = document.createTextNode('Click here to access analytics.');
 	a.append(link);
-	a.title = "Click here to get access token/refresh token from access code";
+	a.title = "Click here to access analytics.";
 	a.href = "http://localhost:5000/getjs/" + code;
 	
 	

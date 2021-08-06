@@ -3,3 +3,4 @@ venv/
 flask.sqlite
 __pycache__
 app/__pycache__
+.flask_session/*
