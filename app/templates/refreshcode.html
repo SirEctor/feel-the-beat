@@ -2,9 +2,9 @@
 <html>
    <body>
    
-      <h2>Response Header</h2> <br>
+      <p>Response Header</p> <br>
 	  {{ headers }} <br>
-	  <h2> Response Body </h2><br>
+	  <p>Response Body </p><br>
 	  <ul>
 	  <li> <h4>Access Token: </h4></li> 
 	  <li> {{ access_token }} </li>
@@ -17,7 +17,17 @@
 	  <li> <h4>Scope: </h4></li> 
 	  <li> {{ scope }} </li>
       </ul>
-	  <h2><a href = "\">Home Page</a></h2>
+	  <form action = "\testanalytics" method="POST">
+		<label for="lastmood"><b>How did your feel during your most recently played song? </b></label>
+		<select type="text" name="lastmood" id="lastmood">
+		    <option value="happy">Happy</option>
+		    <option value="Sad">Sad</option>
+		    <option value="Mad">Mad</option>
+		</select>
+		<br><br>
+		<button type="submit">Submit</button>	
+	</form>
+	  <h2><a href = "\analytics">Analytics</a></h2>
       
    </body>
 </html>

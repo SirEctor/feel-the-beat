@@ -25,28 +25,11 @@
 	{% extends "layout.html" %}
         {% block body %}
 	<div class="analytics-login-container">
-		<p>Your Most Recently Played Song Is: {{ recentlyplayed }} </p>
-        {% if error %}
-            <p class=error><strong>Error:</strong> {{ error }}
-        {% endif %}
-	<form action = "\testanalytics" method="POST">
-		<label for="lastmood"><b>How did your feel during your most recently played song? </b></label>
-		<select type="text" name="lastmood" id="lastmood">
-		    <option value="happy">Happy</option>
-		    <option value="Sad">Sad</option>
-		    <option value="Mad">Mad</option>
-		</select>
-		<br><br>
-		<button type="submit">Submit</button>	
-	</form>
-	</div>
-	
-	<ul>	
-		<li>Danceability Level Average (Monthly): </li>
-		<li>Liveliness Level Average (Monthly): </li>
-		<li>Genre Most Listened To: </li>
-		<li>Recommended Next Songs: </li>
-	</ul>
+		<h2>Your Most Recently Played Song Is: {{ recentlyplayed }} </h2>
+        <h3>Dancability Level: Not Applicable</h3>
+		<h3>Liveliness Level: Not Applicable</h3>
+		
+		
 	
 				
 	   <h2> <a href="/"> Logout </a> </h2>

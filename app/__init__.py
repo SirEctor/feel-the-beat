@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, url_for
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import sqlite3 as sql
 import requests
 import json 
@@ -7,8 +8,33 @@ import os
 from app.db import get_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 app = Flask(__name__)
 app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
+app.secret_key = 'test'
+
+#login_manager = LoginManager(app)
+#login_manager.login_view = "login"
+
+#class User(UserMixin):
+#    def __init__(self, id, email, password):
+#        self.id = unicode(id)
+#        self.email = email
+#        self.password = password
+#        self.authenticated = False
+
+#    def is_active(self):
+#        return self.is_active()
+
+#    def is_anonymous(self):
+#        return False
+
+#    def is_authenticated(self):
+#        return self.authenticated
+
+#    def is_active(self):
+#        return self.id
+
 db.init_app(app)
 
 
@@ -19,11 +45,9 @@ def home():
 @app.route('/login')
 def login():
 	return render_template('login.html')
-	#return('Login Page Here')
 @app.route('/register')
 def register():
 	return render_template('register.html')
-	#return('Register Page here')
     
 @app.route('/adduser', methods= ['POST', 'GET'])
 def adduser():
@@ -38,22 +62,24 @@ def adduser():
             msg = 'Username is required.'
         elif not psw:
             msg = 'Password is required.'
-        elif cur.execute(
+        elif db.execute(
             'SELECT id FROM users WHERE username = ?', (uname,)
         ).fetchone() is not None:
             msg = f"User {uname} is already registered."
 
         if not msg:
-            cur.execute(
+            db.execute(
                 'INSERT INTO users (username, password) VALUES (?, ?)',
                 (uname, generate_password_hash(psw))
             )
             db.commit()
             msg = f"User {uname} created successfully"
-        
-        return render_template("result.html", msg=msg)
+            
+            return render_template("login.html")        
+        flash(msg)
+        return render_template("register.html")
 
-@app.route('/confirmlogin', methods= ['POST', 'GET'])
+@app.route('/confirmlogin', methods= ['POST'])
 def confirmlogin():
     if request.method == 'POST':
         uname = request.form.get('uname')
@@ -61,7 +87,7 @@ def confirmlogin():
         db = get_db()
         cur = db.cursor()
         msg = None
-        user = cur.execute(
+        user = db.execute(
             'SELECT * FROM users WHERE username = ?', (uname,)
         ).fetchone()
 
@@ -72,7 +98,9 @@ def confirmlogin():
 
         if not msg:
             msg = "Login Successful"
-        return render_template("result.html", msg=msg)
+            return render_template("userauth.html")
+        flash(msg)
+        return render_template("login.html")
 
 @app.route('/list')
 def list():
@@ -83,11 +111,32 @@ def list():
    return render_template("list.html",rows = rows)
 
 
-@app.route('/analytics')
+@app.route('/analytics', methods = ['POST','GET'])
 def analyze():
-	return render_template('analytics.html')
-	#return('Analytics will be here')
+    if request.method == "POST":
+        flash("Mood/Song Personal Matrix updated!")
+        return render_template('analytics.html')
+
+    else:
+        if request.referrer != None and (('getjs' in request.referrer) or ('analytics' in request.referrer)):
+            return render_template('analytics.html')
+        else:
+            return render_template('index.html')
+            
+@app.route('/testanalytics/', methods = ['POST'])
+def access():
+    accesstoken = request.form['lastmood']
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + accesstoken
+    }
     
+    response = requests.get('https://api.spotify.com/v1/me/player/recently-played',headers=headers)
+    s = json.loads(response.text)
+    print("S!")
+    print(s)
+    return render_template('testanalytics.html', recentlyplayed=s)
 
 @app.route('/userauth')
 def userauth():
@@ -102,14 +151,46 @@ def get_jsvar(jsvar):
             'redirect_uri':'http://localhost:5000/'
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
+    #r.json()
+    if r.status_code == 200:
+        s = json.loads(r.text)
     
-    s = json.loads(r.text)
-    access_token = s['access_token']
-    token_type = s['token_type']
-    expires_in = s['expires_in']
-    refresh_token = s['refresh_token']
-    scope = s['scope']
     
-    return render_template('refreshcode.html', headers=r.headers, access_token=access_token, token_type=token_type, expires_in=expires_in, refresh_token=refresh_token,scope=scope)
+        access_token = s['access_token']
+        token_type = s['token_type']
+        expires_in = s['expires_in']
+        refresh_token = s['refresh_token']
+        scope = s['scope']
+    
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + access_token
+        }
+    
+        response = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=1',headers=headers)
+        s = json.loads(response.text)
+        sItems = s['items']
+        sTrack = sItems[0]['track']
+   #     for t in s['tracks']['items']:
+   #     print('---------------')
+   #     for a in t['track']['artists']:
+   #         print(a['name'])
+   #     songName = t['track']['name']
+   #    print(songName)
+
+        sAlbum = sTrack['album']
+        sAT = sAlbum['album_type']
+        name = sTrack['name']
+        sId = sTrack['id']
+        
+        dresponse = requests.get('https://api.spotify.com/v1/audio-features/'+sId)
+        #jDR = json.load(dresponse.text)
+        
+        dance="Placehold"
+        return render_template('testanalytics.html', recentlyplayed=name)
+    else:
+        return render_template('result.html')
+    #return render_template('refreshcode.html', headers=r.headers, access_token=access_token, token_type=token_type, expires_in=expires_in, refresh_token=refresh_token,scope=scope)
 if __name__ == '__main__':
     app.run(debug=True)

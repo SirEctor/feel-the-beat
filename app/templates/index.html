@@ -20,14 +20,34 @@
  
  
  <body>
-	<h1>HOME PAGE</h1>
+	<h1>Feel The Beat!</h1>
 	<ul>			
 	   <li> <a href="login"> Login Page </a> </li>
 	   <li> <a href="/register"> Registration Page </a> </li>
-	   <li> <a href="/"> Home Page </a> </li>
-	   <li><a href="/analytics"> Analytics Page </a> </li>
+	   <li> <a href="/"> Home</a> </li>
 	</ul>
- 
+ 	
+	<div id="marker"> </div>
+ <script>
+	var field = 'code';
+	var url = window.location.href;
+	if(url.indexOf('?' + field + '=') != -1) {
+		var code = url.substring(url.indexOf('?' + field + '=') + 1 + field.length + 1, url.length);
+		console.log("CODE: ");
+		console.log(code);
+	
+                	
+	var marker = document.getElementById("marker");
+	var a = document.createElement('a');
+	var link = document.createTextNode('Click here to get access token/refresh token from access code');
+	a.append(link);
+	a.title = "Click here to get access token/refresh token from access code";
+	a.href = "http://localhost:5000/getjs/" + code;
+	
+	
+	marker.appendChild(a);
+	}
+ </script>
  </body>
-  
+   
 </html>

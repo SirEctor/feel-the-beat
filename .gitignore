@@ -1,3 +1,5 @@
 .env
 venv/
 flask.sqlite
+__pycache__
+app/__pycache__
