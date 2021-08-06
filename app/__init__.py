@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = 'test'
 
 #login_manager = LoginManager(app)
 #login_manager.login_view = "login"
@@ -121,8 +121,22 @@ def analyze():
         if request.referrer != None and (('getjs' in request.referrer) or ('analytics' in request.referrer)):
             return render_template('analytics.html')
         else:
-            return render_template('index.html')	
+            return render_template('index.html')
+            
+@app.route('/testanalytics/', methods = ['POST'])
+def access():
+    accesstoken = request.form['lastmood']
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + accesstoken
+    }
     
+    response = requests.get('https://api.spotify.com/v1/me/player/recently-played',headers=headers)
+    s = json.loads(response.text)
+    print("S!")
+    print(s)
+    return render_template('testanalytics.html', recentlyplayed=s)
 
 @app.route('/userauth')
 def userauth():
@@ -130,11 +144,11 @@ def userauth():
 
 @app.route('/getjs/<jsvar>')
 def get_jsvar(jsvar):
-    data = {'client_id':os.getenv("CLIENT_ID"), 
-            'client_secret':os.getenv("CLIENT_SECRET"), 
+    data = {'client_id':'78fe8a00ad4249f8a5afcf3ae5a5f2bd', 
+            'client_secret':'c4e3fe8f364a4edc880a211e1b648617', 
             'grant_type':'authorization_code',
             'code':jsvar,
-            'redirect_uri':'http://18.219.26.170:5000/'
+            'redirect_uri':'http://localhost:5000/'
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
     
@@ -146,6 +160,21 @@ def get_jsvar(jsvar):
     refresh_token = s['refresh_token']
     scope = s['scope']
     
-    return render_template('refreshcode.html', headers=r.headers, access_token=access_token, token_type=token_type, expires_in=expires_in, refresh_token=refresh_token,scope=scope)
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + access_token
+    }
+    
+    response = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=1',headers=headers)
+    s = json.loads(response.text)
+    sItems = s['items']
+    sTrack = sItems[0]['track']
+    sAlbum = sTrack['album']
+    sAT = sAlbum['album_type']
+    name = sTrack['name']
+    return render_template('testanalytics.html', recentlyplayed=name)
+    
+    #return render_template('refreshcode.html', headers=r.headers, access_token=access_token, token_type=token_type, expires_in=expires_in, refresh_token=refresh_token,scope=scope)
 if __name__ == '__main__':
     app.run(debug=True)
