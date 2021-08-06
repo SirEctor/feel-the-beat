@@ -98,7 +98,7 @@ def confirmlogin():
 
         if not msg:
             msg = "Login Successful"
-            return render_template("analytics.html")
+            return render_template("userauth.html")
         flash(msg)
         return render_template("login.html")
 
@@ -111,12 +111,17 @@ def list():
    return render_template("list.html",rows = rows)
 
 
-@app.route('/analytics')
+@app.route('/analytics', methods = ['POST','GET'])
 def analyze():
-    if 'getjs' in request.referrer:
+    if request.method == "POST":
+        flash("Mood/Song Personal Matrix updated!")
         return render_template('analytics.html')
+
     else:
-        return render_template('index.html')	
+        if request.referrer != None and (('getjs' in request.referrer) or ('analytics' in request.referrer)):
+            return render_template('analytics.html')
+        else:
+            return render_template('index.html')	
     
 
 @app.route('/userauth')

@@ -22,29 +22,37 @@
  <body>
 	<h1>ANALYTICS PAGE</h1>
 	<h3> Analytics </h3>
-	
+	{% extends "layout.html" %}
+        {% block body %}
 	<div class="analytics-login-container">
-		<label for="uname"><b>Username</b></label>
-		<input type="text" placeholder="Enter Spotify Username" name="uname" required>
+		<p>Your Most Recently Played Song Is: </p>
+        {% if error %}
+            <p class=error><strong>Error:</strong> {{ error }}
+        {% endif %}
+	<form action = "{{ url_for('analyze') }}" method="POST">
+		<label for="lastmood"><b>How did your feel during your most recently played song? </b></label>
+		<select type="text" name="lastmood" id="lastmood">
+		    <option value="happy">Happy</option>
+		    <option value="Sad">Sad</option>
+		    <option value="Mad">Mad</option>
+		</select>
+		<br><br>
 		<button type="submit">Submit</button>	
+	</form>
 	</div>
 	
-	<ul>
-		<li>Longest Song</li>
-		<li>Shortest Song</li>
-		<li>Danceability Level</li>
-		<li>Liveliness Level</li>
-		<li>Genre Most Listened To</li>
-		<li>Recommended Next Songs</li>
+	<ul>	
+		<li>Danceability Level Average (Monthly): </li>
+		<li>Liveliness Level Average (Monthly): </li>
+		<li>Genre Most Listened To: </li>
+		<li>Recommended Next Songs: </li>
 	</ul>
 	
-	<ul>			
-	   <li> <a href="login"> Login Page </a> </li>
-	   <li> <a href="/register"> Registration Page </a> </li>
-	   <li> <a href="/"> Home Page </a> </li>
-	   <li><a href="/analytics"> Analytics Page </a> </li>
-	</ul>
- 
+				
+	   <h2> <a href="/"> Logout </a> </h2>
+	   
+	
+     {% endblock %}
  </body>
   
 </html>
