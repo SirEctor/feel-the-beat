@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, url_for
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import sqlite3 as sql
 import requests
 import json 
@@ -7,9 +8,33 @@ import os
 from app.db import get_db
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 app = Flask(__name__)
 app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
 app.secret_key = os.getenv('SECRET_KEY')
+
+#login_manager = LoginManager(app)
+#login_manager.login_view = "login"
+
+#class User(UserMixin):
+#    def __init__(self, id, email, password):
+#        self.id = unicode(id)
+#        self.email = email
+#        self.password = password
+#        self.authenticated = False
+
+#    def is_active(self):
+#        return self.is_active()
+
+#    def is_anonymous(self):
+#        return False
+
+#    def is_authenticated(self):
+#        return self.authenticated
+
+#    def is_active(self):
+#        return self.id
+
 db.init_app(app)
 
 
@@ -88,8 +113,10 @@ def list():
 
 @app.route('/analytics')
 def analyze():
-	return render_template('analytics.html')
-	#return('Analytics will be here')
+    if 'getjs' in request.referrer:
+        return render_template('analytics.html')
+    else:
+        return render_template('index.html')	
     
 
 @app.route('/userauth')
