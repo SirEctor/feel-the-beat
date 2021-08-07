@@ -160,19 +160,47 @@ def get_jsvar(jsvar):
             'Authorization': 'Bearer ' + access_token
         }
     
-        response = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=1',headers=headers)
-        s = json.loads(response.text)
-        sItems = s['items']
-        sTrack = sItems[0]['track']
-        sAlbum = sTrack['album']
-        sAT = sAlbum['album_type']
-        name = sTrack['name']
-        sId = sTrack['id']
+        # Get recently reproduces tracks
+        resTracks = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=3',headers=headers)
+        resTracks_Text = json.loads(resTracks.text)
+
+        trackN0 = resTracks_Text['items'][0]['track']['name']
+        trackArtist0 = resTracks_Text['items'][0]['track']['album']['artists'][0]['name']
+        trackName0 = trackN0 + "  -  " + trackArtist0
+        trackId0 = resTracks_Text['items'][0]['track']['id']
+
+        trackN1 = resTracks_Text['items'][1]['track']['name']
+        trackArtist1 = resTracks_Text['items'][1]['track']['album']['artists'][0]['name']
+        trackName1 = trackN1 + "  -  " + trackArtist1
+        trackId1 = resTracks_Text['items'][1]['track']['id']
         
-        dresponse = requests.get('https://api.spotify.com/v1/audio-features/'+sId)
+        trackN2 = resTracks_Text['items'][2]['track']['name']
+        trackArtist2 = resTracks_Text['items'][2]['track']['album']['artists'][0]['name']
+        trackName2 = trackN2 + "  -  " + trackArtist2
+        trackId2 = resTracks_Text['items'][2]['track']['id']
         
-        dance="Placehold"
-        return render_template('testanalytics.html', recentlyplayed=name)
+     
+        # Get Audio Features for a Track 
+        track0_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId0, headers=headers)
+        track0_Charact_Text = json.loads(track0_Charact.text)
+        danceLevel0 = float(track0_Charact_Text['danceability'])
+        liveLevel0 = float(track0_Charact_Text['liveness'])
+
+        track1_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId1, headers=headers)
+        track1_Charact_Text = json.loads(track1_Charact.text)
+        danceLevel1 = float(track1_Charact_Text['danceability'])
+        liveLevel1 = float(track1_Charact_Text['liveness'])
+
+        track2_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId2, headers=headers)
+        track2_Charact_Text = json.loads(track2_Charact.text)
+        danceLevel2 = float(track2_Charact_Text['danceability'])
+        liveLevel2 = float(track2_Charact_Text['liveness'])
+
+        averageDance = round((danceLevel0 + danceLevel1 + danceLevel2) / 3, 3)
+        averageLive = round((liveLevel0 + liveLevel1 + liveLevel2) / 3, 3)
+       
+
+        return render_template('testanalytics.html', track0_Name=trackName0, track1_Name=trackName1, track2_Name=trackName2, averageDanceability=averageDance, averageLiveness=averageLive)
     else:
         return render_template('result.html')
 
