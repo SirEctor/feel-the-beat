@@ -25,13 +25,13 @@
 	{% extends "layout.html" %}
         {% block body %}
 	<div class="analytics-login-container">
-		<h2>Your Most Recently Played Song Is: {{ recentlyplayed }} </h2>
-        <h3>Dancability Level: Not Applicable</h3>
-		<h3>Liveliness Level: Not Applicable</h3>
-		
-		
-	
-				
+        <h2>Your 3 Most Recently Played Songs Are: </h2>
+        <h3>1: {{ track0_Name }}</h3>
+        <h3>2: {{ track1_Name }}</h3>
+        <h3>3: {{ track2_Name }}</h3>
+        <h3>Average Danceability Level: {{ averageDanceability }}</h3>
+        <h3>Average Liveness Level: {{averageLiveness}}</h3>
+        
 	   <h2> <a href="/"> Logout </a> </h2>
 	   
 	
