@@ -38,7 +38,7 @@
 	var link = document.createTextNode('Click here to access analytics.');
 	a.append(link);
 	a.title = "Click here to access analytics.";
-	a.href = "http://localhost:5000/getjs/" + code;
+	a.href = os.getenv("REDIRECT_URI") + "/getjs/" + code;
 	
 	
 	marker.appendChild(a);
