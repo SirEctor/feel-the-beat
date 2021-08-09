@@ -79,7 +79,7 @@ def add_user():
             db.commit()
             msg = f"User {uname} created successfully"
             
-            return render_template("login.html")        
+            return render_template("userauth.html")        
         flash(msg)
         return render_template("register.html")
 
@@ -102,7 +102,7 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            return render_template("userauth.html")
+            return render_template(url_for("dashboard"))
         flash(msg)
         return render_template("login.html")
 
@@ -136,6 +136,10 @@ def access():
 @app.route('/userauth')
 def userauth():
     return render_template('userauth.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return "Dashboard should be implemented here shortly. Come again soon."
 
 @app.route('/getjs/<jsvar>')
 def get_jsvar(jsvar):
