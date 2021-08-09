@@ -8,6 +8,8 @@ import os
 from app.db import get_db
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
+import urllib.parse
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -100,7 +102,7 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            return render_template("userauth.html")
+            return render_template("userauth.html", redirect_uri_encoded=urllib.parse.quote(os.getenv("REDIRECT_URI")))
         flash(msg)
         return render_template("login.html")
 
