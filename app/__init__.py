@@ -141,7 +141,7 @@ def get_jsvar(jsvar):
             'client_secret':os.getenv("CLIENT_SECRET"), 
             'grant_type':'authorization_code',
             'code':jsvar,
-            'redirect_uri':'http://localhost:5000/'
+            'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
     if r.status_code == 200:
