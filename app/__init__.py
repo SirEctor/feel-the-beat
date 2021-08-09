@@ -102,7 +102,7 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            return render_template("userauth.html", redirect_uri_encoded="https%3A%2F%2Ffeelthebeat%2F")
+            return render_template("userauth.html")
         flash(msg)
         return render_template("login.html")
 
