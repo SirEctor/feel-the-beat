@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, flash, url_for
-import sqlite3 as sql
+from flask import Flask, render_template, request, flash, url_for, redirect
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import requests
 import json 
 import os
@@ -26,6 +26,13 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from .table_datatypes import *
+
+load_dotenv()
+app = Flask(__name__)
+app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
+app.secret_key = "test"
+
+db.init_app(app)
 
 @app.route('/')
 def home():
@@ -82,7 +89,7 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            return render_template(url_for("dashboard"))
+            return render_template("dashboard.html")
         flash(msg)
         return render_template("login.html")
 
@@ -109,17 +116,22 @@ def access():
     
     response = requests.get('https://api.spotify.com/v1/me/player/recently-played',headers=headers)
     s = json.loads(response.text)
-    print("S!")
-    print(s)
+
     return render_template('testanalytics.html', recentlyplayed=s)
 
 @app.route('/userauth')
 def userauth():
     return render_template('userauth.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard/')
 def dashboard():
-    return "Dashboard should be implemented here shortly. Come again soon."
+    if 'code' in request.url:
+        baseurl = "https://feelthebeat.tech/dashboard/?code="
+        authcode = request.url[len(baseurl)-3:]
+        return redirect(url_for('get_jsvar', jsvar=authcode))
+    
+
+    return render_template('dashboard.html')
 
 @app.route('/getjs/<jsvar>')
 def get_jsvar(jsvar):
