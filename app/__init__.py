@@ -27,13 +27,6 @@ migrate = Migrate(app, db)
 
 from .table_datatypes import *
 
-load_dotenv()
-app = Flask(__name__)
-app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
-app.secret_key = "test"
-
-db.init_app(app)
-
 @app.route('/')
 def home():
     return render_template('index.html')
