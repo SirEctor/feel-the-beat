@@ -116,8 +116,8 @@ def userauth():
 @app.route('/dashboard/')
 def dashboard():
     if 'code' in request.url:
-        baseurl = "https://feelthebeat.tech/dashboard?code="
-        authcode = request.url[len(baseurl):]
+        baseurl = "https://feelthebeat.tech/dashboard/?code="
+        authcode = request.url[len(baseurl)-1:]
         return redirect(url_for('get_jsvar', jsvar=authcode))
     
 
