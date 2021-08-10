@@ -117,7 +117,7 @@ def userauth():
 def dashboard():
     if 'code' in request.url:
         baseurl = "https://feelthebeat.tech/dashboard/?code="
-        authcode = request.url[len(baseurl)-1:]
+        authcode = request.url[len(baseurl)-3:]
         return redirect(url_for('get_jsvar', jsvar=authcode))
     
 
