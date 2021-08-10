@@ -106,7 +106,7 @@ def access():
     
     response = requests.get('https://api.spotify.com/v1/me/player/recently-played',headers=headers)
     s = json.loads(response.text)
-   
+
     return render_template('testanalytics.html', recentlyplayed=s)
 
 @app.route('/userauth')
@@ -120,6 +120,7 @@ def dashboard():
         authcode = request.url[len(baseurl):]
         return redirect(url_for('get_jsvar', jsvar=authcode))
     
+
     return render_template('dashboard.html')
 
 @app.route('/getjs/<jsvar>')
