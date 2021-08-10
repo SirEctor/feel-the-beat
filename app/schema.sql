@@ -28,7 +28,7 @@ CREATE TABLE songs (
 );
 
 CREATE TABLE daily_records (
-  date TIMESTAMP NOT NULL,
+  date DATE NOT NULL,
   mood VARCHAR(255) NOT NULL,
   song_uri VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id)
