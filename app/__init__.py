@@ -139,7 +139,7 @@ def userauth():
 
 @app.route('/dashboard')
 def dashboard():
-    return "Dashboard should be implemented here shortly. Come again soon."
+    return render_template('dashboard.html')
 
 @app.route('/getjs/<jsvar>')
 def get_jsvar(jsvar):
