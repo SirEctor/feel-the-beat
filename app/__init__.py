@@ -8,7 +8,7 @@ import os
 from app.db import get_db
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-import urllib.parse
+
 
 
 load_dotenv()
@@ -17,7 +17,6 @@ app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
 app.secret_key = "test"
 
 db.init_app(app)
-
 
 @app.route('/')
 def home():
@@ -80,7 +79,7 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            return render_template(url_for("dashboard"))
+            return render_template("dashboard.html")
         flash(msg)
         return render_template("login.html")
 
@@ -114,8 +113,14 @@ def access():
 def userauth():
     return render_template('userauth.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard/')
 def dashboard():
+    if 'code' in request.url:
+        baseurl = os.getenv("REDIRECT_URI")+"/dashboard?code="
+        authcode = request.url[len(baseurl):]
+        return redirect(url_for('get_jsvar', jsvar=authcode))
+    
+
     return render_template('dashboard.html')
 
 @app.route('/getjs/<jsvar>')
