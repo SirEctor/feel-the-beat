@@ -27,23 +27,7 @@
 	   <li> <a href="/"> Home</a> </li>
 	</ul>
  	
-	<div id="marker"> </div>
- <script>
-	var field = 'code';
-	var url = window.location.href;
-	if(url.indexOf('?' + field + '=') != -1) {
-		var code = url.substring(url.indexOf('?' + field + '=') + 1 + field.length + 1, url.length);                	
-	var marker = document.getElementById("marker");
-	var a = document.createElement('a');
-	var link = document.createTextNode('Click here to access analytics.');
-	a.append(link);
-	a.title = "Click here to access analytics.";
-	a.href = os.getenv("REDIRECT_URI") + "/getjs/" + code;
-	
-	
-	marker.appendChild(a);
-	}
- </script>
+
  </body>
    
 </html>
