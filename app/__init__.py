@@ -1,15 +1,31 @@
 from flask import Flask, render_template, request, flash, url_for, redirect
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
-import sqlite3 as sql
 import requests
 import json 
-from . import db
 import os
-from app.db import get_db
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
+import urllib.parse
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
+load_dotenv()
+app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{table}".format(
+    user=os.getenv("POSTGRES_USER"),
+    passwd=os.getenv("POSTGRES_PASSWORD"),
+    host=os.getenv("POSTGRES_HOST"),
+    port=5432,
+    table=os.getenv("POSTGRES_DB"),
+)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
+from .table_datatypes import *
 
 load_dotenv()
 app = Flask(__name__)
@@ -35,28 +51,21 @@ def add_user():
     if request.method == 'POST':
         uname = request.form.get('uname')
         psw = request.form.get('psw')
-        db = get_db()
-        cur = db.cursor()
         msg = None
 
         if not uname:
             msg = 'Username is required.'
         elif not psw:
             msg = 'Password is required.'
-        elif db.execute(
-            'SELECT id FROM users WHERE username = ?', (uname,)
-        ).fetchone() is not None:
-            msg = f"User {uname} is already registered."
+        elif User.query.filter_by(username=uname).first() is not None:
+            msg= f"User {uname} is already registered."
 
         if not msg:
-            db.execute(
-                'INSERT INTO users (username, password) VALUES (?, ?)',
-                (uname, generate_password_hash(psw))
-            )
-            db.commit()
-            msg = f"User {uname} created successfully"
-            
-            return render_template("userauth.html")        
+            new_user = User(username=uname, password=generate_password_hash(psw))
+            db.session.add(new_user)
+            db.session.commit()
+            return render_template("userauth.html")     
+
         flash(msg)
         return render_template("register.html")
 
@@ -65,16 +74,17 @@ def confirm_login():
     if request.method == 'POST':
         uname = request.form.get('uname')
         psw = request.form.get('psw')
-        db = get_db()
-        cur = db.cursor()
         msg = None
-        user = db.execute(
-            'SELECT * FROM users WHERE username = ?', (uname,)
-        ).fetchone()
+        user = User.query.filter_by(username=uname).first()
+
+        if not uname:
+            msg = "Username is required."
+        elif not uname:
+            msg = "Password is required."
 
         if user is None:
             msg = 'Incorrect username.'
-        elif not check_password_hash(user['password'], psw):
+        elif not check_password_hash(user.password, psw):
             msg = 'Incorrect password.'
 
         if not msg:
