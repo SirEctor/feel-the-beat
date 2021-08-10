@@ -13,7 +13,6 @@ import urllib.parse
 
 load_dotenv()
 app = Flask(__name__)
-app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
 app.secret_key = "test"
 
 db.init_app(app)

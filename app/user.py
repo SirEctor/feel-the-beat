@@ -1,7 +1,7 @@
 class User(UserMixin):
-    def __init__(self, id, email, password):
+    def __init__(self, id, username, password):
         self.id = unicode(id)
-        self.email = email
+        self.username = username
         self.password = password
         self.authenticated = False
 
