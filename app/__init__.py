@@ -8,7 +8,7 @@ import os
 from app.db import get_db
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-import urllib.parse
+
 
 
 load_dotenv()
@@ -16,30 +16,7 @@ app = Flask(__name__)
 app.config['DATABASE'] = os.path.join(os.getcwd(), 'flask.sqlite')
 app.secret_key = "test"
 
-#login_manager = LoginManager(app)
-#login_manager.login_view = "login"
-
-#class User(UserMixin):
-#    def __init__(self, id, email, password):
-#        self.id = unicode(id)
-#        self.email = email
-#        self.password = password
-#        self.authenticated = False
-
-#    def is_active(self):
-#        return self.is_active()
-
-#    def is_anonymous(self):
-#        return False
-
-#    def is_authenticated(self):
-#        return self.authenticated
-
-#    def is_active(self):
-#        return self.id
-
 db.init_app(app)
-
 
 @app.route('/')
 def home():
@@ -102,7 +79,7 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            return render_template(url_for("dashboard"))
+            return render_template("dashboard.html")
         flash(msg)
         return render_template("login.html")
 
@@ -129,17 +106,22 @@ def access():
     
     response = requests.get('https://api.spotify.com/v1/me/player/recently-played',headers=headers)
     s = json.loads(response.text)
-    print("S!")
-    print(s)
+
     return render_template('testanalytics.html', recentlyplayed=s)
 
 @app.route('/userauth')
 def userauth():
     return render_template('userauth.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard/')
 def dashboard():
-    return "Dashboard should be implemented here shortly. Come again soon."
+    if 'code' in request.url:
+        baseurl = os.getenv("REDIRECT_URI")+"/dashboard?code="
+        authcode = request.url[len(baseurl):]
+        return redirect(url_for('get_jsvar', jsvar=authcode))
+    
+
+    return render_template('dashboard.html')
 
 @app.route('/getjs/<jsvar>')
 def get_jsvar(jsvar):
