@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/myportfolio
+      - .:/feel-the-beat-docker
     depends_on:
       - db
   db:
