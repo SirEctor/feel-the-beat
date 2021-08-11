@@ -5,9 +5,11 @@ import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-import urllib.parse
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
+from werkzeug.security import generate_password_hash, check_password_hash, url_parse
 
 load_dotenv()
 app = Flask(__name__)
@@ -26,6 +28,8 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from .table_datatypes import *
+login = LoginManager(app)
+login.login_view = 'login'
 
 @app.route('/')
 def home():
@@ -33,11 +37,15 @@ def home():
 	
 @app.route('/login')
 def login():
-	return render_template('login.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    return render_template('login.html')
 
 @app.route('/register')
 def register():
-	return render_template('register.html')
+    if current_user.is_authencticated():
+        return redirect (url_for('index'))
+    return render_template('register.html')
     
 @app.route('/add_user', methods= ['POST', 'GET'])
 def add_user():
@@ -82,9 +90,20 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            return render_template("dashboard.html")
+            login_user(user, remember=form.remember_me.data)
+            authCode = user.give_auth_code()
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('get_jsvar', jsvar=authCode)
+            return redirect(next_page)
         flash(msg)
         return render_template("login.html")
+
+
+@app.route('/logout')
+def logout():  
+    logout_user()
+    return render_template('index.html')
 
 @app.route('/analytics', methods = ['POST','GET'])
 def analyze():
@@ -112,16 +131,23 @@ def access():
 
     return render_template('testanalytics.html', recentlyplayed=s)
 
+@login_required
 @app.route('/userauth')
 def userauth():
     return render_template('userauth.html')
 
+@login_required
 @app.route('/dashboard/')
 def dashboard():
     if 'code' in request.url:
         baseurl = "https://feelthebeat.tech/dashboard/?code="
         authcode = request.url[len(baseurl)-3:]
-        return redirect(url_for('get_jsvar', jsvar=authcode))
+	
+	currentUser = User.query.filter_by(username= current_user.username).first()
+	currentUser.set_auth_code(authcode)
+        db.session.commit()
+	
+	return redirect(url_for('get_jsvar', jsvar=authcode))
     
 
     return render_template('dashboard.html')
