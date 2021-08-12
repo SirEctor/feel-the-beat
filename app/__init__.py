@@ -8,8 +8,7 @@ from dotenv import load_dotenv
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
-from werkzeug.security import generate_password_hash, check_password_hash, url_parse
+from werkzeug.urls import url_parse
 
 load_dotenv()
 app = Flask(__name__)
