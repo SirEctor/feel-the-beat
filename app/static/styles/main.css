@@ -1,0 +1,29 @@
+h1 {
+    left: 0;
+    line-height: 200px;
+    position: absolute;
+    text-align: right;
+    top: 10%;
+    width: 100%;
+    font-size: 15vh;
+    font-family: "Francois One";
+    color: #FF5100;
+}
+
+body {
+    font-family: "Noto Sans JP";
+    color: #000000;
+}
+.home {
+    background-color:#FFFCF7;
+    height: 100vh;
+}
+
+.btn btn-primary btn-lg login {
+    
+}
+
+.img fluid {
+    padding-left: ($spacer * .5) !important;
+    padding-right: ($spacer * .5) !important;   
+}
