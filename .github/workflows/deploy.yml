@@ -29,4 +29,4 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       -  name: Print project root directory
-         run: ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }} &&  git fetch && git reset --hard origin/main && docker-compose up -d --build'
+         run: ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }} &&  sudo git fetch && sudo git reset --hard origin/main && docker-compose up -d --build'
