@@ -4,6 +4,11 @@ from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
