@@ -31,8 +31,9 @@ from .table_datatypes import *
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-
-
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @app.route('/')
 def home():
