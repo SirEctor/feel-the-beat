@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.table_datatypes.py import login_manager
+
 
 @login_manager.user_loader
 def load_user(id):
@@ -63,3 +63,5 @@ class Daily_Record(db.Model):
     date = db.Column(db.DateTime, primary_key=True, autoincrement=False)
     mood = db.Column(db.String, nullable = False)
     song_uri = db.Column(db.String, db.ForeignKey("songs.uri"))
+    
+from app import login_manager
