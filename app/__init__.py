@@ -131,23 +131,24 @@ def access():
 
     return render_template('testanalytics.html', recentlyplayed=s)
 
-@login_required
+
 @app.route('/userauth')
 def userauth():
     return render_template('userauth.html')
 
-@login_required
 @app.route('/dashboard/')
 def dashboard():
     if 'code' in request.url:
         baseurl = "https://feelthebeat.tech/dashboard/?code="
-        authcode = request.url[len(baseurl)-3:]
-	
-	currentUser = User.query.filter_by(username= current_user.username).first()
-	currentUser.set_auth_code(authcode)
+        adjustmentfactor = 14
+        authcode = request.url[len(baseurl)-adjustmentfactor:]
+       
+	      currentUser = User.query.filter_by(username= current_user.username).first()
+	      currentUser.set_auth_code(authcode)
         db.session.commit()
-	
-	return redirect(url_for('get_jsvar', jsvar=authcode))
+        
+        return redirect(url_for('get_jsvar', jsvar=authcode))
+
     
 
     return render_template('dashboard.html')
