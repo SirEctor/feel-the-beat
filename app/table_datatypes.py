@@ -1,7 +1,8 @@
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user, UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from . import db
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
     __tablename__ = "users"
@@ -10,7 +11,19 @@ class User(db.Model):
     password = db.Column(db.String, unique=True, nullable=False)
     authorization_code = db.Column(db.String, default=None)
     authenticated = db.Column(db.Boolean, default=False)
-
+    
+    def set_auth_code(self, authorization_code)
+        self.authorization_code = authorization_code
+        
+    def give_auth_code(self):
+        return self.authorization_code
+    
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+        
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
     def is_active(self):
         return self.is_active()
 
