@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from app import login
 
 @login.user_loader
 def load_user(id):
