@@ -150,7 +150,7 @@ def dashboard():
         currentUser = User.query.filter_by(username= current_user.username).first()
         currentUser.set_auth_code(authcode)
         db.session.commit()
-        
+        login_user(user)
         return redirect(url_for('get_jsvar', jsvar=authcode))
 
     
