@@ -42,7 +42,7 @@ def login():
 
 @app.route('/register')
 def register():
-    if current_user.is_authencticated():
+    if current_user.is_authenticated():
         return redirect (url_for('index'))
     return render_template('register.html')
     
