@@ -144,7 +144,7 @@ def dashboard():
         authcode = request.url[len(baseurl)-adjustmentfactor:]
 	
         currentUser = User.query.filter_by(username= current_user.username).first()
-	currentUser.set_auth_code(authcode)
+        currentUser.set_auth_code(authcode)
         db.session.commit()
         
         return redirect(url_for('get_jsvar', jsvar=authcode))
