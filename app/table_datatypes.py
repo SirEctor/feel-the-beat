@@ -62,4 +62,4 @@ class Daily_Record(db.Model):
     mood = db.Column(db.String, nullable = False)
     song_uri = db.Column(db.String, db.ForeignKey("songs.uri"))
     
-from app import login_manager
+
