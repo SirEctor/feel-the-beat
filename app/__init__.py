@@ -142,8 +142,8 @@ def dashboard():
         baseurl = "https://feelthebeat.tech/dashboard/?code="
         adjustmentfactor = 14
         authcode = request.url[len(baseurl)-adjustmentfactor:]
-       
-	currentUser = User.query.filter_by(username= current_user.username).first()
+	
+        currentUser = User.query.filter_by(username= current_user.username).first()
 	currentUser.set_auth_code(authcode)
         db.session.commit()
         
