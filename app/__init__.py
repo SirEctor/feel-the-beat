@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, url_for, redirect
+from flask import Flask, render_template, request, flash, url_for, redirect, session
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import requests
 import json 
@@ -68,7 +68,7 @@ def add_user():
         if not msg:
             new_user = User(username=uname, password=generate_password_hash(psw))
             db.session.add(new_user)
-            
+            session['username'] = new_user.username
             return render_template("userauth.html")     
 
         flash(msg)
@@ -147,10 +147,10 @@ def dashboard():
         adjustmentfactor = 14
         authcode = request.url[len(baseurl)-adjustmentfactor:]
 	
-        currentUser = User.query.filter_by(username= current_user.username).first()
+        currentUser = User.query.filter_by(username= session.get('username')).first()
         currentUser.set_auth_code(authcode)
         db.session.commit()
-        login_user(user)
+        login_user(currentUser)
         return redirect(url_for('get_jsvar', jsvar=authcode))
 
     
