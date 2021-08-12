@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
+from app import login
 
 load_dotenv()
 app = Flask(__name__)
@@ -29,6 +30,12 @@ migrate = Migrate(app, db)
 from .table_datatypes import *
 login = LoginManager(app)
 login.login_view = 'login'
+
+
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @app.route('/')
 def home():
