@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-from app import login
+
 
 load_dotenv()
 app = Flask(__name__)
