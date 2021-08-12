@@ -28,8 +28,8 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from .table_datatypes import *
-login = LoginManager(app)
-login.login_view = 'login'
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 
 
