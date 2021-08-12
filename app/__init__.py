@@ -68,7 +68,7 @@ def add_user():
         if not msg:
             new_user = User(username=uname, password=generate_password_hash(psw))
             db.session.add(new_user)
-            db.session.commit()
+            
             return render_template("userauth.html")     
 
         flash(msg)
