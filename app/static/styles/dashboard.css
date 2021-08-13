@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; ;
+}
+
+nav { 
+    height: 80px; 
+    background-color: black; 
+  }
+  header { 
+    height: 805px; 
+    background: linear-gradient(#37f050 -60%,#0213fd 140%); 
+  }
+
+  footer { 
+    height: 100px; 
+    background-color: black; 
+  }
+
+  .container {
+    height: inherit; 
+    width: 1170px;  
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+  }
+
+  .spotify-logo {
+    width: 132px;
+    height: 40px;
+    margin: 15px 0; 
+    margin-left: -50px;
+  }
+
+  .hero-img {
+    height: inherit;
+    margin: 0 auto;
+    background-image: url(hero.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    opacity: .9;
+  }
+
+  #title {
+    width: inherit;
+    color: rgb(186, 22, 153);
+    text-align: center;
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: -.04em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    margin-left: -200px;
+    margin-top: 10px;
+  }
+
+.tables{
+text-align: justify;
+color: rgb(255, 255, 255);
+font-size: 35px;
+margin-top: -150px;
+margin-left: 30px;
+}
+ .emojis{
+    text-align: center;
+    margin-top: -630px;
+    margin-left: 850px;
+    color: rgb(255, 255, 255);
+    font-size: 37px;
+  }
+
+  .happy{
+    height: 70px;
+  }
+  .angry{
+    height: 70px;
+  }
+  .sad{
+    height: 70px;
+  }
+  .inlove{
+    height: 70px;
+  }
+  .normal{
+    height: 70px;
+  }
+
+
+  #navbar {
+    width: inherit;
+    color: #fa9521;
+    text-align: right;
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: -.04em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    margin-right: -200px;
+  }
+
+  .submitButton{
+    width: 260px;
+    margin: 0 auto;
+    color: white;
+    background-color: #fa9521;
+    padding: 18px 42px 18px;
+    border: 0px;
+    border-radius: 500px;
+    margin-top: 550px;
+    margin-right: -210px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 2px;
+    transition-duration: .3s;
+  }
+  .skipButton{
+    width: 260px;
+    margin: 0 auto;
+    color: white;
+    background-color: #fa9521;
+    border: 0px;
+    border-radius: 500px;
+    padding: 18px 42px 18px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 2px;
+    transition-duration: .3s;
+
+  }
+
+  .submitButton:hover, .skipButton:hover {
+    cursor: pointer;
+    background-color: #d71eb8;
+  }
+
+
