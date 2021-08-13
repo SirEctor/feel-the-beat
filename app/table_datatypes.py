@@ -1,10 +1,8 @@
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user, UserMixin
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
-
 
 
 class User(UserMixin, db.Model):
