@@ -1,10 +1,8 @@
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user, UserMixin
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
-
 
 
 class User(UserMixin, db.Model):
@@ -13,10 +11,17 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, unique=True, nullable=False)
     authorization_code = db.Column(db.String, default=None)
+    refresh_token = db.Column(db.String, default=None)
     authenticated = db.Column(db.Boolean, default=False)
+    
+    def set_refresh_token(self, refresh_token):
+        self.refresh_code = refresh_token
     
     def set_auth_code(self, authorization_code):
         self.authorization_code = authorization_code
+        
+    def give_refresh_token(self):
+        return self.refresh_token
         
     def give_auth_code(self):
         return self.authorization_code
