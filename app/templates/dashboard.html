@@ -16,18 +16,66 @@
     <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
     <link rel='icon' href='favicon.ico' type='image/x-icon' />
     <title> Dashboard </title>
+	<link rel="stylesheet" href="dashboard.css">
+	
 </head>
  
  
  <body>
-	<h1>Where the Dashboard would be implemented.</h1>
-	<ul>			
-	   {% if current_user.is_anonymous %}
-           <a href="{{ url_for('login') }}">Login</a>
-           {% else %}
-           <a href="{{ url_for('logout') }}">Logout</a>
-           {% endif %}
-	</ul>
+    <nav>
+        <div class="container">
+            <img class="spotify-logo" src="SpotifyLogo.png" alt="spotify-logo">
+            <h2 id="navbar" style="font-family:Times New Roman;font-size:400%;">Feel The Beat!</h2>
+        </div>
+    </nav>
+    <header>
+        <div class="hero-img">
+            <div class="container">
+                <h1 id="title">Today is August 13, 2021
+                </h1>
+                <p>
+                    <button class="submitButton">Submit</button>
+                    <button class="skipButton">Not Now</button>
+                </p>
+            </div>
+            <div class="emojis">
+                <h3 id="e">MOOD</h3>
+                <!--all the images became bottons-->
+                <img class="inlove" src="inlove.png" alt="inlove">
+                <img class="happy" src="happy.png" alt="happy">
+                <img class="normal" src="normal.png" alt="normal">
+                <img class="sad" src="sad.png" alt="sad">
+                <img class="angry" src="angry.png" alt="angry">
+            </div>
+
+            <div class="tables">
+                <h3 id="options">Recently Played</h3>
+                <table>
+                    <!--Here goes a table of the most recent songs-->
+                </table>
+            </div>
+
+        </div>
+    </header>
+
+    <footer>
+        <div class="container">
+
+        </div>
+
+    </footer>
+
+    <!--
+        <h1>Where the Dashboard would be implemented.</h1>  
+        <ul>			
+        {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+     </ul>
+-->
+	
  </body>
  
    
