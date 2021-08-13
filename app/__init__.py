@@ -102,7 +102,7 @@ def confirm_login():
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 currentUser = User.query.filter_by(username= session.get('username')).first()
-                refresh_token = currentUser.give_refresh_code()
+                refresh_token = currentUser.give_refresh_token()
                 
 		data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
@@ -226,8 +226,8 @@ def get_jsvar(jsvar):
             'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
-    print("response", r)
-    print("r text", r.text)
+    
+
     if r.status_code == 200:
         s = json.loads(r.text)
     
@@ -240,7 +240,7 @@ def get_jsvar(jsvar):
         currentUser = User.query.filter_by(username= session.get('username')).first()
         
 	
-        currentUser.set_refresh_code(refresh_token)
+        currentUser.set_refresh_token(refresh_token)
         db.session.commit()
         scope = s['scope']
     
