@@ -241,7 +241,7 @@ def get_jsvar(jsvar):
         
 	
         currentUser.set_refresh_token(refresh_token)
-	session['refresh_token'] = refresh_token
+        session['refresh_token'] = refresh_token
         db.session.commit()
         scope = s['scope']
     
