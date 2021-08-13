@@ -3,10 +3,9 @@
 ## About
 A tool to help recommend new songs based on your moods as well give you general analytics on your musical tastes based on the Spotify API.
 
-## Installation
+## Running locally
 
-Make sure you have python3 and pip installed.
-
+Make sure you have python3, pip, and postgres installed.
 
 Create and activate virtual environment using virtualenv.
 ```bash
