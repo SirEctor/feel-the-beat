@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:title" content="Spotify Recommendation">
-    <meta property="og:description" content="Spotify Recommendation">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Feel the Beat!</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
-    <link rel='icon' href='favicon.ico' type='image/x-icon' />
-    <title> Feel the Beat! </title>
 </head>
- 
- 
- <body>
-    <div class ="home">
-        <h1 class="text-right">Feel The Beat!</h1>
 
-        <img class="img-fluid" src="static/img/feelthebeatanimals.svg" width="40%" height="40%">
-        <a href="/login" class="btn btn-primary btn-lg login">Login</a>
-        <a href="/register" class="btn btn-primary btn-lg">Register</a>
-        <p>Track your music according to your mood and open up a world of statistics about your listening habits.</p>
-
+<body>
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 mb-4"><img src="assets/img/feelthebeatanimals.svg"></div>
+                        <div class="col align-self-center" style="margin-top: 100px;margin-bottom: 100px;">
+                            <div class="row">
+                                <div class="col" style="text-align: center;margin-top: 60px;">
+                                    <h1>Feel the Beat!</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: justify;margin-right: 75px;margin-left: 75px;">
+                                    <p class="text-center" style="padding-right: 50px;padding-left: 50px;text-align: justify;">Track your music according to your mood and open up a world of statistics about your listening habits.<br></p>
+                                </div>
+                            </div>
+                            <div class="row text-start">
+                                <div class="col" style="text-align: center;">
+                                    <a href="login.html" class="btn btn-primary text-center" type="button" style="font-size: 25px;margin: 10px;">Login</a>
+                                    <a href="register.html" class="btn btn-primary" type="button" style="font-size: 25px;margin: 10px;">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
- </body>
-   
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+
 </html>
