@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     refresh_token = db.Column(db.String, default=None)
     authenticated = db.Column(db.Boolean, default=False)
     
-    def set_refresh_code(self, refresh_token):
+    def set_refresh_token(self, refresh_token):
         self.refresh_code = refresh_token
     
     def set_auth_code(self, authorization_code):
