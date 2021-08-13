@@ -37,6 +37,7 @@ def load_user(id):
 
 @app.route('/')
 def home():
+    logout_user()
     return render_template('index.html')
 	
 @app.route('/login')
