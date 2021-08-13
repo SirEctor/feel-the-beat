@@ -1,65 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta property="og:title" content="Spotify Recommendation" />
-    <meta property="og:description" content="Spotify Recommendation" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta property="og:title" content="Spotify Recommendation" />
+  <meta property="og:description" content="Spotify Recommendation" />
 
-    <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Dashboard</title>
-    <link lang="sass" rel="stylesheet" href="../static/styles/dashboard.css" />
-  </head>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
 
-  <body>
-    <div class="calendar-container">
-      <div class="calendar">
-        <div class="monthAndYear">
-          <i class="fas fa-angle-left backwardArrow"></i>
-          <div class="date">
-            <h1></h1>
-          </div>
-          <i class="fas fa-angle-right forwardArrow"></i>
+  <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <title>Dashboard Feel The Beat</title>
+  <link lang="sass" rel="stylesheet" href="../static/styles/dashboard.css" />
+</head>
+
+<body>
+  <div class="calendar-container">
+    <div class="calendar">
+      <div class="monthAndYear">
+        <i class="fas fa-angle-left backwardArrow"></i>
+        <div class="date">
+          <h1></h1>
         </div>
-        <div class="weekdays">
-          <div>Sun</div>
-          <div>Mon</div>
-          <div>Tue</div>
-          <div>Wed</div>
-          <div>Thu</div>
-          <div>Fri</div>
-          <div>Sat</div>
-        </div>
-        <div class="days"></div>
+        <i class="fas fa-angle-right forwardArrow"></i>
       </div>
+      <div class="weekdays">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+      <div class="days"></div>
     </div>
-    <ul>
-      {% if current_user.is_anonymous %}
-      <a href="{{ url_for('login') }}">Login</a>
-      {% else %}
-      <a href="{{ url_for('logout') }}">Logout</a>
-      {% endif %}
-    </ul>
+  </div>
+  <ul>
+    {% if current_user.is_anonymous %}
+    <a href="{{ url_for('login') }}">Login</a>
+    {% else %}
+    <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+  </ul>
 
-    <script src="../static/js/dashboard.js"></script>
-  </body>
+  <script src="../static/js/dashboard.js"></script>
+</body>
+
 </html>
