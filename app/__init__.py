@@ -33,7 +33,6 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(id):
-    print(User.query.filter_by(id=int(id)).first())
     return User.query.filter_by(id=int(id)).first()
 
 @app.route('/')
@@ -48,8 +47,6 @@ def login():
 
 @app.route('/register')
 def register():
-    print(current_user)
-    
     if current_user.is_authenticated:
         return render_template('index.html')
     return render_template('register.html')
@@ -70,8 +67,6 @@ def add_user():
 
         if not msg:
             new_user = User(username=uname, password=generate_password_hash(psw))
-            print('new_user: ' , new_user)
-            print('new_user.username' , new_user.username)
             session['username'] = new_user.username
             session['password'] = new_user.password
             db.session.add(new_user)
@@ -103,7 +98,7 @@ def confirm_login():
         if not msg:
             msg = "Login Successful"
             login_user(user)
-            authCode = user.give_auth_code()
+            authCode = session.get('authorization_code')
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 currentUser = User.query.filter_by(username= session.get('username')).first()
@@ -111,8 +106,8 @@ def confirm_login():
                 print("Refresh Token 2: " , refreshCode.rstrip(),"END")
                 data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
-                        'grant_type':'authorization_code',
-                        'code': str(refreshCode),
+                        'grant_type':'refresh_token',
+                        'refresh_token': refreshCode,
                         'redirect_uri':os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
@@ -121,11 +116,54 @@ def confirm_login():
                 if r.status_code == 200:
                     s = json.loads(r.text)
                     access_token = s['access_token']
-                    token_type = s['token_type']
-                    expires_in = s['expires_in']
-                    refresh_token = s['refresh_token']
-                    scope = s['scope']
-                    next_page = url_for('get_jsvar', jsvar=access_token)
+                    
+                    headers = {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + access_token
+                    }
+                
+                    # Get recently reproduces tracks
+                    resTracks = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=3',headers=headers)
+                    resTracks_Text = json.loads(resTracks.text)
+
+                    trackN0 = resTracks_Text['items'][0]['track']['name']
+                    trackArtist0 = resTracks_Text['items'][0]['track']['album']['artists'][0]['name']
+                    trackName0 = trackN0 + "  -  " + trackArtist0
+                    trackId0 = resTracks_Text['items'][0]['track']['id']
+
+                    trackN1 = resTracks_Text['items'][1]['track']['name']
+                    trackArtist1 = resTracks_Text['items'][1]['track']['album']['artists'][0]['name']
+                    trackName1 = trackN1 + "  -  " + trackArtist1
+                    trackId1 = resTracks_Text['items'][1]['track']['id']
+                    
+                    trackN2 = resTracks_Text['items'][2]['track']['name']
+                    trackArtist2 = resTracks_Text['items'][2]['track']['album']['artists'][0]['name']
+                    trackName2 = trackN2 + "  -  " + trackArtist2
+                    trackId2 = resTracks_Text['items'][2]['track']['id']
+                    
+                 
+                    # Get Audio Features for a Track 
+                    track0_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId0, headers=headers)
+                    track0_Charact_Text = json.loads(track0_Charact.text)
+                    danceLevel0 = float(track0_Charact_Text['danceability'])
+                    liveLevel0 = float(track0_Charact_Text['liveness'])
+
+                    track1_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId1, headers=headers)
+                    track1_Charact_Text = json.loads(track1_Charact.text)
+                    danceLevel1 = float(track1_Charact_Text['danceability'])
+                    liveLevel1 = float(track1_Charact_Text['liveness'])
+
+                    track2_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId2, headers=headers)
+                    track2_Charact_Text = json.loads(track2_Charact.text)
+                    danceLevel2 = float(track2_Charact_Text['danceability'])
+                    liveLevel2 = float(track2_Charact_Text['liveness'])
+
+                    averageDance = round((danceLevel0 + danceLevel1 + danceLevel2) / 3, 3)
+                    averageLive = round((liveLevel0 + liveLevel1 + liveLevel2) / 3, 3)
+                   
+
+                    return render_template('testanalytics.html', track0_Name=trackName0, track1_Name=trackName1, track2_Name=trackName2, averageDanceability=averageDance, averageLiveness=averageLive)
                 else:
                     return render_template('result.html')
             return redirect(next_page)
@@ -138,17 +176,6 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-@app.route('/analytics', methods = ['POST','GET'])
-def analyze():
-    if request.method == "POST":
-        flash("Mood/Song Personal Matrix updated!")
-        return render_template('analytics.html')
-
-    else:
-        if request.referrer != None and (('getjs' in request.referrer) or ('analytics' in request.referrer)):
-            return render_template('analytics.html')
-        else:
-            return render_template('index.html')
             
 @app.route('/testanalytics/', methods = ['POST'])
 def access():
@@ -175,13 +202,11 @@ def dashboard():
         baseurl = "https://feelthebeat.tech/dashboard/?code="
         adjustmentfactor = 3
         authcode = request.url[len(baseurl)-adjustmentfactor:]
-        print("CURRENT USERNAME: ")
-        print(session.get('username'))
-        print(session.get('password'))
+        
         
         currentUser = User.query.filter_by(username= session.get('username')).first()
-        print("CURRENT USER: ")
-        print(currentUser)
+        
+        session['authorization_code'] = authcode
         currentUser.set_auth_code(authcode)
         db.session.commit()
         login_user(currentUser)
@@ -201,11 +226,14 @@ def get_jsvar(jsvar):
             'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
+    print("response", r)
+    print("r text", r.text)
     if r.status_code == 200:
         s = json.loads(r.text)
     
     
         access_token = s['access_token']
+        session['authorization_code'] = access_token
         token_type = s['token_type']
         expires_in = s['expires_in']
         refresh_token = s['refresh_token']
