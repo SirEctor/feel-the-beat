@@ -33,7 +33,8 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    print(User.query.filter_by(id=int(id)).first())
+    return User.query.filter_by(id=int(id)).first()
 
 @app.route('/')
 def home():
@@ -42,13 +43,15 @@ def home():
 @app.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return render_template('index.html')
     return render_template('login.html')
 
 @app.route('/register')
 def register():
+    print(current_user)
+    
     if current_user.is_authenticated:
-        return redirect (url_for('index'))
+        return render_template('index.html')
     return render_template('register.html')
     
 @app.route('/add_user', methods= ['POST', 'GET'])
@@ -57,7 +60,7 @@ def add_user():
         uname = request.form.get('uname')
         psw = request.form.get('psw')
         msg = None
-
+        
         if not uname:
             msg = 'Username is required.'
         elif not psw:
@@ -67,9 +70,14 @@ def add_user():
 
         if not msg:
             new_user = User(username=uname, password=generate_password_hash(psw))
-            db.session.add(new_user)
+            print('new_user: ' , new_user)
+            print('new_user.username' , new_user.username)
             session['username'] = new_user.username
-            return render_template("userauth.html")     
+            session['password'] = new_user.password
+            db.session.add(new_user)
+            db.session.commit()
+            
+            return render_template("userauth.html", redirect_link = os.getenv("REDIRECT_URI"))     
 
         flash(msg)
         return render_template("register.html")
@@ -81,7 +89,7 @@ def confirm_login():
         psw = request.form.get('psw')
         msg = None
         user = User.query.filter_by(username=uname).first()
-
+        
         if not uname:
             msg = "Username is required."
         elif not uname:
@@ -94,11 +102,32 @@ def confirm_login():
 
         if not msg:
             msg = "Login Successful"
-            login_user(user, remember=form.remember_me.data)
+            login_user(user)
             authCode = user.give_auth_code()
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('get_jsvar', jsvar=authCode)
+                currentUser = User.query.filter_by(username= session.get('username')).first()
+                refreshCode = currentUser.give_refresh_code()
+                print("Refresh Token 2: " , refreshCode.rstrip(),"END")
+                data = {'client_id':os.getenv("CLIENT_ID"), 
+                        'client_secret':os.getenv("CLIENT_SECRET"), 
+                        'grant_type':'authorization_code',
+                        'code': str(refreshCode),
+                        'redirect_uri':os.getenv("REDIRECT_URI")
+                }
+                r = requests.post('https://accounts.spotify.com/api/token',data=data)
+                print("refresh request", r)
+                print("refresh text", r.text)
+                if r.status_code == 200:
+                    s = json.loads(r.text)
+                    access_token = s['access_token']
+                    token_type = s['token_type']
+                    expires_in = s['expires_in']
+                    refresh_token = s['refresh_token']
+                    scope = s['scope']
+                    next_page = url_for('get_jsvar', jsvar=access_token)
+                else:
+                    return render_template('result.html')
             return redirect(next_page)
         flash(msg)
         return render_template("login.html")
@@ -144,13 +173,19 @@ def userauth():
 def dashboard():
     if 'code' in request.url:
         baseurl = "https://feelthebeat.tech/dashboard/?code="
-        adjustmentfactor = 14
+        adjustmentfactor = 3
         authcode = request.url[len(baseurl)-adjustmentfactor:]
-	
+        print("CURRENT USERNAME: ")
+        print(session.get('username'))
+        print(session.get('password'))
+        
         currentUser = User.query.filter_by(username= session.get('username')).first()
+        print("CURRENT USER: ")
+        print(currentUser)
         currentUser.set_auth_code(authcode)
         db.session.commit()
         login_user(currentUser)
+        
         return redirect(url_for('get_jsvar', jsvar=authcode))
 
     
@@ -174,6 +209,10 @@ def get_jsvar(jsvar):
         token_type = s['token_type']
         expires_in = s['expires_in']
         refresh_token = s['refresh_token']
+        currentUser = User.query.filter_by(username= session.get('username')).first()
+        print("REfresh Token 1: ", refresh_token, "END")
+        currentUser.set_refresh_code(refresh_token)
+        db.session.commit()
         scope = s['scope']
     
         headers = {
