@@ -49,7 +49,7 @@ const displayCalendar = () => {
 
   // get prev month days
   for (let x = firstDayIndex; x > 0; x--) {
-    days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
+    days += `<button class="prevDateButton">${prevLastDay - x + 1}</button>`;
   }
 
   // get current month days
@@ -59,9 +59,11 @@ const displayCalendar = () => {
       firstDate.getMonth() === new Date().getMonth() &&
       firstDate.getFullYear() === new Date().getFullYear()
     ) {
-      days += `<div class="today">${i}</div>`;
+      //days += `<div class="today">${i}</div>`;
+      days += `<button class="todayButton">${i}</button>`;
     } else {
-      days += `<div>${i}</div>`;
+      //days += `<div>${i}</div>`;
+      days += `<button>${i}</button>`;
     }
   }
 
@@ -69,7 +71,7 @@ const displayCalendar = () => {
 
   //get next month days
   for (let j = 1; j <= nextDays; j++) {
-    days += `<div class="next-date">${j}</div>`;
+    days += `<button class="nextDateButton">${j}</button>`;
     monthDays.innerHTML = days;
   }
 };
