@@ -102,17 +102,17 @@ def confirm_login():
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 currentUser = User.query.filter_by(username= session.get('username')).first()
-                refreshCode = currentUser.give_refresh_code()
-                print("Refresh Token 2: " , refreshCode.rstrip(),"END")
-                data = {'client_id':os.getenv("CLIENT_ID"), 
+                refresh_token = currentUser.give_refresh_code()
+                
+		data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
                         'grant_type':'refresh_token',
-                        'refresh_token': refreshCode,
+                        'refresh_token': refresh_token,
                         'redirect_uri':os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
-                print("refresh request", r)
-                print("refresh text", r.text)
+             
+	
                 if r.status_code == 200:
                     s = json.loads(r.text)
                     access_token = s['access_token']
@@ -233,12 +233,13 @@ def get_jsvar(jsvar):
     
     
         access_token = s['access_token']
-        session['authorization_code'] = access_token
+	
         token_type = s['token_type']
         expires_in = s['expires_in']
         refresh_token = s['refresh_token']
         currentUser = User.query.filter_by(username= session.get('username')).first()
-        print("REfresh Token 1: ", refresh_token, "END")
+        
+	
         currentUser.set_refresh_code(refresh_token)
         db.session.commit()
         scope = s['scope']
