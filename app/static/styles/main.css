@@ -23,7 +23,8 @@ body {
     
 }
 
-.img fluid {
+/* Commenting out for now due to an error. LKI
+/*.img fluid {
     padding-left: ($spacer * .5) !important;
     padding-right: ($spacer * .5) !important;   
-}
+}*/
