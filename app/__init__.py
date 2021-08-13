@@ -37,6 +37,7 @@ def load_user(id):
 
 @app.route('/')
 def home():
+    logout_user()
     return render_template('index.html')
 	
 @app.route('/login')
@@ -102,7 +103,7 @@ def confirm_login():
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 currentUser = User.query.filter_by(username= session.get('username')).first()
-                refresh_token = currentUser.give_refresh_token()
+                refresh_token = session.get('refresh_token')
                 
                 data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
@@ -240,6 +241,7 @@ def get_jsvar(jsvar):
         
 	
         currentUser.set_refresh_token(refresh_token)
+        session['refresh_token'] = refresh_token
         db.session.commit()
         scope = s['scope']
     
