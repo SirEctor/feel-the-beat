@@ -8,23 +8,23 @@
 html {
   font-size: 60%;
 }
-nav { 
-  height: 80px; 
-  background-color: black; 
+nav {
+  height: 80px;
+  background-color: black;
 }
-header { 
-  height: 805px; 
-  background: linear-gradient(#37f050 -60%,#0213fd 140%); 
+header {
+  height: 805px;
+  background: linear-gradient(#37f050 -60%, #0213fd 140%);
 }
 
-footer { 
-  height: 100px; 
-  background-color: black; 
+footer {
+  height: 100px;
+  background-color: black;
 }
 
 .container {
-  height: inherit; 
-  width: 1170px;  
+  height: inherit;
+  width: 1170px;
   margin: 0 auto;
   padding: 0 15px;
   display: flex;
@@ -37,10 +37,12 @@ footer {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: .9;
+  opacity: 0.9;
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 2px solid rgb(19, 241, 19);
   text-align: justify;
   margin-left: 30px;
@@ -50,7 +52,7 @@ table {
 }
 th {
   height: 70px;
-  color:#fa9521;
+  color: #fa9521;
 }
 
 #title {
@@ -59,21 +61,21 @@ th {
   text-align: center;
   font-size: 80px;
   font-weight: 900;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
   line-height: 1.15;
   margin-bottom: 20px;
   margin-left: -200px;
   margin-top: 10px;
 }
 
-.tables{
-text-align: justify;
-color: rgb(255, 255, 255);
-font-size: 35px;
-margin-top: -150px;
-margin-left: 30px;
+.tables {
+  text-align: justify;
+  color: rgb(255, 255, 255);
+  font-size: 35px;
+  margin-top: -150px;
+  margin-left: 30px;
 }
-.emojis{
+.emojis {
   text-align: center;
   margin-top: -630px;
   margin-left: 850px;
@@ -81,22 +83,21 @@ margin-left: 30px;
   font-size: 37px;
 }
 
-.happy{
+.happy {
   height: 70px;
 }
-.angry{
+.angry {
   height: 70px;
 }
-.sad{
+.sad {
   height: 70px;
 }
-.inlove{
+.inlove {
   height: 70px;
 }
-.normal{
+.normal {
   height: 70px;
 }
-
 
 #navbar {
   width: inherit;
@@ -104,13 +105,13 @@ margin-left: 30px;
   text-align: right;
   font-size: 80px;
   font-weight: 900;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
   line-height: 1.15;
   margin-bottom: 20px;
   margin-right: -200px;
 }
 
-.submitButton{
+.submitButton {
   width: 260px;
   margin: 0 auto;
   color: white;
@@ -125,9 +126,9 @@ margin-left: 30px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: 2px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
-.skipButton{
+.skipButton {
   width: 260px;
   margin: 0 auto;
   color: white;
@@ -141,22 +142,90 @@ margin-left: 30px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: 2px;
-  transition-duration: .3s;
-
+  transition-duration: 0.3s;
 }
-.submitButton:hover, .skipButton:hover {
+.submitButton:hover,
+.skipButton:hover {
   cursor: pointer;
   background-color: #d71eb8;
 }
+
+/* ---------------------5 recently played tracks----------------------- */
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* -------------------- calendar ----------------------- */
+
 .calendar-container {
   align-items: center;
-  background-color: #12121f;
   color: #12121f;
   display: flex;
   height: 700px;
   justify-content: left;
   width: 100%;
   padding-left: 100px;
+  background: linear-gradient(#37f050 -60%, #0213fd 140%);
 }
 
 .calendar {

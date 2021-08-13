@@ -18,6 +18,8 @@ const displayCalendar = () => {
 
   firstDate.setDate(1);
 
+  document.querySelector("#title").innerHTML = new Date().toDateString();
+
   document.querySelector(".date h1").innerHTML =
     months[firstDate.getMonth()] + " " + firstDate.getFullYear();
 
