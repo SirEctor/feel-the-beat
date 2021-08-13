@@ -59,10 +59,8 @@ const displayCalendar = () => {
       firstDate.getMonth() === new Date().getMonth() &&
       firstDate.getFullYear() === new Date().getFullYear()
     ) {
-      //days += `<div class="today">${i}</div>`;
       days += `<button class="todayButton">${i}</button>`;
     } else {
-      //days += `<div>${i}</div>`;
       days += `<button>${i}</button>`;
     }
   }
