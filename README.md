@@ -27,7 +27,7 @@ You need to create two environment files: `.env` and `nginx-certbot.env.`
 
 ### Running the application
 
-Make sure you have Docker installed and running. 
+Make sure you have [Docker](https://docs.docker.com/engine/install/) installed and running. 
 ```bash
 $ docker-compose up
 ```
