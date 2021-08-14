@@ -15,35 +15,56 @@
 
     <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
     <link rel='icon' href='favicon.ico' type='image/x-icon' />
+
+    <!-- TITLE Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <!-- Custom styling for this page -->
+    <link rel="stylesheet" href="static/styles/index.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Feel the Beat!</title>
     <title> Spotify Recommendation </title>
 </head>
  
  
  <body>
-	<h1>LOGIN PAGE</h1>
-	<div class="login-container">
-        {% extends "layout.html" %}
+
+    <!-- New code -->
+            {% extends "layout.html" %}
 	{% block body %}
         {% if error %}
             <p class=error><strong>Error:</strong> {{ error }}
         {% endif %}
-		<form action = "{{ url_for('confirm_login') }}" method = "POST">
-			<label for="uname"><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="uname" required>
+     <div class="container">
+         <div class="col-md-6 col-lg-5 col-xl-10">
+             <div class="card shadow-lg o-hidden border-0 my-5">
+                 <div class="card-body p-0">
+                     <div class="row">
+                         <div class="col-lg-6">
+                             <div class="p-5">
+                                 <div class="text-center">
+                                     <h4 class="text-dark mb-4">Welcome Back!</h4>
+                                 </div>
+                                 <form class="user" action = "{{ url_for('confirm_login') }}" method = "POST" style="border-style: none;">
+                                     <div class="mb-3"><input class="form-control form-control-user" type="username" id="userNameInput" placeholder="Username" name="uname"></div>
+                                     <div class="mb-3"><input class="form-control form-control-user" type="password" id="passwordInput" placeholder="Password" name="psw"></div><button class="btn btn-primary d-block btn-user w-100" type="submit" style="margin: 0px;margin-top: 35px;margin-bottom: 35px;">Login</button>
+                                     <hr>
+                                 </form>
+                                 <!-- For potential future use -->
+                                 <!--<div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>-->
+                                 <div class="text-center"><a class="small" href="register.html">Create an Account!</a></div>
+                                 <div class="text-center"><a class="small" href="index.html">Home</a></div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+    {% endblock %}
 
-			<label for="psw"><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="psw" required>
-			
-			<button type="submit">Login</button>	
-	</form>
-	
-	</div>
-	
-	<ul>			
-	   <li> <a href="/register"> Registration Page </a> </li>
-	   <li> <a href="/"> Home Page </a> </li>
-	</ul>
- 	{% endblock %}
  </body>
   
 </html>
