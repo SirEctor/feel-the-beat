@@ -110,10 +110,11 @@ def confirm_login():
         if not msg:
             msg = "Login Successful"
             login_user(user)
-            authCode = session.get('authorization_code')
+            currentUser = User.query.filter_by(username= session.get('username')).first()
+            session['authorization_code'] = currentUser.give_auth_code()
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                currentUser = User.query.filter_by(username= session.get('username')).first()
+                
                 refresh_token = session.get('refresh_token')
                 
                 data = {'client_id': os.getenv("CLIENT_ID"), 
@@ -143,45 +144,31 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-            
-@app.route('/testanalytics/', methods = ['POST'])
-def access():
-    accesstoken = request.form['lastmood']
-    headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accesstoken
-    }
-    
-    response = requests.get('https://api.spotify.com/v1/me/player/recently-played',headers=headers)
-    s = json.loads(response.text)
-
-    return render_template('testanalytics.html', recentlyplayed=s)
-
 @app.route('/dashboard')
 def dashboard():
     if 'code' in request.url:
         equalIndex = request.url.index('=')
-        authcode = request.url[equalIndex+1:]
+        authorization_code = request.url[equalIndex+1:]
         
         
         currentUser = User.query.filter_by(username= session.get('username')).first()
         
-        session['authorization_code'] = authcode
-        currentUser.set_auth_code(authcode)
+        session['authorization_code'] = authorization_code
+        currentUser.set_auth_code(authorization_code)
         db.session.commit()
         login_user(currentUser)
+        return redirect('/test_analytics')
         
-        return test_analytics(authcode)
-
     return render_template('dashboard.html')
 
 @app.route('/test_analytics')
-def test_analytics(authcode):
+def test_analytics():
+    authorization_code = session['authorization_code']
+    print(authorization_code)
     data = {'client_id':os.getenv("CLIENT_ID"), 
             'client_secret':os.getenv("CLIENT_SECRET"), 
             'grant_type':'authorization_code',
-            'code':authcode,
+            'code': authorization_code,
             'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
