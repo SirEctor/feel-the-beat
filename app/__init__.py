@@ -29,6 +29,7 @@ migrate = Migrate(app, db)
 
 from .table_datatypes import *
 from .util import *
+
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -100,21 +101,20 @@ def confirm_login():
         if not msg:
             msg = "Login Successful"
             login_user(user)
-            authCode = session.get('authorization_code')
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                currentUser = User.query.filter_by(username= session.get('username')).first()
-                refresh_token = session.get('refresh_token')
-                
+                currentUser = User.query.filter_by(username= uname).first()
+                refreshCode = currentUser.give_refresh_code()
+                print("Refresh Token 2: " , refreshCode.rstrip(),"END")
                 data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
                         'grant_type':'refresh_token',
-                        'refresh_token': refresh_token,
+                        'refresh_token': refreshCode,
                         'redirect_uri':os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
-             
-	
+                print("refresh request", r)
+                print("refresh text", r.text)
                 if r.status_code == 200:
                     s = json.loads(r.text)
                     access_token = s['access_token']
@@ -156,8 +156,9 @@ def userauth():
 @app.route('/dashboard/')
 def dashboard():
     if 'code' in request.url:
-        equalIndex = request.url.index('=')
-        authcode = request.url[equalIndex+1:]
+        baseurl = "https://feelthebeat.tech/dashboard/?code="
+        adjustmentfactor = 3
+        authcode = request.url[len(baseurl)-adjustmentfactor:]
         
         
         currentUser = User.query.filter_by(username= session.get('username')).first()
@@ -182,22 +183,24 @@ def get_jsvar(jsvar):
             'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
-    
-
+    print("response", r)
+    print("r text", r.text)
     if r.status_code == 200:
         s = json.loads(r.text)
-	
+    
+    
         access_token = s['access_token']
+        session['authorization_code'] = access_token
         token_type = s['token_type']
         expires_in = s['expires_in']
         refresh_token = s['refresh_token']
-	
         currentUser = User.query.filter_by(username= session.get('username')).first()
-        currentUser.set_refresh_token(refresh_token)
-        session['refresh_token'] = refresh_token
+        print("REfresh Token 1: ", refresh_token, "END")
+        currentUser.set_refresh_code(refresh_token)
         db.session.commit()
         scope = s['scope']
-	
+    
+        
         storage = getAllAnalytics(access_token)
         return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['averageDance'], averageLiveness=storage['averageLive'])
     else:
