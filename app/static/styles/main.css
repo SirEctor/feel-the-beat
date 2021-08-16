@@ -6,7 +6,6 @@ h1 {
     top: 10%;
     width: 100%;
     font-size: 15vh;
-    font-family: "Francois One";
     color: #FF5100;
 }
 
@@ -17,10 +16,6 @@ body {
 .home {
     background-color:#FFFCF7;
     height: 100vh;
-}
-
-.btn btn-primary btn-lg login {
-    
 }
 
 /* Commenting out for now due to an error. LKI
