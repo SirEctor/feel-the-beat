@@ -5,7 +5,7 @@ import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-
+from urllib.parse import urlencode
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
@@ -106,11 +106,11 @@ def confirm_login():
                 currentUser = User.query.filter_by(username= session.get('username')).first()
                 refresh_token = session.get('refresh_token')
                 
-                data = {'client_id':os.getenv("CLIENT_ID"), 
-                        'client_secret':os.getenv("CLIENT_SECRET"), 
-                        'grant_type':'refresh_token',
+                data = {'client_id': os.getenv("CLIENT_ID"), 
+                        'client_secret': os.getenv("CLIENT_SECRET"), 
+                        'grant_type': 'refresh_token',
                         'refresh_token': refresh_token,
-                        'redirect_uri':os.getenv("REDIRECT_URI")
+                        'redirect_uri': os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
              
@@ -151,7 +151,17 @@ def access():
 
 @app.route('/userauth')
 def userauth():
-    return render_template('userauth.html')
+    BASE_URL = "https://accounts.spotify.com/authorize?client_id="
+
+    url_parameters = {
+            'client_id': os.getenv("CLIENT_ID"), 
+            'response_type': 'code',
+            'redirect_uri': os.getenv("REDIRECT_URI"),
+            'scope': "user-read-private,user-read-recently-played"
+    }
+
+    url = BASE_URL + "?" + urllibparse.urlencode(url_parameters)
+    return render_template('userauth.html', url = url)
 
 @app.route('/dashboard/')
 def dashboard():
@@ -168,8 +178,6 @@ def dashboard():
         login_user(currentUser)
         
         return redirect(url_for('get_jsvar', jsvar=authcode))
-
-    
 
     return render_template('dashboard.html')
 

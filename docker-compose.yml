@@ -15,7 +15,7 @@ services:
     env_file:
       - .env
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - mydatabase:/var/lib/postgresql/data
   nginx:
@@ -41,6 +41,8 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+    depends_on:
+      - db
 
 volumes:
   mydatabase:
