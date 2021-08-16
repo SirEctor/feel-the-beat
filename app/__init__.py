@@ -169,14 +169,9 @@ def test_analytics():
     
     if r.status_code == 200:
         s = json.loads(r.text)
-    
-    
         access_token = s['access_token']
         refresh_token = s['refresh_token']
-	
-        currentUser = current_user
-        print(currentUser.give_auth_code())
-        currentUser.set_refresh_token(refresh_token)
+        current_user.set_refresh_token(refresh_token)
         db.session.commit()
 	
         storage = get_all_analytics(access_token)
