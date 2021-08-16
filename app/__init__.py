@@ -193,7 +193,7 @@ def get_jsvar(jsvar):
         expires_in = s['expires_in']
         refresh_token = s['refresh_token']
         currentUser = User.query.filter_by(username= session.get('username')).first()
-        currentUser.set_refresh_code(refresh_token)
+        currentUser.set_refresh_token(refresh_token)
         db.session.commit()
         scope = s['scope']
     
