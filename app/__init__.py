@@ -114,7 +114,6 @@ def confirm_login():
             session['authorization_code'] = currentUser.give_auth_code()
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                
                 refresh_token = session.get('refresh_token')
                 
                 data = {'client_id': os.getenv("CLIENT_ID"), 
@@ -130,8 +129,8 @@ def confirm_login():
                     s = json.loads(r.text)
                     access_token = s['access_token']
                     
-                    storage = getAllAnalytics(access_token)
-                    return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['averageDance'], averageLiveness=storage['averageLive'])
+                    storage = get_all_analytics(access_token)
+                    return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
                 else:
                     return render_template('result.html')
             return redirect(next_page)
@@ -164,7 +163,6 @@ def dashboard():
 @app.route('/test_analytics')
 def test_analytics():
     authorization_code = session['authorization_code']
-    print(authorization_code)
     data = {'client_id':os.getenv("CLIENT_ID"), 
             'client_secret':os.getenv("CLIENT_SECRET"), 
             'grant_type':'authorization_code',
@@ -178,18 +176,16 @@ def test_analytics():
         s = json.loads(r.text)
 	
         access_token = s['access_token']
-        token_type = s['token_type']
-        expires_in = s['expires_in']
         refresh_token = s['refresh_token']
 	
-        currentUser = User.query.filter_by(username= session.get('username')).first()
+        currentUser = current_user
+        print(currentUser.give_auth_code())
         currentUser.set_refresh_token(refresh_token)
         session['refresh_token'] = refresh_token
         db.session.commit()
-        scope = s['scope']
 	
-        storage = getAllAnalytics(access_token)
-        return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['averageDance'], averageLiveness=storage['averageLive'])
+        storage = get_all_analytics(access_token)
+        return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
     else:
         return render_template('result.html')
 

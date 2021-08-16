@@ -1,7 +1,19 @@
 import requests
 import json
 
-def getAllAnalytics(access_token):
+def get_all_analytics(access_token):
+    '''
+    Retrieves the last three played songs of a user and calculates the 
+    average danceability and liveness of these songs.
+
+    Input: 
+        access_token (string): used to access user-specific data from the 
+            Spotify API
+
+    Returns:
+        storage (dict): maps labels about user-specific data to their values, ex.
+            storage[average_dance] = average danceability of three last played songs
+    '''
     storage = {}
     
     headers = {
@@ -52,10 +64,10 @@ def getAllAnalytics(access_token):
     danceLevel2 = float(track2_Charact_Text['danceability'])
     liveLevel2 = float(track2_Charact_Text['liveness'])
 
-    averageDance = round((danceLevel0 + danceLevel1 + danceLevel2) / 3, 3)
-    averageLive = round((liveLevel0 + liveLevel1 + liveLevel2) / 3, 3)
+    average_dance = round((danceLevel0 + danceLevel1 + danceLevel2) / 3, 3)
+    average_live = round((liveLevel0 + liveLevel1 + liveLevel2) / 3, 3)
 
-    storage['averageDance'] = averageDance
-    storage['averageLive'] = averageLive
+    storage['average_dance'] = average_dance
+    storage['average_live'] = average_live
     
     return storage
