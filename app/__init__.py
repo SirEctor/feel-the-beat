@@ -154,9 +154,10 @@ def userauth():
 @app.route('/dashboard/')
 def dashboard():
     if 'code' in request.url:
-        baseurl = "https://feelthebeat.tech/dashboard/?code="
-        adjustmentfactor = 3
-        authcode = request.url[len(baseurl)-adjustmentfactor:]
+        equalIndex = request.url.index('=')
+        authcode = request.url[equalIndex+1:]
+		
+	
         
         
         currentUser = User.query.filter_by(username= session.get('username')).first()
