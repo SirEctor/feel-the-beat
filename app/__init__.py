@@ -5,7 +5,7 @@ import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-from urllib.parse import urlencode
+import urllib.parse 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
@@ -74,7 +74,17 @@ def add_user():
             db.session.add(new_user)
             db.session.commit()
             
-            return render_template("userauth.html", redirect_link = os.getenv("REDIRECT_URI"))     
+            BASE_URL = "https://accounts.spotify.com/authorize"
+
+            url_parameters = {
+                    'client_id': os.getenv("CLIENT_ID"), 
+                    'response_type': 'code',
+                    'redirect_uri': os.getenv("REDIRECT_URI"),
+                    'scope': "user-read-private,user-read-recently-played"
+            }
+
+            url = BASE_URL + "?" + urllib.parse.urlencode(url_parameters)
+            return redirect(url)
 
         flash(msg)
         return render_template("register.html")
@@ -148,22 +158,7 @@ def access():
 
     return render_template('testanalytics.html', recentlyplayed=s)
 
-
-@app.route('/userauth')
-def userauth():
-    BASE_URL = "https://accounts.spotify.com/authorize"
-
-    url_parameters = {
-            'client_id': os.getenv("CLIENT_ID"), 
-            'response_type': 'code',
-            'redirect_uri': os.getenv("REDIRECT_URI"),
-            'scope': "user-read-private,user-read-recently-played"
-    }
-
-    url = BASE_URL + "?" + urllibparse.urlencode(url_parameters)
-    return render_template('userauth.html', url = url)
-
-@app.route('/dashboard/')
+@app.route('/dashboard')
 def dashboard():
     if 'code' in request.url:
         equalIndex = request.url.index('=')
@@ -177,16 +172,16 @@ def dashboard():
         db.session.commit()
         login_user(currentUser)
         
-        return redirect(url_for('get_jsvar', jsvar=authcode))
+        return test_analytics(authcode)
 
     return render_template('dashboard.html')
 
-@app.route('/getjs/<jsvar>')
-def get_jsvar(jsvar):
+@app.route('/test_analytics')
+def test_analytics(authcode):
     data = {'client_id':os.getenv("CLIENT_ID"), 
             'client_secret':os.getenv("CLIENT_SECRET"), 
             'grant_type':'authorization_code',
-            'code':jsvar,
+            'code':authcode,
             'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
