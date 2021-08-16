@@ -29,6 +29,7 @@ migrate = Migrate(app, db)
 
 from .table_datatypes import *
 from .util import *
+
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -110,21 +111,18 @@ def confirm_login():
         if not msg:
             msg = "Login Successful"
             login_user(user)
-            currentUser = User.query.filter_by(username= session.get('username')).first()
-            session['authorization_code'] = currentUser.give_auth_code()
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                refresh_token = session.get('refresh_token')
+                refreshToken = user.give_refresh_token()
                 
-                data = {'client_id': os.getenv("CLIENT_ID"), 
-                        'client_secret': os.getenv("CLIENT_SECRET"), 
-                        'grant_type': 'refresh_token',
-                        'refresh_token': refresh_token,
-                        'redirect_uri': os.getenv("REDIRECT_URI")
+                data = {'client_id':os.getenv("CLIENT_ID"), 
+                        'client_secret':os.getenv("CLIENT_SECRET"), 
+                        'grant_type':'refresh_token',
+                        'refresh_token': refreshToken,
+                        'redirect_uri':os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
-             
-	
+                
                 if r.status_code == 200:
                     s = json.loads(r.text)
                     access_token = s['access_token']
@@ -147,9 +145,7 @@ def logout():
 def dashboard():
     if 'code' in request.url:
         equalIndex = request.url.index('=')
-        authorization_code = request.url[equalIndex+1:]
-        
-        
+        authorization_code = request.url[equalIndex+1:]  
         currentUser = User.query.filter_by(username= session.get('username')).first()
         
         session['authorization_code'] = authorization_code
@@ -171,17 +167,16 @@ def test_analytics():
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
     
-
     if r.status_code == 200:
         s = json.loads(r.text)
-	
+    
+    
         access_token = s['access_token']
         refresh_token = s['refresh_token']
 	
         currentUser = current_user
         print(currentUser.give_auth_code())
         currentUser.set_refresh_token(refresh_token)
-        session['refresh_token'] = refresh_token
         db.session.commit()
 	
         storage = get_all_analytics(access_token)
