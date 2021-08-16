@@ -119,7 +119,7 @@ def confirm_login():
                     s = json.loads(r.text)
                     access_token = s['access_token']
                     
-		    storage = getAllAnalytics(access_token)
+                    storage = getAllAnalytics(access_token)
                     return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['averageDance'], averageLiveness=storage['averageLive'])
                 else:
                     return render_template('result.html')
@@ -197,8 +197,8 @@ def get_jsvar(jsvar):
         session['refresh_token'] = refresh_token
         db.session.commit()
         scope = s['scope']
-        
-	storage = getAllAnalytics(access_token)
+	
+        storage = getAllAnalytics(access_token)
         return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['averageDance'], averageLiveness=storage['averageLive'])
     else:
         return render_template('result.html')
