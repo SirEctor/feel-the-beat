@@ -103,12 +103,12 @@ def confirm_login():
             login_user(user)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                refreshCode = user.give_refresh_token()
+                refreshToken = user.give_refresh_token()
                 
                 data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
                         'grant_type':'refresh_token',
-                        'refresh_token': refreshCode,
+                        'refresh_token': refreshToken,
                         'redirect_uri':os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
