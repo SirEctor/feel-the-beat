@@ -151,7 +151,7 @@ def access():
 
 @app.route('/userauth')
 def userauth():
-    BASE_URL = "https://accounts.spotify.com/authorize?client_id="
+    BASE_URL = "https://accounts.spotify.com/authorize"
 
     url_parameters = {
             'client_id': os.getenv("CLIENT_ID"), 
