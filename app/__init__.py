@@ -103,7 +103,7 @@ def confirm_login():
             login_user(user)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                refreshCode = user.give_refresh_code()
+                refreshCode = user.give_refresh_token()
                 
                 data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
