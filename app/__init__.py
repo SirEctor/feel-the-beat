@@ -129,8 +129,7 @@ def confirm_login():
                     
                     storage = get_all_analytics(access_token)
                     return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
-                else:
-                    return render_template('result.html')
+                return render_template('result.html')
             return redirect(next_page)
         flash(msg)
         return render_template("login.html")
@@ -176,8 +175,7 @@ def test_analytics():
 	
         storage = get_all_analytics(access_token)
         return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
-    else:
-        return render_template('result.html')
+    return render_template('result.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
