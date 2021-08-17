@@ -32,6 +32,6 @@ jobs:
          run: >
            ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }}
            && sudo git fetch
-           && sudo git reset --hard origin/master
+           && sudo git reset --hard origin/main
            && docker-compose down
            && docker-compose up -d --build'
