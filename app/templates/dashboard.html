@@ -24,6 +24,8 @@
   </head>
 
   <body>
+    {% extends "layout.html" %}
+        {% block body %}
     <nav>
     <div class="container">
       <h2 id="navbar" style="font-family:Times New Roman;font-size:400%;">Feel The Beat!</h2>
@@ -52,19 +54,23 @@
       <div class="container-recently-tracks">
         <h1>Recently Played Tracks</h1>
       
-        <label class="container">a
+        <label class="container">{{track0_Name}}
           <input type="radio" checked="checked" name="radio">
           <span class="checkmark"></span>
         </label>
-        <label class="container">b
+        <label class="container">{{track1_Name}}
           <input type="radio" name="radio">
           <span class="checkmark"></span>
         </label>
-        <label class="container">c
+        <label class="container">{{track2_Name}}
           <input type="radio" name="radio">
           <span class="checkmark"></span>
         </label>
-        <label class="container">Four
+        <label class="container">{{track3_Name}}
+          <input type="radio" name="radio">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">{{track4_Name}}
           <input type="radio" name="radio">
           <span class="checkmark"></span>
         </label>
@@ -94,5 +100,6 @@
         </div>
    
     <script src="../static/js/dashboard.js"></script>
+    {% endblock %}
   </body>
 </html>
