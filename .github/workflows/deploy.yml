@@ -44,4 +44,5 @@ jobs:
       - name: Test deployment
         run: |
           chmod +x system-tests.sh
+          sleep(5)
           ./system-tests.sh
