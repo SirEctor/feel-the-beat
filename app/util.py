@@ -1,3 +1,4 @@
+from flask import render_template
 import requests
 import json
 
@@ -71,3 +72,17 @@ def get_all_analytics(access_token):
     storage['average_live'] = average_live
     
     return storage
+
+
+def error_handling(r, type):
+    if r.status_code == 200:
+        r_text = json.loads(r.text)
+        access_token = r_text['access_token']
+        if type == 'test_analytics':
+            refresh_token = r_text['refresh_token']
+            current_user.set_refresh_token(refresh_token)
+            db.session.commit()
+            
+      storage = get_all_analytics(access_token)
+      return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
+    return render_template('result.html')
