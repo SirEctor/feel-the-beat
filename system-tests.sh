@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "https://http://feelthebeat.tech//")
+STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "https://feelthebeat.tech//")
 
 if [[ $STATUS != "200" ]]; then
     exit 1
