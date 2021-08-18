@@ -1,6 +1,9 @@
 from flask import render_template
 import requests
 import json
+from . import db
+from flask_login import current_user
+
 
 def get_all_analytics(access_token):
     '''

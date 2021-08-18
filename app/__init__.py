@@ -122,7 +122,7 @@ def confirm_login():
                         'redirect_uri':os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
-                error_handling(r, 'confirm_login')
+                return error_handling(r, 'confirm_login')
 		
             return redirect(next_page)
         flash(msg)
@@ -159,6 +159,7 @@ def test_analytics():
             'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
-    error_handling(r, 'test_analytics')
+    return error_handling(r, 'test_analytics')
+
 if __name__ == '__main__':
     app.run(debug=True)
