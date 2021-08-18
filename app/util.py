@@ -83,6 +83,6 @@ def error_handling(r, type):
             current_user.set_refresh_token(refresh_token)
             db.session.commit()
             
-      storage = get_all_analytics(access_token)
-      return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
+        storage = get_all_analytics(access_token)
+        return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
     return render_template('result.html')
