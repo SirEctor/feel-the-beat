@@ -35,3 +35,8 @@ jobs:
            && sudo git reset --hard origin/main
            && docker-compose down
            && docker-compose up -d --build'
+
+      - name: Test deployment
+        run: |
+          chmod +x prod-test.sh
+          ./prod-test.sh
