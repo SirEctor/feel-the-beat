@@ -52,29 +52,23 @@
 
     
       <div class="container-recently-tracks">
+	  <form  action = "{{ url_for('submit_mood_song') }}" method="POST">
         <h1>Recently Played Tracks</h1>
       
-        <label class="container">{{track0_Name}}
-          <input type="radio" checked="checked" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">{{track1_Name}}
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">{{track2_Name}}
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">{{track3_Name}}
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">{{track4_Name}}
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
+	    <input type="radio" name="radio" value='track0_Name'>
+        <label class="container">{{track0_Name}}</label>
+		<input type="radio" name="radio" value='track1_Name'>
+        <label class="container">{{track1_Name}}</label> 
+		<input type="radio" name="radio" value='track2_Name'>
+        <label class="container">{{track2_Name}}</label> 
+		<input type="radio" name="radio" value='track3_Name'>
+        <label class="container">{{track3_Name}} </label> 
+		<input type="radio" name="radio" value='track4_Name'>
+        <label class="container">{{track4_Name}}</label>
+		<input type='submit' value='Submit'>
+      </form>
       </div>
+	  <a href="/logout">LOGOUT</a>
 
     </header>
         <div class="calendar-container">
