@@ -38,5 +38,5 @@ jobs:
 
       - name: Test deployment
         run: |
-          chmod +x prod-test.sh
-          ./prod-test.sh
+          chmod +x system-tests.sh
+          ./system-tests.sh
