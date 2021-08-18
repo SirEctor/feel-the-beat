@@ -153,9 +153,9 @@ def confirm_login():
                     "refresh_token": refreshToken,
                     "redirect_uri": os.getenv("REDIRECT_URI"),
                 }
-                r = requests.post("https://accounts.spotify.com/api/token", data=data)
-                error_handling(r, "confirm_login")
-
+                r = requests.post('https://accounts.spotify.com/api/token',data=data)
+                return error_handling(r, 'confirm_login')
+		
             return redirect(next_page)
         flash(msg)
         return render_template("login.html")
@@ -185,17 +185,15 @@ def dashboard():
 
 @app.route("/test_analytics")
 def test_analytics():
-    authorization_code = session["authorization_code"]
-    data = {
-        "client_id": os.getenv("CLIENT_ID"),
-        "client_secret": os.getenv("CLIENT_SECRET"),
-        "grant_type": "authorization_code",
-        "code": authorization_code,
-        "redirect_uri": os.getenv("REDIRECT_URI"),
-    }
-    r = requests.post("https://accounts.spotify.com/api/token", data=data)
-    error_handling(r, "test_analytics")
+    authorization_code = session['authorization_code']
+    data = {'client_id':os.getenv("CLIENT_ID"), 
+            'client_secret':os.getenv("CLIENT_SECRET"), 
+            'grant_type':'authorization_code',
+            'code': authorization_code,
+            'redirect_uri':os.getenv("REDIRECT_URI")
+            }
+    r = requests.post('https://accounts.spotify.com/api/token',data=data)
+    return error_handling(r, 'test_analytics')
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
