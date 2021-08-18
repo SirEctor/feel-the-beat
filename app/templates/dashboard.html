@@ -1,98 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta property="og:title" content="Spotify Recommendation" />
-    <meta property="og:description" content="Spotify Recommendation" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta property="og:title" content="Spotify Recommendation" />
+  <meta property="og:description" content="Spotify Recommendation" />
 
-    <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
-    <link lang="sass" rel="stylesheet" href="../static/styles/dashboard.css" />
-  
-    <title>Dashboard</title>
-  </head>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 
-  <body>
-    <nav>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
+  <link lang="sass" rel="stylesheet" href="../static/styles/dashboard.css" />
+
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <nav>
     <div class="container">
       <h2 id="navbar" style="font-family:Times New Roman;font-size:400%;">Feel The Beat!</h2>
     </div>
   </nav>
   <header>
-    <div class="hero-img">
-      <div class="container">
-        <h1 id="title"></h1>
-        <p>
-          <button class="submitButton">Submit</button>
-          <button class="skipButton">Not Now</button>
-        </p>
-      </div>
-      <div class="emojis">
-        <h3 id="e">MOOD</h3>
-        <!--all the images became bottons-->
-        <img class="inlove" src="../static/img/inlove.png" alt="inlove">
-        <img class="happy" src="../static/img/happy.png" alt="happy">
-        <img class="normal" src="../static/img/normal.png" alt="normal">
-        <img class="sad" src="../static/img/sad.png" alt="sad">
-        <img class="angry" src="../static/img/angry.png" alt="angry">
-      </div>
-
-    
-      <div class="container-recently-tracks">
-        <h1>Recently Played Tracks</h1>
-      
-        <label class="container">a
-          <input type="radio" checked="checked" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">b
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">c
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">Four
-          <input type="radio" name="radio">
-          <span class="checkmark"></span>
-        </label>
-      </div>
-
-    </header>
-        <div class="calendar-container">
-          <div class="calendar">
-            <div class="monthAndYear">
-              <i class="fas fa-angle-left backwardArrow"></i>
-              <div class="date">
-                <h1></h1>
-              </div>
-              <i class="fas fa-angle-right forwardArrow"></i>
-            </div>
-            <div class="weekdays">
-              <div>Sun</div>
-              <div>Mon</div>
-              <div>Tue</div>
-              <div>Wed</div>
-              <div>Thu</div>
-              <div>Fri</div>
-              <div>Sat</div>
-            </div>
-            <div class="days"></div>
-          </div>
+    <!--<div class="hero-img">-->
+    <div class="container">
+      <h1 id="title"></h1>
+      <p>
+        {% extends "layout.html" %}
+        {% block body %}
+        {% if error %}
+      <p class=error><strong>Error:</strong> {{ error }}
+        {% endif %}
+      <form action="{{ url_for('submit')}}" method="POST">
+        <h5>Choose the song and the mood of the day </h5>
+        <div>
+          <input type="radio" name="mood" placeholder="mood">
         </div>
-   
-    <script src="../static/js/dashboard.js"></script>
-  </body>
+        <div>
+          <input type="radio" name="song_uri" placeholder="song_uri">
+        </div>
+        <div>
+          <button>Submit</button>
+        </div>
+      </form>
+      <button class="submitButton">Submit</button>
+      <button class="skipButton">Not Now</button>
+      </p>
+    </div>
+
+    <div class="emojis">
+      <h3 id="e">MOOD</h3>
+      <!--all the images became bottons-->
+      <img class="inlove" src="../static/img/inlove.png" alt="inlove">
+      <img class="happy" src="../static/img/happy.png" alt="happy">
+      <img class="normal" src="../static/img/normal.png" alt="normal">
+      <img class="sad" src="../static/img/sad.png" alt="sad">
+      <img class="angry" src="../static/img/angry.png" alt="angry">
+    </div>
+
+    <div class="container-recently-tracks">
+      <h4 id="crt" style="font-family:Times New Roman;font-size:400%;">Recently Played Tracks</h4>
+
+      <label class="container">a
+        <input type="radio" checked="checked" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">b
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">c
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container">Four
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+
+  </header>
+  <div class="calendar-container">
+    <div class="calendar">
+      <div class="monthAndYear">
+        <i class="fas fa-angle-left backwardArrow"></i>
+        <div class="date">
+          <h1></h1>
+        </div>
+        <i class="fas fa-angle-right forwardArrow"></i>
+      </div>
+      <div class="weekdays">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+      <div class="days"></div>
+    </div>
+  </div>
+
+  <script src="../static/js/dashboard.js"></script>
+  {% endblock %}
+</body>
+
 </html>

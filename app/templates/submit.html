@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard Submit</title>
+</head>
+
+<body>
+    <form action="{{ url_for('submit')}}" method="POST" method="post">
+        <h5>Choose the song and the mood of the day </h5>
+        <div>
+            <input type="radio" name="mood" placeholder="mood">
+        </div>
+        <div>
+            <input type="radio" name="song_uri" placeholder="song_uri">
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>
+</body>
+
+</html>
