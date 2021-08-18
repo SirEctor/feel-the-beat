@@ -70,8 +70,7 @@ def add_user():
 
         if not msg:
             new_user = User(username=uname, password=generate_password_hash(psw))
-            session['uname'] = uname
-            print(session.get('uname'))
+            session['username'] = new_user.username
             session['password'] = new_user.password
             db.session.add(new_user)
             db.session.commit()
@@ -135,91 +134,20 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-""" @app.route('/dashboard')
+@app.route('/dashboard')
 def dashboard():
     if 'code' in request.url:
         equalIndex = request.url.index('=')
         authorization_code = request.url[equalIndex+1:]  
-        currentUser = User.query.filter_by(username=session.get('uname')).first()
-        print(session.get('uname'))
+        currentUser = User.query.filter_by(username= session.get('username')).first()
+        
         session['authorization_code'] = authorization_code
-        print(currentUser.username)
         currentUser.set_auth_code(authorization_code)
-
         db.session.commit()
         login_user(currentUser)
         return redirect('/test_analytics')
         
-    return render_template('dashboard.html') """
-
-
-@app.route('/dashboard/')
-def dashboard():
-    data = {'client_id':os.getenv("CLIENT_ID"), 
-        'client_secret':os.getenv("CLIENT_SECRET"), 
-        'grant_type':'authorization_code',
-        'code':jsvar,
-        'redirect_uri':os.getenv("REDIRECT_URI")
-        }
-    r = requests.post('https://accounts.spotify.com/api/token',data=data)
-    
-
-    if r.status_code == 200:
-        s = json.loads(r.text)
-    
-    
-        access_token = s['access_token']
-    
-        token_type = s['token_type']
-        expires_in = s['expires_in']
-        refresh_token = s['refresh_token']
-        currentUser = User.query.filter_by(username= session.get('username')).first()
-        
-    
-        currentUser.set_refresh_token(refresh_token)
-        session['refresh_token'] = refresh_token
-        db.session.commit()
-        scope = s['scope']
-    
-        headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + access_token
-        }
-    
-        # Get recently reproduces tracks
-        resTracks = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=3',headers=headers)
-        resTracks_Text = json.loads(resTracks.text)
-
-        trackN0 = resTracks_Text['items'][0]['track']['name']
-        trackArtist0 = resTracks_Text['items'][0]['track']['album']['artists'][0]['name']
-        trackName0 = trackN0 + "  -  " + trackArtist0
-        trackId0 = resTracks_Text['items'][0]['track']['id']
-
-        trackN1 = resTracks_Text['items'][1]['track']['name']
-        trackArtist1 = resTracks_Text['items'][1]['track']['album']['artists'][0]['name']
-        trackName1 = trackN1 + "  -  " + trackArtist1
-        trackId1 = resTracks_Text['items'][1]['track']['id']
-        
-        trackN2 = resTracks_Text['items'][2]['track']['name']
-        trackArtist2 = resTracks_Text['items'][2]['track']['album']['artists'][0]['name']
-        trackName2 = trackN2 + "  -  " + trackArtist2
-        trackId2 = resTracks_Text['items'][2]['track']['id']
-        
-        trackN3 = resTracks_Text['items'][3]['track']['name']
-        trackArtist3 = resTracks_Text['items'][3]['track']['album']['artists'][0]['name']
-        trackName3 = trackN3 + "  -  " + trackArtist3
-        trackId3 = resTracks_Text['items'][3]['track']['id']
-
-        trackN4 = resTracks_Text['items'][4]['track']['name']
-        trackArtist4 = resTracks_Text['items'][4]['track']['album']['artists'][0]['name']
-        trackName4 = trackN4 + "  -  " + trackArtist4
-        trackId4 = resTracks_Text['items'][4]['track']['id']
-        
-        
-        return render_template('dashboard.html', track0_Name=trackName0, track1_Name=trackName1, track2_Name=trackName2, track3_Name=trackName3, track4_Name=trackName4)
-    else:
-        return render_template('result.html')
+    return render_template('dashboard.html')
 
 @app.route('/test_analytics')
 def test_analytics():
