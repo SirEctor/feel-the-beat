@@ -77,6 +77,60 @@ def get_all_analytics(access_token):
     return storage
 
 
+
+def get_5_latest_songs(access_token):
+    storage5Songs = {}
+    
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + access_token
+    }
+
+    # Get recently reproduces tracks
+    resTracks = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=3',headers=headers)
+    resTracks_Text = json.loads(resTracks.text)
+
+    trackN0 = resTracks_Text['items'][0]['track']['name']
+    trackArtist0 = resTracks_Text['items'][0]['track']['album']['artists'][0]['name']
+    trackName0 = trackN0 + "  -  " + trackArtist0
+    trackId0 = resTracks_Text['items'][0]['track']['id']
+
+    
+    storage5Songs['trackName0'] = trackName0
+    
+    trackN1 = resTracks_Text['items'][1]['track']['name']
+    trackArtist1 = resTracks_Text['items'][1]['track']['album']['artists'][0]['name']
+    trackName1 = trackN1 + "  -  " + trackArtist1
+    trackId1 = resTracks_Text['items'][1]['track']['id']
+
+    storage5Songs['trackName1'] = trackName1
+
+    trackN2 = resTracks_Text['items'][2]['track']['name']
+    trackArtist2 = resTracks_Text['items'][2]['track']['album']['artists'][0]['name']
+    trackName2 = trackN2 + "  -  " + trackArtist2
+    trackId2 = resTracks_Text['items'][2]['track']['id']
+
+    storage5Songs['trackName2'] = trackName2
+
+    trackN3 = resTracks_Text['items'][3]['track']['name']
+    trackArtist3 = resTracks_Text['items'][3]['track']['album']['artists'][0]['name']
+    trackName3 = trackN3 + "  -  " + trackArtist3
+    trackId3 = resTracks_Text['items'][3]['track']['id']
+
+    storage5Songs['trackName3'] = trackName3
+
+    trackN4 = resTracks_Text['items'][4]['track']['name']
+    trackArtist4 = resTracks_Text['items'][4]['track']['album']['artists'][0]['name']
+    trackName4 = trackN4 + "  -  " + trackArtist4
+    trackId4 = resTracks_Text['items'][4]['track']['id']
+
+    storage5Songs['trackName4'] = trackName4
+
+    
+    return storage5Songs
+
+
 def error_handling(r, type):
     if r.status_code == 200:
         r_text = json.loads(r.text)
