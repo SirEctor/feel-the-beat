@@ -1,9 +1,8 @@
 from flask import render_template
+from flask_login import current_user
 import requests
 import json
 from . import db
-from flask_login import current_user
-
 
 def get_all_analytics(access_token):
     '''
@@ -88,7 +87,7 @@ def get_5_latest_songs(access_token):
     }
 
     # Get recently reproduces tracks
-    resTracks = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=3',headers=headers)
+    resTracks = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=5',headers=headers)
     resTracks_Text = json.loads(resTracks.text)
 
     trackN0 = resTracks_Text['items'][0]['track']['name']
@@ -140,6 +139,6 @@ def error_handling(r, type):
             current_user.set_refresh_token(refresh_token)
             db.session.commit()
             
-        storage = get_all_analytics(access_token)
-        return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['average_dance'], averageLiveness=storage['average_live'])
+        storage = get_5_latest_songs(access_token)
+        return render_template('dashboard.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], track3_Name=storage['trackName3'], track4_Name=storage['trackName4'])
     return render_template('result.html')

@@ -148,6 +148,9 @@ def dashboard():
         return redirect('/test_analytics')
         
     return render_template('dashboard.html')
+@app.route('/submit_mood')
+def submit_mood_song():
+    return render_template('dashboard.html')
 
 @app.route('/test_analytics')
 def test_analytics():
@@ -160,6 +163,3 @@ def test_analytics():
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
     return error_handling(r, 'test_analytics')
-
-if __name__ == '__main__':
-    app.run(debug=True)
