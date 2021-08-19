@@ -29,4 +29,20 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
 
       -  name: Print project root directory
-         run: ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }} &&  sudo git fetch && sudo git reset --hard origin/main && docker-compose up -d --build'
+         run: >
+           ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }}
+           && sudo git fetch
+           && sudo git reset --hard origin/main
+           && docker-compose down
+           && docker-compose up -d --build'
+
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          repository: SirEctor/feel-the-beat
+          
+      - name: Test deployment
+        run: |
+          chmod +x system-tests.sh
+          sleep 5
+          ./system-tests.sh
