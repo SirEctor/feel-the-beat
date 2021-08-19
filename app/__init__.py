@@ -204,6 +204,16 @@ def test_analytics():
 
 @app.route('/submit_mood')
 def submit_mood_song():
+    if "code" in request.url:
+        equalIndex = request.url.index("=")
+        authorization_code = request.url[equalIndex + 1 :]
+        currentUser = User.query.filter_by(username=session.get("username")).first()
+
+        session["authorization_code"] = authorization_code
+        currentUser.set_auth_code(authorization_code)
+        db.session.commit()
+        login_user(currentUser)
+        return redirect("/test_analytics")
     return render_template('dashboard2.html')
 
 if __name__ == "__main__":
