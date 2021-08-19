@@ -16,9 +16,9 @@ import urllib.parse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-import datetime as dt
 
-
+from datetime import date
+from datetime import datetime
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -108,11 +108,16 @@ def add_user():
 def submit():
     if request.method == "POST":
         user_id = current_user.id
-        mood = request.form.get("radioe")
-        song_uri = request.form.get("radio")
-        date = dt.datetime.now()
+        print(user_id)
+        mood = request.form["radioe"]
+        print(mood)
+        song_uri = request.form["songRadio"]
+        print(song_uri)
+        dt = date.today()
+        dat = datetime.combine(dt, datetime.min.time())
+        print(dat)
         msg = None
-        entry = Daily_Record(user_id, mood, song_uri, date)
+        entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
         db.session.add(entry)
         db.session.commit()
     flash("Your mood and song are saved!")

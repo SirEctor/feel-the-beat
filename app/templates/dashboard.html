@@ -32,7 +32,7 @@
   </nav>
   <header>
 
-
+</header>
 
     <div class="emojis">
       {% extends "layout.html" %}
@@ -43,38 +43,29 @@
       </p>
       <form action="{{ url_for('submit')}}" method="POST">
         <h3 id="e">MOOD</h3>
-        <img class="inlove" src="../static/img/inlove.png" alt="inlove"><input type="radio" name="radioe">
-        <img class="happy" src="../static/img/happy.png" alt="happy"><input type="radio" name="radioe">
-        <img class="normal" src="../static/img/normal.png" alt="normal"><input type="radio" name="radioe">
-        <img class="sad" src="../static/img/sad.png" alt="sad"><input type="radio" name="radioe">
-        <img class="angry" src="../static/img/angry.png" alt="angry"><input type="radio" name="radioe">
+        <img class="inlove" src="../static/img/inlove.png" alt="inlove" value="inlove"><input type="radio" name="radioe">
+        <img class="happy" src="../static/img/happy.png" alt="happy" value="happy"><input type="radio" name="radioe">
+        <img class="normal" src="../static/img/normal.png" alt="normal" value="normal"><input type="radio" name="radioe">
+        <img class="sad" src="../static/img/sad.png" alt="sad" value="sad"><input type="radio" name="radioe">
+        <img class="angry" src="../static/img/angry.png" alt="angry" value="angry"><input type="radio" name="radioe">
     </div>
     <button class="submitButton" href="/">Submit</button>
     <!--<button class="skipButton">Not Now</button>-->
 
-    </form>
+    
     <div class="container-recently-tracks">
       <h4 id="crt">Recently Played Tracks</h4>
 
-      <label class="container">a
-        <input type="radio" checked="checked" name="radio">
-        <span class="checkmark"></span>
-      </label>
-      <label class="container">b
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-      </label>
-      <label class="container">c
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-      </label>
-      <label class="container">d
-        <input type="radio" name="radio">
-        <span class="checkmark"></span>
-      </label>
+      
+        <input type="radio" name="songRadio" value="{{ track0_Name }}">{{ track0_Name }} </input>
+        <input type="radio" name="songRadio" value="{{ track1_Name }}">{{ track1_Name }} </input>
+		<input type="radio" name="songRadio" value="{{ track2_Name }}">{{ track2_Name }} </input>
+		<input type="radio" name="songRadio" value="{{ track3_Name }}">{{ track3_Name }} </input>
+		<input type="radio" name="songRadio" value="{{ track4_Name }}">{{ track4_Name }} </input>
+		
     </div>
-
-  </header>
+</form>
+  
   <!--
   <div class="calendar-container">
     <div class="calendar">
