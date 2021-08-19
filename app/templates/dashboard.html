@@ -1,99 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta property="og:title" content="Spotify Recommendation" />
-    <meta property="og:description" content="Spotify Recommendation" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta property="og:title" content="Spotify Recommendation" />
+  <meta property="og:description" content="Spotify Recommendation" />
 
-    <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
-    <link lang="sass" rel="stylesheet" href="../static/styles/dashboard.css" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
+  <link lang="sass" rel="stylesheet" href="../static/styles/dashboard.css" />
+
+  <title>Dashboard</title>
+</head>
+
+<body>
   
-    <title>Dashboard Li</title>
-  </head>
-
-  <body>
     {% extends "layout.html" %}
         {% block body %}
     <nav>
+
     <div class="container">
-      <h2 id="navbar" style="font-family:Times New Roman;font-size:400%;">Feel The Beat!</h2>
+      <h2 id="navbar">Feel The Beat!</h2>
     </div>
   </nav>
   <header>
-    <div class="hero-img">
-      <div class="container">
-        <h1 id="title"></h1>
-        <p>
-          <button class="submitButton">Submit</button>
-          <button class="skipButton">Not Now</button>
-        </p>
-      </div>
-      <div class="emojis">
+
+
+</header>
+
+    <div class="emojis">
+      {% extends "layout.html" %}
+      {% block body %}
+      {% if error %}
+      <p class=error><strong>Error:</strong> {{ error }}
+        {% endif %}
+      </p>
+      <form action="{{ url_for('submit')}}" method="POST">
         <h3 id="e">MOOD</h3>
-        <!--all the images became bottons-->
-        <img class="inlove" src="../static/img/inlove.png" alt="inlove">
-        <img class="happy" src="../static/img/happy.png" alt="happy">
-        <img class="normal" src="../static/img/normal.png" alt="normal">
-        <img class="sad" src="../static/img/sad.png" alt="sad">
-        <img class="angry" src="../static/img/angry.png" alt="angry">
-      </div>
+        <img class="inlove" src="../static/img/inlove.png" alt="inlove"><input type="radio" name="radioe" value="inlove">
+        <img class="happy" src="../static/img/happy.png" alt="happy"><input type="radio" name="radioe" value="happy">
+        <img class="normal" src="../static/img/normal.png" alt="normal" ><input type="radio" name="radioe" value="normal">
+        <img class="sad" src="../static/img/sad.png" alt="sad" ><input type="radio" name="radioe" value="sad">
+        <img class="angry" src="../static/img/angry.png" alt="angry" ><input type="radio" name="radioe" value="angry">
+    </div>
 
-    
-      <div class="container-recently-tracks">
-	  <form  action = "{{ url_for('submit_mood_song') }}" method="POST">
-        <h1>Recently Played Tracks</h1>
+    <button class="submitButton" href="/">Submit</button>
+    <!--<button class="skipButton">Not Now</button>-->
+
+ 
+
+    <div class="container-recently-tracks">
+      <h4 id="crt">Recently Played Tracks</h4>
+
       
-	    <input type="radio" name="radio" value='track0_Name'>
-        <label class="container">{{track0_Name}}</label>
-		<input type="radio" name="radio" value='track1_Name'>
-        <label class="container">{{track1_Name}}</label> 
-		<input type="radio" name="radio" value='track2_Name'>
-        <label class="container">{{track2_Name}}</label> 
-		<input type="radio" name="radio" value='track3_Name'>
-        <label class="container">{{track3_Name}} </label> 
-		<input type="radio" name="radio" value='track4_Name'>
-        <label class="container">{{track4_Name}}</label>
-		<input type='submit' value='Submit'>
-      </form>
-      </div>
-	  <a href="/logout">LOGOUT</a>
+        <input type="radio" name="songRadio" value="{{ song_uri_0 }}">{{ track0_Name }} </input>
+        <input type="radio" name="songRadio" value="{{ song_uri_1 }}">{{ track1_Name }} </input>
+		<input type="radio" name="songRadio" value="{{ song_uri_2 }}">{{ track2_Name }} </input>
+		<input type="radio" name="songRadio" value="{{ song_uri_3 }}">{{ track3_Name }} </input>
+		<input type="radio" name="songRadio" value="{{ song_uri_4 }}">{{ track4_Name }} </input>
+		<a href="/logout">LOGOUT</a>
+    </div>
 
-    </header>
-        <div class="calendar-container">
-          <div class="calendar">
-            <div class="monthAndYear">
-              <i class="fas fa-angle-left backwardArrow"></i>
-              <div class="date">
-                <h1></h1>
-              </div>
-              <i class="fas fa-angle-right forwardArrow"></i>
-            </div>
-            <div class="weekdays">
-              <div>Sun</div>
-              <div>Mon</div>
-              <div>Tue</div>
-              <div>Wed</div>
-              <div>Thu</div>
-              <div>Fri</div>
-              <div>Sat</div>
-            </div>
-            <div class="days"></div>
-          </div>
+	 
+
+
+    </form>
+
+  </header>
+
+  <!--
+  <div class="calendar-container">
+    <div class="calendar">
+      <div class="monthAndYear">
+        <i class="fas fa-angle-left backwardArrow"></i>
+        <div class="date">
+          <h1></h1>
         </div>
+
+        <i class="fas fa-angle-right forwardArrow"></i>
+      </div>
+      <div class="weekdays">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+      <div class="days"></div>
+    </div>
+  </div>
+-->
    
     <script src="../static/js/dashboard.js"></script>
     {% endblock %}
   </body>
 </html>
+

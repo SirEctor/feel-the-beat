@@ -1,4 +1,6 @@
 const firstDate = new Date();
+const todaysDate = new Date();
+
 
 const displayCalendar = () => {
   const months = [

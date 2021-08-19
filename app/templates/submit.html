@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard Submit</title>
+</head>
+
+<body>
+    {% extends "layout.html" %}
+    {% block body %}
+    {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+        {% endif %}
+    <form action="{{ url_for('submit')}}" method="POST">
+        <h5>Choose the song and the mood of the day </h5>
+        <div>
+            <input type="radio" name="mood" placeholder="mood">
+        </div>
+        <div>
+            <input type="radio" name="song_uri" placeholder="song_uri">
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>
+    {% endblock %}
+</body>
+
+</html>

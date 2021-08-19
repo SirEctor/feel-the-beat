@@ -1,24 +1,25 @@
 * {
   box-sizing: border-box;
-  font-family: "Quicksand", sans-serif;
+  font-family: Zapf Chancery, cursive;
   margin: 0;
   padding: 0;
 }
 
 html {
-  font-size: 60%;
+  font-size: 80%;
 }
 nav {
-  height: 80px;
-  background-color: black;
+  height: 100px;
+  background-color: rgb(255, 135, 6);
+  margin-bottom: -10px;
 }
 header {
-  height: 805px;
-  background: linear-gradient(#37f050 -60%, #0213fd 140%);
+  height: 500px;
+  background:linear-gradient(#37f050 -20%, #0213fd 140%);
 }
 
 footer {
-  height: 100px;
+  height: 0px;
   background-color: black;
 }
 
@@ -27,10 +28,21 @@ footer {
   width: 1170px;
   margin: 0 auto;
   padding: 0 15px;
-  display: flex;
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: inherit;
 }
 
-.hero-img {
+
+/*.hero-img {
   height: inherit;
   margin: 0 auto;
   background-image: url(../img/hero.svg);
@@ -38,47 +50,33 @@ footer {
   background-position: center;
   background-size: cover;
   opacity: 0.9;
-}
+}*/
 
-table,
-th,
-td {
-  border: 2px solid rgb(19, 241, 19);
-  text-align: justify;
-  margin-left: 30px;
-}
-table {
-  width: 50%;
-}
-th {
-  height: 70px;
-  color: #fa9521;
-}
 
 #title {
   width: inherit;
-  color: rgb(186, 22, 153);
+  color: rgb(235, 16, 16);
   text-align: center;
-  font-size: 80px;
+  font-size: 60px;
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.15;
-  margin-bottom: 20px;
-  margin-left: -200px;
-  margin-top: 10px;
+  margin-bottom: -1px;
+  margin-left: -300px;
+  margin-top: 45px;
 }
 
-.tables {
-  text-align: justify;
-  color: rgb(255, 255, 255);
-  font-size: 35px;
-  margin-top: -150px;
-  margin-left: 30px;
+#e{
+  color: rgb(0, 0, 0);
+  margin-bottom: 10px ;
+  margin-left: -20px;
+  padding: auto;
 }
+
 .emojis {
   text-align: center;
-  margin-top: -630px;
-  margin-left: 850px;
+  margin-top: 0px;
+  margin-left: 830px;
   color: rgb(255, 255, 255);
   font-size: 37px;
 }
@@ -101,29 +99,29 @@ th {
 
 #navbar {
   width: inherit;
-  color: #fa9521;
+  color: #0004ff;
   text-align: right;
-  font-size: 80px;
+  font-size: 95px;
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.15;
   margin-bottom: 20px;
-  margin-right: -200px;
+  margin-left: 100px;
 }
 
 .submitButton {
   width: 260px;
   margin: 0 auto;
   color: white;
-  background-color: #fa9521;
+  background-color: #f71cff;
   padding: 18px 42px 18px;
   border: 0px;
   border-radius: 500px;
-  margin-top: 550px;
-  margin-right: -210px;
+  margin-top: 40px;
+  margin-left: 500px;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 2px;
   transition-duration: 0.3s;
@@ -132,14 +130,15 @@ th {
   width: 260px;
   margin: 0 auto;
   color: white;
-  background-color: #fa9521;
+  background-color: #f71cff;
   border: 0px;
   border-radius: 500px;
   padding: 18px 42px 18px;
   margin-top: 10px;
+  margin-left: 1000px;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 2px;
   transition-duration: 0.3s;
@@ -147,29 +146,23 @@ th {
 .submitButton:hover,
 .skipButton:hover {
   cursor: pointer;
-  background-color: #d71eb8;
+  background-color: #091dff;
 }
 
 /* ---------------------5 recently played tracks----------------------- */
-/* The container */
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
 
 /* Hide the browser's default radio button */
 .container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
+}
+
+.container-recently-tracks{
+  text-align: justify;
+  margin-left: 200px;
+  margin-top: 0px;
+  font-size: 15px;
 }
 
 /* Create a custom radio button */
@@ -224,8 +217,9 @@ th {
   height: 700px;
   justify-content: left;
   width: 100%;
-  padding-left: 100px;
-  background: linear-gradient(#37f050 -60%, #0213fd 140%);
+  padding-left: 350px;
+  padding-bottom: 20px;
+  background:linear-gradient( #fd3802 -31%, #b837f0 100%);
 }
 
 .calendar {
@@ -236,7 +230,7 @@ th {
 
 .monthAndYear {
   align-items: center;
-  background-color: #e00b0b;
+  background-color: #ff7904;
   display: flex;
   height: 120px;
   justify-content: space-between;
@@ -260,7 +254,7 @@ th {
 
 .weekdays {
   align-items: center;
-  background-color: #df6262;
+  background-color: #ef11ce;
   display: flex;
   height: 50px;
   padding: 0 4px;
@@ -301,12 +295,13 @@ th {
 }
 
 .todayButton {
-  background-color: #e00b0b;
+  background-color: #0b2ee0;
+  opacity: .8;
 }
 
 .todayButton:hover {
-  background-color: #d34949;
-  border: 2px solid #18181a;
+  background-color: #fe1de4;
+  border: 2px solid #1cff10ec;
   cursor: pointer;
 }
 
