@@ -68,14 +68,14 @@ footer {
 
 #e{
   color: rgb(0, 0, 0);
-  margin-bottom: 15px ;
+  margin-bottom: 10px ;
   margin-left: -20px;
   padding: auto;
 }
 
 .emojis {
   text-align: center;
-  margin-top: -430px;
+  margin-top: 0px;
   margin-left: 830px;
   color: rgb(255, 255, 255);
   font-size: 37px;
@@ -117,8 +117,8 @@ footer {
   padding: 18px 42px 18px;
   border: 0px;
   border-radius: 500px;
-  margin-top: 550px;
-  margin-left: 1000px;
+  margin-top: 40px;
+  margin-left: 500px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 18px;
@@ -161,7 +161,7 @@ footer {
 .container-recently-tracks{
   text-align: justify;
   margin-left: 200px;
-  margin-top: -250px;
+  margin-top: 0px;
   font-size: 15px;
 }
 
