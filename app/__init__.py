@@ -108,11 +108,15 @@ def add_user():
 def submit():
     if request.method == "POST":
         user_id = current_user.id
+        print(user_id)
         mood = request.form.get("radioe")
+        print(mood)
         song_uri = request.form.get("radio")
+        print(song_uri)
         date = dt.datetime.now()
+        print(date)
         msg = None
-        entry = Daily_Record(user_id, mood, song_uri, date)
+        entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=date)
         db.session.add(entry)
         db.session.commit()
     flash("Your mood and song are saved!")
