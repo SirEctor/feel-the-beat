@@ -3,17 +3,45 @@
   font-size: 30px !important;
 }
 
+#wrapper {
+  height: fit-content;
+}
+.bg-color {
+
+}
+.main-content {
+
+}
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /* rainbow background */
-#content, #content-wrapper, .login-clean, #dashboard {
+.login-clean, #dashboard, .main-page-content {
   background-image: linear-gradient(to right top, #f37748, #eb8732, #dd971a, #caa700, #b1b600, #88be35, #5bc35b, #00c580, #00bcb6, #00aceb, #0094ff, #4c6ef5);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
+.main-content {
+  width: 100vw;
+  z-index: 1000;
+}
+.main-page-content {
+  opacity: 40%;
+}
+
 /* Font Styling */
 h1 {
-  font-weight: 900;
-  font-size: 100px;
+  font-weight: 900; !important;
+  font-size: 100px; !important;
 }
 
 h2 {
@@ -52,8 +80,26 @@ button {
 button {
   background: rgb(8, 2, 253);
 }
-/* End Buttons */
 
+/* End Buttons */
+.bottom-left {
+  position: absolute;
+  bottom: 33%;
+  left: 5%;
+}
+
+.emoji-list {
+  list-style-type: none;
+  display: inline;
+}
+
+.emoji-list li {
+  display: inline;
+}
+.emoji {
+  font-size: 70px;
+  padding: 7px;
+}
 div {
   vertical-align: middle;
     height: 100%;
@@ -66,9 +112,6 @@ div {
   height: 100vh;
 }
 
-form {
-
-}
 
 .login-clean form {
   max-width: 320px;
@@ -221,17 +264,7 @@ form {
 
 /* Temporary formatting */
 nav {
-  background-color: pink;
-}
-
-.recent-tracks {
-  background-color: teal;
-}
-
-
-
-.dash-mood {
-  background-color: cornflowerblue;
+  background-color: black;
 }
 
 .content-container {
@@ -241,12 +274,14 @@ nav {
 
 .recently-played {
   text-align: center;
-  background-color: yellow;
+
+  border-right-color: #6f7a85;
+  border-right-width: 1px;
+  border-right-style: solid;
 }
 
 .recent-mood {
   text-align: center;
-  background-color: brown;
 }
 
 .date-heading {
