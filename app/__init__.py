@@ -109,6 +109,7 @@ def submit():
     if request.method == "POST":
         user_id = current_user.id
         print(user_id)
+<<<<<<< HEAD
         mood = request.form["radioe"]
         print(mood)
         song_uri = request.form["songRadio"]
@@ -118,6 +119,7 @@ def submit():
         print(dat)
         msg = None
         entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
+
         db.session.add(entry)
         db.session.commit()
     flash("Your mood and song are saved!")
