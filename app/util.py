@@ -1,10 +1,13 @@
 from flask import render_template
+from flask_login import current_user
 import requests
 import json
 from . import db
+
 from flask_login import current_user
 
 from .table_datatypes import *
+
 def get_all_analytics(access_token):
     '''
     Retrieves the last three played songs of a user and calculates the 
@@ -54,17 +57,17 @@ def get_all_analytics(access_token):
 
     # Get Audio Features for a Track 
     track0_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId0, headers=headers)
-    track0_Charact_Text = json.loads(track0_Charact.text)
+    track0_Charact_Text = track0_Charact.text.json()
     danceLevel0 = float(track0_Charact_Text['danceability'])
     liveLevel0 = float(track0_Charact_Text['liveness'])
 
     track1_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId1, headers=headers)
-    track1_Charact_Text = json.loads(track1_Charact.text)
+    track1_Charact_Text = track1_Charact.text.json()
     danceLevel1 = float(track1_Charact_Text['danceability'])
     liveLevel1 = float(track1_Charact_Text['liveness'])
 
     track2_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId2, headers=headers)
-    track2_Charact_Text = json.loads(track2_Charact.text)
+    track2_Charact_Text = track2_Charact.text.json()
     danceLevel2 = float(track2_Charact_Text['danceability'])
     liveLevel2 = float(track2_Charact_Text['liveness'])
 
@@ -101,6 +104,7 @@ def get_5_latest_songs(access_token):
             db.session.commit()
         tracks.append(song_name_and_artist)
         tracks.append(song_uri)
+
     
     return tracks
 

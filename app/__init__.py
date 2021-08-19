@@ -17,8 +17,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
 
+
 from datetime import date
 from datetime import datetime
+
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -50,10 +52,12 @@ def load_user(id):
 @app.route("/")
 def home():
     logout_user()
+
     return render_template("index.html")
 
 
-@app.route("/login")
+   
+@app.route('/login')
 def login():
     if current_user.is_authenticated:
         return render_template("index.html")
@@ -108,16 +112,10 @@ def add_user():
 def submit():
     if request.method == "POST":
         user_id = current_user.id
-        print(user_id)
-<<<<<<< HEAD
         mood = request.form["radioe"]
-        print(mood)
         song_uri = request.form["songRadio"]
-        print(song_uri)
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
-        print(dat)
-        msg = None
         entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
 
         db.session.add(entry)
@@ -158,16 +156,18 @@ def confirm_login():
                     "refresh_token": refreshToken,
                     "redirect_uri": os.getenv("REDIRECT_URI"),
                 }
+
                 r = requests.post("https://accounts.spotify.com/api/token", data=data)
                 return error_handling(r, "confirm_login")
+
 
             return redirect(next_page)
         flash(msg)
         return render_template("login.html")
 
 
-@app.route("/logout")
-def logout():
+@app.route('/logout')
+def logout():  
     logout_user()
     return render_template("index.html")
 
@@ -188,6 +188,7 @@ def dashboard():
     return render_template("dashboard.html")
 
 
+
 @app.route("/test_analytics")
 def test_analytics():
     authorization_code = session["authorization_code"]
@@ -201,6 +202,14 @@ def test_analytics():
     r = requests.post("https://accounts.spotify.com/api/token", data=data)
     return error_handling(r, "test_analytics")
 
+@app.route('/submit_mood')
+def submit_mood_song():
+    return render_template('dashboard.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
