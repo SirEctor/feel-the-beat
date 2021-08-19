@@ -204,7 +204,7 @@ def test_analytics():
 
 @app.route('/submit_mood')
 def submit_mood_song():
-    return render_template('dashboard.html')
+    return render_template('dashboard2.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
