@@ -10,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
 
+
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -40,7 +41,7 @@ def load_user(id):
 def home():
     logout_user()
     return render_template('index.html')
-    
+	
 @app.route('/login')
 def login():
     if current_user.is_authenticated:
@@ -122,10 +123,11 @@ def confirm_login():
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
                 return error_handling(r, 'confirm_login')
-        
+		
             return redirect(next_page)
         flash(msg)
         return render_template("login.html")
+
 
 @app.route('/logout')
 def logout():  
@@ -146,7 +148,6 @@ def dashboard():
         return redirect('/test_analytics')
         
     return render_template('dashboard.html')
-
 @app.route('/submit_mood')
 def submit_mood_song():
     return render_template('dashboard.html')
@@ -162,4 +163,3 @@ def test_analytics():
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
     return error_handling(r, 'test_analytics')
-

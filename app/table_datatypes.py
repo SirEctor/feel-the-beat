@@ -47,20 +47,18 @@ class User(UserMixin, db.Model):
 class Song(db.Model):
     __tablename__ = "songs"
     uri = db.Column(db.String, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    artist = db.Column(db.String, nullable=False)
-    danceability = db.Column(db.Float, default=None)
-    key = db.Column(db.Integer, default=None)
-    loudness = db.Column(db.Float, default=None)
-    mode = db.Column(db.Integer, default=None)
-    speechiness = db.Column(db.Float, default=None)
-    acousticness = db.Column(db.Float, default=None)
-    instrumentalness = db.Column(db.Float, default=None)
-    liveness = db.Column(db.Float, default=None)
-    valence = db.Column(db.Float, default=None)
-    tempo = db.Column(db.Float, default=None)
-    duration_ms = db.Column(db.Integer, default=None)
-    time_signature = db.Column(db.Integer, default=None)
+    danceability = db.Column(db.Float, nullable=False)
+    key = db.Column(db.Integer, nullable=False)
+    loudness = db.Column(db.Float, nullable=False)
+    mode = db.Column(db.Integer, nullable=False)
+    speechiness = db.Column(db.Float, nullable=False)
+    acousticness = db.Column(db.Float, nullable=False)
+    instrumentalness = db.Column(db.Float, nullable=False)
+    liveness = db.Column(db.Float, nullable=False)
+    valence = db.Column(db.Float, nullable=False)
+    tempo = db.Column(db.Float, nullable=False)
+    duration_ms = db.Column(db.Integer, nullable=False)
+    time_signature = db.Column(db.Integer, nullable=False)
 
 class Daily_Record(db.Model):
     __tablename__ = "daily_records"

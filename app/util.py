@@ -3,7 +3,6 @@ from flask_login import current_user
 import requests
 import json
 from . import db
-from .table_datatypes import *
 
 def get_all_analytics(access_token):
     '''
@@ -54,17 +53,17 @@ def get_all_analytics(access_token):
 
     # Get Audio Features for a Track 
     track0_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId0, headers=headers)
-    track0_Charact_Text = track0_Charact.text.json()
+    track0_Charact_Text = json.loads(track0_Charact.text)
     danceLevel0 = float(track0_Charact_Text['danceability'])
     liveLevel0 = float(track0_Charact_Text['liveness'])
 
     track1_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId1, headers=headers)
-    track1_Charact_Text = track1_Charact.text.json()
+    track1_Charact_Text = json.loads(track1_Charact.text)
     danceLevel1 = float(track1_Charact_Text['danceability'])
     liveLevel1 = float(track1_Charact_Text['liveness'])
 
     track2_Charact = requests.get('https://api.spotify.com/v1/audio-features/' + trackId2, headers=headers)
-    track2_Charact_Text = track2_Charact.text.json()
+    track2_Charact_Text = json.loads(track2_Charact.text)
     danceLevel2 = float(track2_Charact_Text['danceability'])
     liveLevel2 = float(track2_Charact_Text['liveness'])
 
@@ -77,7 +76,9 @@ def get_all_analytics(access_token):
     return storage
 
 
+
 def get_5_latest_songs(access_token):
+    storage5Songs = {}
     
     headers = {
         'Accept': 'application/json',
@@ -87,25 +88,51 @@ def get_5_latest_songs(access_token):
 
     # Get recently reproduces tracks
     resTracks = requests.get('https://api.spotify.com/v1/me/player/recently-played?limit=5',headers=headers)
-    resTracks_Text = resTracks.json()
+    resTracks_Text = json.loads(resTracks.text)
 
-    tracks = []
-    for i in range(5):
-        song_uri = resTracks_Text["items"][i]["track"]["album"]["artists"][0]["uri"]
-        song_name = resTracks_Text['items'][i]['track']['name']
-        song_artist = resTracks_Text['items'][i]['track']['album']['artists'][0]['name']
-        song_name_and_artist = song_name + " - " + song_artist
-        if not Song.query.filter_by(uri=song_uri).first():
-            new_song = Song(uri=song_uri, name=song_name, artist=song_artist)
-            db.session.add(new_song)
-            db.session.commit()
-        tracks.append(song_name_and_artist)
+    trackN0 = resTracks_Text['items'][0]['track']['name']
+    trackArtist0 = resTracks_Text['items'][0]['track']['album']['artists'][0]['name']
+    trackName0 = trackN0 + "  -  " + trackArtist0
+    trackId0 = resTracks_Text['items'][0]['track']['id']
+
     
-    return tracks
+    storage5Songs['trackName0'] = trackName0
+    
+    trackN1 = resTracks_Text['items'][1]['track']['name']
+    trackArtist1 = resTracks_Text['items'][1]['track']['album']['artists'][0]['name']
+    trackName1 = trackN1 + "  -  " + trackArtist1
+    trackId1 = resTracks_Text['items'][1]['track']['id']
+
+    storage5Songs['trackName1'] = trackName1
+
+    trackN2 = resTracks_Text['items'][2]['track']['name']
+    trackArtist2 = resTracks_Text['items'][2]['track']['album']['artists'][0]['name']
+    trackName2 = trackN2 + "  -  " + trackArtist2
+    trackId2 = resTracks_Text['items'][2]['track']['id']
+
+    storage5Songs['trackName2'] = trackName2
+
+    trackN3 = resTracks_Text['items'][3]['track']['name']
+    trackArtist3 = resTracks_Text['items'][3]['track']['album']['artists'][0]['name']
+    trackName3 = trackN3 + "  -  " + trackArtist3
+    trackId3 = resTracks_Text['items'][3]['track']['id']
+
+    storage5Songs['trackName3'] = trackName3
+
+    trackN4 = resTracks_Text['items'][4]['track']['name']
+    trackArtist4 = resTracks_Text['items'][4]['track']['album']['artists'][0]['name']
+    trackName4 = trackN4 + "  -  " + trackArtist4
+    trackId4 = resTracks_Text['items'][4]['track']['id']
+
+    storage5Songs['trackName4'] = trackName4
+
+    
+    return storage5Songs
+
 
 def error_handling(r, type):
     if r.status_code == 200:
-        r_text = r.json()
+        r_text = json.loads(r.text)
         access_token = r_text['access_token']
         if type == 'test_analytics':
             refresh_token = r_text['refresh_token']
@@ -113,7 +140,5 @@ def error_handling(r, type):
             db.session.commit()
             
         storage = get_5_latest_songs(access_token)
-        return render_template('dashboard.html', track0_Name=storage[0], track1_Name=storage[1], track2_Name=storage[2], track3_Name=storage[3], track4_Name=storage[4])
+        return render_template('dashboard.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], track3_Name=storage['trackName3'], track4_Name=storage['trackName4'])
     return render_template('result.html')
-
-
