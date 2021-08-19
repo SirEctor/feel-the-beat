@@ -5,8 +5,7 @@
     <meta charset="utf-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta property="og:title" content="Spotify Recommendation" />
     <meta property="og:description" content="Spotify Recommendation" />
 
@@ -22,10 +21,6 @@
       <!-- Favicon for the browser tab -->
       <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-      <!-- Custom styling for this page -->
-      <!--<link lang="sass" rel="stylesheet" href="./static/styles/main.css" />-->
-      <link rel="stylesheet" href="../static/styles/index.css">
-
       <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
@@ -36,9 +31,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
     <title>Feel the Beat! | Dashboard | Track your music according to your mood and open up a world of statistics about your listening habits.</title>
+          <!-- Custom styling for this page -->
+      <link rel="stylesheet" href="../static/styles/index.css">
+    <link lang="sass" rel="stylesheet" href="./static/styles/main.css" />
+    <link lang="sass" rel="stylesheet" href="../static/styles/dashboard.css" />
+
   </head>
   <!-- End Header -->
-  <body id="dashboard">
+  <body>
+        {% extends "layout.html" %}
+        {% block body %}
   <!-- Navigation bar -->
   <nav class="navbar sticky-top navbar-dark navbar-expand-md container-fluid">
       <div class="container-fluid"><a class="navbar-brand" href="/">Feel the Beat!</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -53,7 +55,17 @@
                   <li><button type="button" class="btn btn-primary logout-menu-button">Log Out</button></li>
               </ul>
           </div>
+        </nav>
+  <body>
 
+  <header>
+    <div class="hero-img">
+      <div class="container">
+        <h1 id="title"></h1>
+        <p>
+          <button class="submitButton">Submit</button>
+          <button class="skipButton">Not Now</button>
+        </p>
       </div>
   </nav>
   <div class="container container-fluid">
@@ -64,33 +76,31 @@
           </div>
       </div>
       <!-- End date row -->
-      <!-- Recently Played Tracks row -->
-      <div class="row set-mood-today">
-          <div class="col-md-6 recently-played">
-
-              <h3>Recently Played Tracks</h3>
-              <p>First, choose a song</p>
-              <div class="column radio-choices">
-                  <label class="line-item">
-                      <input type="radio" checked="checked" name="radio">
-                      <span class="checkmark">First Choice</span>
-                  </label><br>
-                  <label class="line-item">
-                      <input type="radio" name="radio">
-                      <span class="checkmark">Second Choice</span>
-                  </label><br>
-                  <label class="line-item">
-                      <input type="radio" name="radio">
-                      <span class="checkmark">Third Choice</span>
-                  </label><br>
-                  <label class="line-item">
-                      <input type="radio" name="radio">
-                      <span class="checkmark">Fourth Choice</span>
-                  </label><br>
-              </div>
+      <!-- Recently Played Tracks row -->    
+        <div class="row set-mood-today">
+          <div class="col-md-6 recently-played">  
+      <div class="container-recently-tracks">
+	  <form  action = "{{ url_for('submit_mood_song') }}" method="POST">
+        <h3>Recently Played Tracks</h3>
+      <p>First, choose a song</p>
+	    <input type="radio" name="radio" value='track0_Name'>
+        <label class="container">{{track0_Name}}</label>
+		<input type="radio" name="radio" value='track1_Name'>
+        <label class="container">{{track1_Name}}</label> 
+		<input type="radio" name="radio" value='track2_Name'>
+        <label class="container">{{track2_Name}}</label> 
+		<input type="radio" name="radio" value='track3_Name'>
+        <label class="container">{{track3_Name}} </label> 
+		<input type="radio" name="radio" value='track4_Name'>
+        <label class="container">{{track4_Name}}</label>
+		<input type='submit' value='Submit'>
+      </form>
+      </div>
+	  <a href="/logout">LOGOUT</a>
+           </div>
           </div>
-          <!-- End recently played tracks -->
-          <div class="col-md-6 recent-mood">
+<!-- End recently played tracks -->
+         <div class="col-md-6 recent-mood">
               <p>Second, select a Mood for this track.</p>
               <ul class="emoji-list">
                   <li><i class="far fa-grin-hearts emoji love"></i></li>
@@ -100,8 +110,7 @@
                   <li><i class="far fa-angry emoji angry"></i></li>
               </ul>
           </div>
-      </div>
-
+        
       <div class="row recent-tracks previous-mood-calendar">
           <div class="col recent-tracks" style="text-align: center;">
               <h1>Past Moods</h1>
@@ -144,6 +153,9 @@
           </div>
       </div>
   </div>
-  <script src="../static/js/dashboard.js"></script>
+        </div>
+   
+    <script src="../static/js/dashboard.js"></script>
+    {% endblock %}
   </body>
 </html>

@@ -5,11 +5,10 @@ import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-
+import urllib.parse 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-
 
 load_dotenv()
 app = Flask(__name__)
@@ -41,7 +40,7 @@ def load_user(id):
 def home():
     logout_user()
     return render_template('index.html')
-	
+    
 @app.route('/login')
 def login():
     if current_user.is_authenticated:
@@ -75,7 +74,17 @@ def add_user():
             db.session.add(new_user)
             db.session.commit()
             
-            return render_template("userauth.html", redirect_link = os.getenv("REDIRECT_URI"))     
+            BASE_URL = "https://accounts.spotify.com/authorize"
+
+            url_parameters = {
+                    'client_id': os.getenv("CLIENT_ID"), 
+                    'response_type': 'code',
+                    'redirect_uri': os.getenv("REDIRECT_URI"),
+                    'scope': "user-read-private,user-read-recently-played"
+            }
+
+            url = BASE_URL + "?" + urllib.parse.urlencode(url_parameters)
+            return redirect(url)
 
         flash(msg)
         return render_template("register.html")
@@ -103,105 +112,54 @@ def confirm_login():
             login_user(user)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
-                refreshCode = user.give_refresh_token()
+                refreshToken = user.give_refresh_token()
                 
                 data = {'client_id':os.getenv("CLIENT_ID"), 
                         'client_secret':os.getenv("CLIENT_SECRET"), 
                         'grant_type':'refresh_token',
-                        'refresh_token': refreshCode,
+                        'refresh_token': refreshToken,
                         'redirect_uri':os.getenv("REDIRECT_URI")
                 }
                 r = requests.post('https://accounts.spotify.com/api/token',data=data)
-                
-                if r.status_code == 200:
-                    s = json.loads(r.text)
-                    access_token = s['access_token']
-                    
-                    storage = getAllAnalytics(access_token)
-                    return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['averageDance'], averageLiveness=storage['averageLive'])
-                else:
-                    return render_template('result.html')
+                return error_handling(r, 'confirm_login')
+        
             return redirect(next_page)
         flash(msg)
         return render_template("login.html")
-
 
 @app.route('/logout')
 def logout():  
     logout_user()
     return render_template('index.html')
 
-            
-@app.route('/testanalytics/', methods = ['POST'])
-def access():
-    accesstoken = request.form['lastmood']
-    headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accesstoken
-    }
-    
-    response = requests.get('https://api.spotify.com/v1/me/player/recently-played',headers=headers)
-    s = json.loads(response.text)
-
-    return render_template('testanalytics.html', recentlyplayed=s)
-
-
-@app.route('/userauth')
-def userauth():
-    return render_template('userauth.html')
-
-@app.route('/dashboard/')
+@app.route('/dashboard')
 def dashboard():
     if 'code' in request.url:
         equalIndex = request.url.index('=')
-        authcode = request.url[equalIndex+1:]
-		
-	
-        
-        
+        authorization_code = request.url[equalIndex+1:]  
         currentUser = User.query.filter_by(username= session.get('username')).first()
         
-        session['authorization_code'] = authcode
-        currentUser.set_auth_code(authcode)
+        session['authorization_code'] = authorization_code
+        currentUser.set_auth_code(authorization_code)
         db.session.commit()
         login_user(currentUser)
+        return redirect('/test_analytics')
         
-        return redirect(url_for('get_jsvar', jsvar=authcode))
-
-    
-
     return render_template('dashboard.html')
 
-@app.route('/getjs/<jsvar>')
-def get_jsvar(jsvar):
+@app.route('/submit_mood')
+def submit_mood_song():
+    return render_template('dashboard.html')
+
+@app.route('/test_analytics')
+def test_analytics():
+    authorization_code = session['authorization_code']
     data = {'client_id':os.getenv("CLIENT_ID"), 
             'client_secret':os.getenv("CLIENT_SECRET"), 
             'grant_type':'authorization_code',
-            'code':jsvar,
+            'code': authorization_code,
             'redirect_uri':os.getenv("REDIRECT_URI")
             }
     r = requests.post('https://accounts.spotify.com/api/token',data=data)
-    
-    if r.status_code == 200:
-        s = json.loads(r.text)
-    
-    
-        access_token = s['access_token']
-        session['authorization_code'] = access_token
-        token_type = s['token_type']
-        expires_in = s['expires_in']
-        refresh_token = s['refresh_token']
-        currentUser = User.query.filter_by(username= session.get('username')).first()
-        currentUser.set_refresh_token(refresh_token)
-        db.session.commit()
-        scope = s['scope']
-    
-        
-        storage = getAllAnalytics(access_token)
-        return render_template('testanalytics.html', track0_Name=storage['trackName0'], track1_Name=storage['trackName1'], track2_Name=storage['trackName2'], averageDanceability=storage['averageDance'], averageLiveness=storage['averageLive'])
-    else:
-        return render_template('result.html')
+    return error_handling(r, 'test_analytics')
 
-if __name__ == '__main__':
-    app.run(debug=True)
