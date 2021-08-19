@@ -16,6 +16,7 @@ import urllib.parse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
+import datetime as dt
 
 
 load_dotenv()
@@ -106,17 +107,14 @@ def add_user():
 @app.route("/submit", methods=["POST"])
 def submit():
     if request.method == "POST":
-        mood = request.form.get("mood")
-        song_uri = request.form.get("song_uri")
+        user_id = current_user.id
+        mood = request.form.get("radioe")
+        song_uri = request.form.get("radio")
+        date = dt.datetime.now()
         msg = None
-        if not mood:
-            msg = "A mood is required."
-        elif not song_uri:
-            msg = "A song is required."
-        if msg == None:
-            entry = Daily_Record(mood, song_uri)
-            db.session.add(entry)
-            db.session.commit()
+        entry = Daily_Record(user_id, mood, song_uri, date)
+        db.session.add(entry)
+        db.session.commit()
     flash("Your mood and song are saved!")
     return render_template("dashboard.html")
 
@@ -153,9 +151,9 @@ def confirm_login():
                     "refresh_token": refreshToken,
                     "redirect_uri": os.getenv("REDIRECT_URI"),
                 }
-                r = requests.post('https://accounts.spotify.com/api/token',data=data)
-                return error_handling(r, 'confirm_login')
-		
+                r = requests.post("https://accounts.spotify.com/api/token", data=data)
+                return error_handling(r, "confirm_login")
+
             return redirect(next_page)
         flash(msg)
         return render_template("login.html")
@@ -185,15 +183,17 @@ def dashboard():
 
 @app.route("/test_analytics")
 def test_analytics():
-    authorization_code = session['authorization_code']
-    data = {'client_id':os.getenv("CLIENT_ID"), 
-            'client_secret':os.getenv("CLIENT_SECRET"), 
-            'grant_type':'authorization_code',
-            'code': authorization_code,
-            'redirect_uri':os.getenv("REDIRECT_URI")
-            }
-    r = requests.post('https://accounts.spotify.com/api/token',data=data)
-    return error_handling(r, 'test_analytics')
+    authorization_code = session["authorization_code"]
+    data = {
+        "client_id": os.getenv("CLIENT_ID"),
+        "client_secret": os.getenv("CLIENT_SECRET"),
+        "grant_type": "authorization_code",
+        "code": authorization_code,
+        "redirect_uri": os.getenv("REDIRECT_URI"),
+    }
+    r = requests.post("https://accounts.spotify.com/api/token", data=data)
+    return error_handling(r, "test_analytics")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app.run(debug=True)

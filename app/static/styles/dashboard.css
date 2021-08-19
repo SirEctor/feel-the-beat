@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: "Times New Roman", sans-serif;
+  font-family: Zapf Chancery, cursive;
   margin: 0;
   padding: 0;
 }
@@ -70,12 +70,13 @@ footer {
   color: rgb(0, 0, 0);
   margin-bottom: 15px ;
   margin-left: -20px;
+  padding: auto;
 }
 
 .emojis {
   text-align: center;
-  margin-top: -630px;
-  margin-left: 850px;
+  margin-top: -430px;
+  margin-left: 830px;
   color: rgb(255, 255, 255);
   font-size: 37px;
 }
@@ -100,12 +101,12 @@ footer {
   width: inherit;
   color: #0004ff;
   text-align: right;
-  font-size: 60px;
+  font-size: 95px;
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.15;
   margin-bottom: 20px;
-  margin-right: -200px;
+  margin-left: 100px;
 }
 
 .submitButton {
@@ -158,10 +159,11 @@ footer {
 }
 
 .container-recently-tracks{
-  text-align: inline-block;
-  margin-left: 100px;
+  text-align: justify;
+  margin-left: 200px;
+  margin-top: -250px;
+  font-size: 15px;
 }
-
 
 /* Create a custom radio button */
 .checkmark {
