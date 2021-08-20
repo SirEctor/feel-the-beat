@@ -28,8 +28,7 @@ def get_all_analytics(access_token):
 
     # Get recently reproduces tracks
     resTracks = requests.get(
-        "https://api.spotify.com/v1/me/player/recently-played?limit=3", \
-            headers=headers
+        "https://api.spotify.com/v1/me/player/recently-played?limit=3", headers=headers
     )
     resTracks_Text = json.loads(resTracks.text)
 
@@ -91,8 +90,7 @@ def get_5_latest_songs(access_token):
 
     # Get recently reproduces tracks
     resTracks = requests.get(
-        "https://api.spotify.com/v1/me/player/recently-played?limit=5", \
-            headers=headers
+        "https://api.spotify.com/v1/me/player/recently-played?limit=5", headers=headers
     )
     resTracks_Text = resTracks.json()
 
@@ -119,17 +117,17 @@ def error_handling(r):
         access_token = r_text["access_token"]
         storage = get_5_latest_songs(access_token)
         return render_template(
-            "dashboard.html", 
-            track0_Name=storage[0], 
-            song_uri_0=storage[1], 
-            track1_Name=storage[2], 
-            song_uri_1=storage[3], 
-            track2_Name=storage[4], 
-            song_uri_2=storage[5], 
-            track3_Name=storage[6], 
-            song_uri_3=storage[7], 
-            track4_Name=storage[8], 
-            song_uri_4=storage[9], 
-            tday=storage[10], 
+            "dashboard.html",
+            track0_Name=storage[0],
+            song_uri_0=storage[1],
+            track1_Name=storage[2],
+            song_uri_1=storage[3],
+            track2_Name=storage[4],
+            song_uri_2=storage[5],
+            track3_Name=storage[6],
+            song_uri_3=storage[7],
+            track4_Name=storage[8],
+            song_uri_4=storage[9],
+            tday=storage[10],
         )
     return render_template("result.html")
