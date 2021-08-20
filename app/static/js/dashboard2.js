@@ -27,6 +27,10 @@ const months = [
   "December",
 ];
 
+const cors = require("cors"); //check
+const app = express();
+app.use(cors());
+
 let date = new Date();
 let day = date.getDate();
 let month = date.getMonth();
@@ -141,26 +145,34 @@ function formatDate(d) {
 }
 
 function checkMood() {
-  //let data = { user_id: "2", date: "2021-08-19 00:00:00" };
+  const url = "https://feelthebeat.tech/api/daily-record";
+  let Data = {
+    date: "2021-08-19 00:00:00",
+  };
 
-  try {
-    var r = requests.post(
-      "https://feelthebeat.tech/api/daily-record",
-      (json = json.dumps(data))
-    );
-    //window.alert(r.json());
-    if (r == None) {
-      window.alert("You didn't track your mood that day!");
-    } else {
-      var rJSON = r.json();
-      var song = rJSON.get("mood");
-      var artist = rJSON.get("name");
+  const otherPram = {
+    headers: {
+      "content-type": "application/json",
+    },
+    body: Data,
+    method: "POST",
+  };
 
-      document.querySelector(".dayMood").innerHTML = rJSON.get("artist");
-      document.querySelector(".songArtist").innerHTML = song + "-" + artist;
-    }
-    //{'artist': 'artist here', 'mood': 'mood here', 'name': 'song name here'}
-  } catch (error) {
-    console.error("Can't access to API");
-  }
+  fetch(url, otherPram)
+    .then((data) => {
+      return data.json();
+    })
+    .then((res) => {
+      console.log(res);
+      console.error("Can't access to API");
+    })
+    .catch((error) => console.log(error));
+
+  /* var rJSON = r.json();
+	var song = rJSON.get("mood");
+	var artist = rJSON.get("name");
+
+	document.querySelector(".dayMood").innerHTML = rJSON.get("artist");
+	document.querySelector(".songArtist").innerHTML = song + "-" + artist;
+	*/
 }
