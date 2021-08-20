@@ -117,7 +117,7 @@ def submit():
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
 
-        if(db.session.query(daily_records).filter(daily_records.date == dat).first()):
+        if(db.session.query(daily_records).filter(daily_records.date == dat).first() ):
             db.session.query(daily_records).filter(
                 daily_records.date == dat
             ).update(
@@ -132,7 +132,7 @@ def submit():
         
         db.session.commit()
     flash("Your mood and song are saved!")
-    tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
+    #tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
     return render_template("dashboard")
 
 
