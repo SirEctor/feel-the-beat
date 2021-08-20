@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 jobs:
   run-linters:
     name: Run linters
@@ -32,3 +29,4 @@ jobs:
         black: true
         flake8: true
         flake8_args: "--max-line-length=88"
+        auto_fix: true
