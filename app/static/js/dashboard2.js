@@ -216,9 +216,10 @@ function checkMood() {
               '<i class="far fa-angry emoji angry"></i>';
             break;
           default:
+            document.getElementById("moodEmogi").innerHTML = "<i></i>";
             break;
         }
       }
     })
-    .catch((error) => console.log(error), console.error("Can't access to API"));
+    .catch((error) => console.log(error));
 }
