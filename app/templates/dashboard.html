@@ -38,86 +38,109 @@
     <title>Feel the Beat! | Dashboard | Track your music according to your mood and open up a world of statistics about your listening habits.</title>
   </head>
   <!-- End Header -->
-  <body id="dashboard">
+  <body>
+    {% extends "layout.html" %}
+  {% block body %}
   <!-- Navigation bar -->
   <nav class="navbar sticky-top navbar-dark navbar-expand-md container-fluid">
-      <div class="container-fluid"><a class="navbar-brand" href="/">Feel the Beat!</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-
-          <div class="collapse navbar-collapse" id="navcol-1">
+      <div class="container-fluid"><a class="navbar-brand" href="/">Feel the Beat!</a>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active">Today is Mon, August 16 2021</a></li>
+        </ul>
               <ul class="navbar-nav">
-                  <li class="nav-item"><a class="nav-link active">Dashboard</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+                  <li><a href="/"><button type="button" class="btn btn-primary logout-menu-button submitButton" style="border-radius: 30px;font-size: 25px;">Logout</button></a></li>
               </ul>
-              <ul class="navbar-nav">
-                  <li><button type="button" class="btn btn-primary logout-menu-button">Log Out</button></li>
-              </ul>
-          </div>
-
       </div>
   </nav>
-  <div class="container container-fluid">
-      <!-- Date row -->
-      <div class="row">
-          <div class="col-md-12 date-heading">
-              <h1>Today is Mon, August 16 2021</h1>
-          </div>
-      </div>
-      <!-- End date row -->
-      <!-- Recently Played Tracks row -->
+  <div class="container container-fluid emojis">
+          {% extends "layout.html" %}
+    {% block body %}
+    {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </p>
+        <!-- ALL CONTENT EXCEPT FOR THE NAVBAR ARE CONTAINED IN A FORM -->
+      <form action="{{ url_for('submit')}}" method="POST">
+          <!-- TOP ROW -->
       <div class="row set-mood-today">
+          <!-- END RECENTLY PLAYED TRACKS COLUMN -->
           <div class="col-md-6 recently-played">
-
               <h3>Recently Played Tracks</h3>
               <p>First, choose a song</p>
               <div class="column radio-choices">
                   <label class="line-item">
-                      <input type="radio" checked="checked" name="radio">
-                      <span class="checkmark">First Choice</span>
+                      <input type="radio" name="songRadio" value="{{ song_uri_0 }}">
+                      <span class="checkmark">{{ track0_Name }}</span>
                   </label><br>
                   <label class="line-item">
-                      <input type="radio" name="radio">
-                      <span class="checkmark">Second Choice</span>
+                      <input type="radio" name="songRadio" value="{{ song_uri_1 }}">
+                      <span class="checkmark">{{ track1_Name }}</span>
                   </label><br>
                   <label class="line-item">
-                      <input type="radio" name="radio">
-                      <span class="checkmark">Third Choice</span>
+                      <input type="radio" name="songRadio" value="{{ song_uri_2 }}">
+                      <span class="checkmark">{{ track2_Name }}</span>
                   </label><br>
                   <label class="line-item">
-                      <input type="radio" name="radio">
-                      <span class="checkmark">Fourth Choice</span>
+                      <input type="radio" name="songRadio" value="{{ song_uri_3 }}">
+                      <span class="checkmark">{{ track3_Name }}</span>
+                  </label><br>
+                  <label class="line-item">
+                      <input type="radio" name="songRadio" value="{{ song_uri_4 }}">
+                      <span class="checkmark">{{ track4_Name }}</span>
                   </label><br>
               </div>
           </div>
-          <!-- End recently played tracks -->
+          <!-- END RECENTLY PLAYED TRACKS COLUMN -->
+          <!-- SELECT A MOOD COLUMN -->
           <div class="col-md-6 recent-mood">
+              <h3>Mood for this Track</h3>
               <p>Second, select a Mood for this track.</p>
               <ul class="emoji-list">
-                  <li><i class="far fa-grin-hearts emoji love"></i></li>
-                  <li><i class="far fa-laugh-beam emoji happy"></i></li>
-                  <li><i class="far fa-meh emoji normal"></i></li>
-                  <li><i class="far fa-frown emoji sad"></i></li>
-                  <li><i class="far fa-angry emoji angry"></i></li>
+                    <label>
+                        <input type="radio" name="radioe" value="inlove">
+                        <i class="far fa-grin-hearts emoji love" alt="inlove"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="happy">
+                      <i class="far fa-laugh-beam emoji happy" alt="happy"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="normal">
+                      <i class="far fa-meh emoji normal" alt="normal"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="sad">
+                      <i class="far fa-frown emoji sad" alt="sad"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="angry">
+                      <i class="far fa-angry emoji angry" alt="angry"></i>
+                  </label>
               </ul>
           </div>
+          <!-- END SELECT A MOOD COLUMN -->
       </div>
-
+          <!-- END TOP ROW -->
+        <!-- BOTTOM ROW -->
       <div class="row recent-tracks previous-mood-calendar">
           <div class="col recent-tracks" style="text-align: center;">
-              <h1>Past Moods</h1>
+
           </div>
 
           <div class="row calendar-row">
-                            <div class="col-md-6 dash-mood" style="text-align: center;">
+              <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
+              <div class="col-md-6 dash-mood" style="text-align: center;">
                   <h3 id="e">Mood</h3>
                   <p>On this day, your mood was:</p>
                   <!--all the images became bottons-->
                   <i class="far fa-grin-hearts emoji love"></i>
               </div>
+              <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
+              <!-- NEW CALENDAR COLUMN -->
               <div class="col-md-6 dash-calendar" style="text-align: center;">
-                  <!-- NEW CALENDAR -->
-                  <h3>Calendar</h3>
+                  <h3>Past Mood</h3>
                   <p>Select a date to see what your mood was on that day.</p>
+                 <button type="button" class="btn btn-primary logout-menu-button" style="border-radius: 30px;font-size: 25px;">Submit</button>
 	            <div class="date-picker">
 		            <div class="selected-date"></div>
 		            <div class="dates">
@@ -125,17 +148,21 @@
 				            <div class="arrows prev-mth">&lt;</div>
 				            <div class="mth"></div>
 				            <div class="arrows next-mth">&gt;</div><br>
-
 			            </div>
                         <div class="days"></div>
 		            </div>
 	            </div>
-                  <!-- END NEW CALENDAR -->
-              </div>
 
+              </div>
+              <!-- END NEW CALENDAR COLUMN -->
           </div>
+
       </div>
+      <!-- END BOTTOM ROW -->
+      </form>
   </div>
+
   <script src="../static/js/dashboard2.js"></script>
+  {% endblock %}
   </body>
 </html>
