@@ -117,7 +117,7 @@ def submit():
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
 
-        if(db.session.query(Daily_Record).filter(Daily_Record.date == dat).first() == None):
+        if(db.session.query(Daily_Record).filter(Daily_Record.date == dat).first() != None):
             db.session.query(Daily_Record).filter(
                 Daily_Record.date == dat
             ).update(
