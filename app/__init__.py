@@ -159,7 +159,7 @@ def logout():
 def dashboard():
     if "code" in request.url:
         equalIndex = request.url.index("=")
-        authorization_code = request.url[equalIndex + 1:]
+        authorization_code = request.url[equalIndex + 1 :]
         currentUser = User.query.filter_by(username=session.get("username")).first()
 
         session["authorization_code"] = authorization_code
