@@ -170,7 +170,7 @@ function checkMood() {
     },
     body: JSON.stringify({
       //date: formatDateAPI,
-      date: "2021-08-19 00:00:00",
+      date: formatDateAPI(selectedDate),
     }),
     method: "POST",
   };
@@ -180,12 +180,23 @@ function checkMood() {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
-      var song = data.get("mood");
-      var artist = data.get("name");
+      console.log("Reached here")
+      if(jQuery.isEmptyObject(data)) {
+        document.querySelector(".dayMood").innerHTML = "No data from this day";
+        document.querySelector(".songArtist").innerHTML = "";
 
-      document.querySelector(".dayMood").innerHTML = data.get("mood");
-      document.querySelector(".songArtist").innerHTML = song + "-" + artist;
+      }else{
+        console.log(data);
+        var mood = data["mood"];
+        var artist = data["artist"];
+        var name = data["name"];
+
+        document.querySelector(".dayMood").innerHTML = mood;
+        document.querySelector(".songArtist").innerHTML = name + "-" + artist;
+      }
+      
     })
     .catch((error) => console.log(error), console.error("Can't access to API"));
 }
+
+
