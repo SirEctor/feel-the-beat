@@ -122,6 +122,7 @@ def submit():
         db.session.add(entry)
         db.session.commit()
     flash("Your mood and song are saved!")
+    tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
     return render_template("dashboard.html")
 
 
