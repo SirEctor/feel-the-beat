@@ -133,7 +133,7 @@ def submit():
         db.session.commit()
     flash("Your mood and song are saved!")
     #tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
-    return render_template("dashboard")
+    return redirect("/dashboard")
 
 
 @app.route("/confirm_login", methods=["POST"])
