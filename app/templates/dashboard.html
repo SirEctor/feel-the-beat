@@ -8,6 +8,7 @@
   <meta property="og:title" content="Spotify Recommendation" />
   <meta property="og:description" content="Spotify Recommendation" />
 
+
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
@@ -25,54 +26,60 @@
 </head>
 
 <body>
+
+  {% extends "layout.html" %}
+  {% block body %}
   <nav>
+
     <div class="container">
       <h2 id="navbar">Feel The Beat!</h2>
       <p id=nv>Track your music according to your mood and open up a world of statistics about your listening habits</p>
     </div>
   </nav>
   <header>
-    <div class="emojis">
-      {% extends "layout.html" %}
-      {% block body %}
-      {% if error %}
-      <p class=error><strong>Error:</strong> {{ error }}
-        {% endif %}
-      </p>
-      <form action="{{ url_for('submit')}}" method="POST">
-        <p id="s">~Choose a mood for the song~</p><br>
-
-
-        <i class="far fa-grin-hearts emoji love" alt="inlove"></i><input type="radio" name="radioe" value="inlove">
-        <i class="far fa-laugh-beam emoji happy" alt="happy"></i><input type="radio" name="radioe" value="happy">
-        <i class="far fa-meh emoji normal" alt="normal"></i><input type="radio" name="radioe" value="normal">
-        <i class="far fa-frown emoji sad" alt="sad"></i><input type="radio" name="radioe" value="sad">
-        <i class="far fa-angry emoji angry" alt="angry"></i><input type="radio" name="radioe" value="angry">
-    </div>
-    <div class="container-recently-tracks">
-      <h4 id="crt">Recently Played Tracks</h4>
-      <p>~Choose a song~</p>
-
-      <input type="radio" name="songRadio" value="{{ song_uri_0 }}">{{ track0_Name }}</input><br>
-      <input type="radio" name="songRadio" value="{{ song_uri_1 }}">{{ track1_Name }}</input><br>
-      <input type="radio" name="songRadio" value="{{ song_uri_2 }}">{{ track2_Name }}</input><br>
-      <input type="radio" name="songRadio" value="{{ song_uri_3 }}">{{ track3_Name }}</input><br>
-      <input type="radio" name="songRadio" value="{{ song_uri_4 }}">{{ track4_Name }}</input>
-
-
-    </div>
-    <div class="resultTracks">
-      <h3 id="e">Past Moods</h3>
-      <h1 id="mood">Mood</h1>
-      <p id="tm">On this day your mood was:</p>
-      <h1 id="calendar">Calendar</h1>
-      <p id="tc">Select a date to see what<br> your mood was on that day:</p>
-    </div>
-    <button class="submitButton" href="/">Submit</button>
-
-    </form>
 
   </header>
+
+  <div class="emojis">
+    {% extends "layout.html" %}
+    {% block body %}
+    {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </p>
+    <form action="{{ url_for('submit')}}" method="POST">
+      <p id="s">~Choose a mood for the song~</p><br>
+
+      <i class="far fa-grin-hearts emoji love" alt="inlove"></i><input type="radio" name="radioe" value="inlove">
+      <i class="far fa-laugh-beam emoji happy" alt="happy"></i><input type="radio" name="radioe" value="happy">
+      <i class="far fa-meh emoji normal" alt="normal"></i><input type="radio" name="radioe" value="normal">
+      <i class="far fa-frown emoji sad" alt="sad"></i><input type="radio" name="radioe" value="sad">
+      <i class="far fa-angry emoji angry" alt="angry"></i><input type="radio" name="radioe" value="angry">
+  </div>
+  <div class="container-recently-tracks">
+    <h4 id="crt">Recently Played Tracks</h4>
+    <p>~Choose a song~</p>
+
+    <input type="radio" name="songRadio" value="{{ song_uri_0 }}">{{ track0_Name }}</input><br>
+    <input type="radio" name="songRadio" value="{{ song_uri_1 }}">{{ track1_Name }}</input><br>
+    <input type="radio" name="songRadio" value="{{ song_uri_2 }}">{{ track2_Name }}</input><br>
+    <input type="radio" name="songRadio" value="{{ song_uri_3 }}">{{ track3_Name }}</input><br>
+    <input type="radio" name="songRadio" value="{{ song_uri_4 }}">{{ track4_Name }}</input>
+
+    <a href="/logout">LOGOUT</a>
+  </div>
+
+  <div class="resultTracks">
+    <h3 id="e">Past Moods</h3>
+    <h1 id="mood">Mood</h1>
+    <p id="tm">On this day your mood was:</p>
+    <h1 id="calendar">Calendar</h1>
+    <p id="tc">Select a date to see what<br> your mood was on that day:</p>
+  </div>
+  <button class="submitButton" href="/">Submit</button>
+
+  </form>
+
   <!--
   <div class="calendar-container">
     <div class="calendar">
@@ -81,6 +88,7 @@
         <div class="date">
           <h1></h1>
         </div>
+
         <i class="fas fa-angle-right forwardArrow"></i>
       </div>
       <div class="weekdays">

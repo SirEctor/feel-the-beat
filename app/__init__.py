@@ -17,6 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
 
+
 from datetime import date
 from datetime import datetime
 
@@ -51,6 +52,7 @@ def load_user(id):
 @app.route("/")
 def home():
     logout_user()
+
     return render_template("index.html")
 
 
@@ -113,8 +115,6 @@ def submit():
         song_uri = request.form["songRadio"]
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
-        print(dat)
-        msg = None
         entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
 
         db.session.add(entry)
@@ -155,6 +155,7 @@ def confirm_login():
                     "refresh_token": refreshToken,
                     "redirect_uri": os.getenv("REDIRECT_URI"),
                 }
+
                 r = requests.post("https://accounts.spotify.com/api/token", data=data)
                 return error_handling(r, "confirm_login")
 
@@ -197,6 +198,11 @@ def test_analytics():
     }
     r = requests.post("https://accounts.spotify.com/api/token", data=data)
     return error_handling(r, "test_analytics")
+
+
+@app.route("/submit_mood")
+def submit_mood_song():
+    return render_template("dashboard.html")
 
 
 if __name__ == "__main__":
