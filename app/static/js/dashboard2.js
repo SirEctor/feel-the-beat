@@ -160,7 +160,7 @@ function checkMood() {
 
   fetch(url, otherPram)
     .then((data) => {
-      return data.json();
+      var rJSON = data.json();
     })
     .then((res) => {
       console.log(res);
@@ -168,11 +168,9 @@ function checkMood() {
     })
     .catch((error) => console.log(error));
 
-  /* var rJSON = r.json();
-	var song = rJSON.get("mood");
-	var artist = rJSON.get("name");
+  var song = rJSON.get("mood");
+  var artist = rJSON.get("name");
 
-	document.querySelector(".dayMood").innerHTML = rJSON.get("artist");
-	document.querySelector(".songArtist").innerHTML = song + "-" + artist;
-	*/
+  document.querySelector(".dayMood").innerHTML = rJSON.get("artist");
+  document.querySelector(".songArtist").innerHTML = song + "-" + artist;
 }
