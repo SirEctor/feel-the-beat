@@ -16,7 +16,7 @@ import urllib.parse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-import win32api
+
 
 
 
@@ -127,7 +127,7 @@ def submit():
         
         db.session.commit()
     flash("Your mood and song are saved!")
-    win32api.MessageBox(0, "We are only considering your last submission of each day", 'Warnning')
+    flash("We are only considering your last submission of each day!")
     return redirect("/dashboard")
 
 
