@@ -147,9 +147,11 @@
                       <i class="far fa-angry emoji angry" alt="angry"></i>
                   </label>
               </ul>
+              <button type="submit" class="btn btn-primary logout-menu-button" style="border-radius: 30px;font-size: 25px;">Submit</button>
           </div>
+        </div>
+      </form>
           <!-- END SELECT A MOOD COLUMN -->
-      </div>
           <!-- END TOP ROW -->
         <!-- BOTTOM ROW -->
       <div class="row recent-tracks previous-mood-calendar">
@@ -159,18 +161,19 @@
 
           <div class="row calendar-row">
               <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
-              <div class="col-md-6 dash-mood" style="text-align: center;">
-                  <h3 id="e">Mood</h3>
-                  <p>On this day, your mood was:</p>
-                  <!--all the images became bottons-->
-                  <i class="far fa-grin-hearts emoji love"></i>
+              <div class="col-md-6 dash-mood" style="text-align: center">
+                <p>On this day, your mood was:</p>
+                <h1 class="dayMood"></h1>
+                <!--all the images became bottons-->
+                <div id="moodEmogi"></div>
+                <p>The song listened to was:</p>
+                <h1 class="songArtist"></h1>
               </div>
               <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
               <!-- NEW CALENDAR COLUMN -->
               <div class="col-md-6 dash-calendar" style="text-align: center;">
                   <h3>Past Mood</h3>
                   <p>Select a date to see what your mood was on that day.</p>
-                 <a href="/"><button type="button" class="btn btn-primary logout-menu-button" style="border-radius: 30px;font-size: 25px;">Submit</button></a>
 	            <div class="date-picker">
 		            <div class="selected-date"></div>
 		            <div class="dates">
@@ -186,21 +189,10 @@
               </div>
               <!-- END NEW CALENDAR COLUMN -->
           </div>
-          <div class="col-md-6 dash-mood" style="text-align: center">
-            <h3 id="e">Mood</h3>
-            <p>On this day, your mood was:</p>
-            <h1 class="dayMood"></h1>
-            <!--all the images became bottons-->
-            <div id="moodEmogi"></div>
-
-            <p>The song listened was:</p>
-            <h1 class="songArtist"></h1>
-          </div>
         </div>
       </div>
     </div>
       <!-- END BOTTOM ROW -->
-      </form>
   </div>
 
   <script src="../static/js/dashboard2.js"></script>
