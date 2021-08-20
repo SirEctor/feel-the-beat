@@ -39,6 +39,7 @@ migrate = Migrate(app, db)
 
 from .table_datatypes import *
 from .util import *
+from .api import *
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
