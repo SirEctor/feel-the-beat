@@ -42,6 +42,22 @@ The application requires visitors to create accounts on the site in order for it
 ### Mood Tracking Calendar
 When the user visits the site, if they have not already submitted their mood and song for the day, they are given a list of their five most recently played songs on spotify and are asked to select one and their current mood. Once they submit, that data is stored in the database so that when they click on specific dates on the calendar, they can see their mood and song for the day. This is so they can see how they were feeling on a certain day, and if there's any type of songs they like to listen to in particular moods.
 
+### Site
+
+#### Home Page
+In the Home Page you can find the cover page of Feel The Beat!, the register and the login box where you have to create an user and a password or just login into the site.
+
+<img  src="/app/static/img/HomePage.png" width="700"></img><br>
+
+#### Dashboard 
+Once you put your Spotify data it redirects to the Feel The Beat! dashboard where you can see your most recently played tracks from the day and choose an emoji mood to that song.After you click the Submit button it will appear a confirm message at the top of the page
+
+<img  src="/app/static/img/Dashboard.png" width="700"></img>
+
+And if you click on a date from the calendar you can see the song and the mood you had in that certain date.
+
+<img  src="/app/static/img/Calendar.png" width="700"></img>
+
 ## Technology Stack
 * Python, Flask
 * Javascript
@@ -52,18 +68,3 @@ When the user visits the site, if they have not already submitted their mood and
 * Prometheus
 * Grafana
 * NGINX
-
-### Monitoring 
-This project was monitored through a combination of cAdvisor, Prometheus and Grafana. 
-First, cAdvisor was setup as a basic monitoring system of the docker containers.
-Next, we used Prometheus. This could be accessed on port 9090. Here are some of the screenshots of the data that Prometheus generated in tabular form. (Specifically, memory usage of the containers)
-![image](https://user-images.githubusercontent.com/70787342/130284027-ec86ee3c-c533-465c-9797-9bdc5fe7b0ff.png)
-![image](https://user-images.githubusercontent.com/70787342/130284596-9ce9686a-ef9f-4d1f-a99d-fcdabae10fa8.png)
-In order to better understand the data, Grafana utilized Prometheus as a data source. From there, a basic dashboard was created which detailed the memory/CPU usage of each container, as well as the bytes transmitted. This can all be accessed from port 3000. Grafana is password-protected, ensuring only administrators of the team can look at the monitoring data. 
-Here we can see Prometheus listed as a source.
-![image](https://user-images.githubusercontent.com/70787342/130284933-2be42d6b-90a0-4828-aa1a-b43f31f2397d.png)
-From there, the dashboard is created. We can see both a compiled, total memory usage graph, as well as individual graphs for the memory usage of each of the containers. The same is true with respect to the 
-CPU usage.
-![image](https://user-images.githubusercontent.com/70787342/130286408-da2f4e67-3eb1-46e4-a924-a9fc9bfa5239.png)
-![image](https://user-images.githubusercontent.com/70787342/130286556-e9789cd9-f1c9-4e12-a6bf-2cf38ac18bb7.png)
-
