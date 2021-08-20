@@ -146,31 +146,29 @@ function formatDate(d) {
 
 function checkMood() {
   const url = "https://feelthebeat.tech/api/daily-record";
-  let Data = {
-    date: "2021-08-19 00:00:00",
-  };
 
   const otherPram = {
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
-    body: Data,
+    body: JSON.stringify({
+      date: "2021-08-19 00:00:00",
+    }),
     method: "POST",
   };
 
   fetch(url, otherPram)
-    .then((data) => {
-      var rJSON = data.json();
-    })
     .then((res) => {
-      console.log(res);
-      console.error("Can't access to API");
+      return res.json();
     })
-    .catch((error) => console.log(error));
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => console.log(error), console.error("Can't access to API"));
 
-  var song = rJSON.get("mood");
-  var artist = rJSON.get("name");
+  var song = data.get("mood");
+  var artist = data.get("name");
 
-  document.querySelector(".dayMood").innerHTML = rJSON.get("artist");
+  document.querySelector(".dayMood").innerHTML = data.get("mood");
   document.querySelector(".songArtist").innerHTML = song + "-" + artist;
 }
