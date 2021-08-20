@@ -96,7 +96,7 @@
           <!-- END RECENTLY PLAYED TRACKS COLUMN -->
           <div class="col-md-6 recently-played">
               <h3>Recently Played Tracks</h3>
-              <p>First, choose a favorite song from your 5 most recently played songs.</p>
+              <p style="color: black;">First, choose a favorite song from your 5 most recently played songs.</p>
               <div class="column radio-choices">
                   <label class="line-item">
                       <input type="radio" name="songRadio" value="{{ song_uri_0 }}">
@@ -124,27 +124,27 @@
           <!-- SELECT A MOOD COLUMN -->
           <div class="col-md-6 recent-mood">
               <h3>Mood for this Track</h3>
-              <p>Second, select a Mood that sums up your most recent daily music.</p>
+              <p style="color: black;">Second, select a Mood that sums up your most recent daily music.</p>
               <ul class="emoji-list">
                     <label>
                         <input type="radio" name="radioe" value="inlove">
-                        <i class="far fa-grin-hearts emoji love" alt="inlove"></i>
+                        <i class="far fa-grin-hearts emoji love" alt="inlove" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="happy">
-                      <i class="far fa-laugh-beam emoji happy" alt="happy"></i>
+                      <i class="far fa-laugh-beam emoji happy" alt="happy" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="normal">
-                      <i class="far fa-meh emoji normal" alt="normal"></i>
+                      <i class="far fa-meh emoji normal" alt="normal" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="sad">
-                      <i class="far fa-frown emoji sad" alt="sad"></i>
+                      <i class="far fa-frown emoji sad" alt="sad" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="angry">
-                      <i class="far fa-angry emoji angry" alt="angry"></i>
+                      <i class="far fa-angry emoji angry" alt="angry" style="color: rgba(56, 56, 56, 0.678);"></i>
                   </label>
               </ul>
               <button type="submit" class="btn btn-primary logout-menu-button" style="border-radius: 30px;font-size: 25px;">Submit</button>
@@ -162,11 +162,11 @@
           <div class="row calendar-row">
               <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
               <div class="col-md-6 dash-mood" style="text-align: center">
-                <p>On this day, your mood was:</p>
+                <p style="color: black;">On this day, your mood was:</p>
                 <h1 class="dayMood"></h1>
                 <!--all the images became bottons-->
                 <div id="moodEmogi"></div>
-                <p id="song">The song listened to was:</p>
+                <p id="song" style="color: black;">The song listened to was:</p>
                 <h1 class="songArtist"></h1>
               </div>
               <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
@@ -174,6 +174,7 @@
               <div class="col-md-6 dash-calendar" style="text-align: center;">
                   <h3>Past Moods</h3>
                   <p>Select a date to see what your mood and chosen song was on that day.</p>
+                  <p style="color: black;">Select a date to see what your mood and chosen song was on that day.</p>
 	            <div class="date-picker">
 		            <div class="selected-date"></div>
 		            <div class="dates">
