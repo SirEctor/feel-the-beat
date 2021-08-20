@@ -16,7 +16,7 @@ import urllib.parse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-from tkinter import *
+#from tkinter import *
 
 
 from datetime import date
@@ -116,8 +116,8 @@ def submit():
         song_uri = request.form["songRadio"]
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
-
-        if(db.session.query(daily_records).filter(daily_records.date == dat).first() ):
+        #if(db.session.query(daily_records).filter(daily_records.date == dat).first()  == None):
+        if(db.session.query(daily_records).filter(daily_records.date == dat).first()):
             db.session.query(daily_records).filter(
                 daily_records.date == dat
             ).update(
