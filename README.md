@@ -47,10 +47,10 @@ When the user visits the site, if they have not already submitted their mood and
 #### Home Page
 In the Home Page you can find the cover page of Feel The Beat!, the register and the login box where you have to create an user and a password or just login into the site.
 
-<img  src="/app/static/img/HomePage.png" width="400"></img>
+<img  src="/app/static/img/HomePage.png" width="600"></img>
 
-<img  src="/app/static/img/Login.png" width="300"></img>
-<img  src="/app/static/img/Register.png" width="300"></img>
+<img  src="/app/static/img/Login.png" width="200"></img>
+<img  src="/app/static/img/Register.png" width="200"></img>
 
 #### Spotify 
 After you login into the site it redirects you to an authorization link from Spotify where you put your email and password from your Spotify account.
