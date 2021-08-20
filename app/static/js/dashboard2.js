@@ -97,7 +97,7 @@ function checkEventPathForClass (path, selector) {
 			return true;
 		}
 	}
-
+	
 	return false;
 }
 function formatDate (d) {

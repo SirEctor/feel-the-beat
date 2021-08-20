@@ -399,4 +399,7 @@ nav {
 .date-picker .dates .days .day.selected {
 	background-color: #00CA85;
 }
+.days {
+    background-color: white;
+}
 /* END NEW CALENDAR */
