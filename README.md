@@ -49,22 +49,10 @@ In the Home Page you can find the cover page of Feel The Beat!, the register and
 
 <img  src="/app/static/img/HomePage.png" width="750"></img>
 
-<img  src="/app/static/img/Login.png" width="320"></img>
-<img  src="/app/static/img/Register.png" width="320"></img>
-
-#### Spotify 
-After you login into the site it redirects you to an authorization link from Spotify where you put your email and password from your Spotify account.
-
-<img  src="/app/static/img/Spotify.png" width="450"></img>
-
 #### Dashboard 
-Once you put your Spotify data it redirects to the Feel The Beat! dashboard where you can see your most recently played tracks from the day and choose an emoji mood to that song.
+Once you put your Spotify data it redirects to the Feel The Beat! dashboard where you can see your most recently played tracks from the day and choose an emoji mood to that song.After you click the Submit button it will appear a confirm message at the top of the page.
 
 <img  src="/app/static/img/dashboard.png" width="750"></img>
-
-After you click the Submit button it will appear a confirm message at the top of the page.
-
-<img  src="/app/static/img/message.png" width="600"></img>
 
 And if you click on a date from the calendar you can see the song and the mood you had in that certain date.
 
