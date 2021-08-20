@@ -101,8 +101,8 @@ def get_5_latest_songs(access_token):
             db.session.commit()
         tracks.append(song_name_and_artist)
         tracks.append(song_uri)
-    tracks.append(datetime.date.today().strftime("%a, %B %d %Y"))
-   
+    t = datetime.date.today().strftime("%a, %B %d %Y")
+    tracks.append(t)
     return tracks
 
 def error_handling(r, type):
