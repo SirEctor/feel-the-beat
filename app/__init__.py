@@ -1,14 +1,11 @@
-from flask import Flask, render_template, request, flash, url_for, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session
 from flask_login import (
     LoginManager,
-    UserMixin,
-    login_required,
     login_user,
     logout_user,
     current_user,
 )
 import requests
-import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
