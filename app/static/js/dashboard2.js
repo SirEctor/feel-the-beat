@@ -180,7 +180,6 @@ function checkMood() {
       return res.json();
     })
     .then((data) => {
-      console.log("Reached here");
       if (jQuery.isEmptyObject(data)) {
         document.querySelector(".dayMood").innerHTML = "No data from this day";
         document.querySelector(".songArtist").innerHTML = "";
