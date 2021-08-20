@@ -91,7 +91,7 @@ def get_5_latest_songs(access_token):
 
     tracks = []
     for i in range(5):
-        song_uri = resTracks_Text["items"][i]["track"]["album"]["artists"][0]["uri"]
+        song_uri = resTracks_Text["items"][i]["track"]["uri"]
         song_name = resTracks_Text['items'][i]['track']['name']
         song_artist = resTracks_Text['items'][i]['track']['album']['artists'][0]['name']
         song_name_and_artist = song_name + " - " + song_artist
