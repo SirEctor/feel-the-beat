@@ -141,26 +141,26 @@ function formatDate(d) {
 }
 
 function checkMood() {
-  let data = { user_id: "2", date: "2021-08-19 00:00:00" };
+  //let data = { user_id: "2", date: "2021-08-19 00:00:00" };
 
   try {
-    if (r == None) {
-      window.alert("You didn't track your mood that day!");
-    }
     var r = requests.post(
       "https://feelthebeat.tech/api/daily-record",
       (json = json.dumps(data))
     );
-    print(r.json());
-    var rJSON = r.json();
-    var song = rJSON.get("mood");
-    var artist = rJSON.get("name");
+    //window.alert(r.json());
+    if (r == None) {
+      window.alert("You didn't track your mood that day!");
+    } else {
+      var rJSON = r.json();
+      var song = rJSON.get("mood");
+      var artist = rJSON.get("name");
 
-    document.querySelector(".dayMood").innerHTML = rJSON.get("artist");
-    document.querySelector(".songArtist").innerHTML = song + "-" + artist;
-
+      document.querySelector(".dayMood").innerHTML = rJSON.get("artist");
+      document.querySelector(".songArtist").innerHTML = song + "-" + artist;
+    }
     //{'artist': 'artist here', 'mood': 'mood here', 'name': 'song name here'}
   } catch (error) {
-    console.error(error);
+    console.error("Can't access to API");
   }
 }
