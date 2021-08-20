@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: Zapf Chancery, cursive;
+  font-family: Courier New, monospace;
   margin: 0;
   padding: 0;
 }
@@ -10,17 +10,68 @@ html {
 }
 nav {
   height: 100px;
-  background-color: rgb(255, 135, 6);
-  margin-bottom: -10px;
+  background:#020202;
+  margin-bottom: -5px;
+  background-repeat: no-repeat;
 }
-header {
-  height: 500px;
-  background:linear-gradient(#37f050 -20%, #0213fd 140%);
+body{ 
+  height: 1000px;
+  background-image: linear-gradient(to right top, #f37748, #eb8732, #dd971a, #caa700, #b1b600, #88be35, #5bc35b, #00c580, #00bcb6, #00aceb, #0094ff, #4c6ef5);
 }
 
-footer {
-  height: 0px;
-  background-color: black;
+p{
+  font-size: 70%;
+  color: #12121f;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+#crt{ /*recently played tracks label*/
+  color: rgb(255,81,0); ;
+  text-align: justify;
+  font-size: 45px;
+}
+#s{ /*choose mood for the song label*/
+  font-size: 33%;
+  color: #12121f;
+  margin-top: 15px;
+  margin-bottom: -50px;
+}
+#nv{ /*nav bar p*/
+  font-size: 70%;
+  color: rgb(255,81,0);
+  margin-left: 20px;
+}
+#e{ /*Past Moods*/
+  color:rgb(255,81,0);
+  margin-left: -300px;
+  padding: auto;
+  font-size: 50px;
+  margin-top: 15px;
+  margin-bottom: -15px;
+}
+#mood{ /*past moods*/
+  text-align: justify;
+  margin-left: 200px;
+  margin-top: 400px;
+  font-size: 45px;
+}
+#tm{ 
+  text-align: justify;
+  margin-left: -700px;
+  font-size: 20px;
+  margin-top: 100px;
+}
+#calendar{ 
+  text-align: justify;
+  margin-left: 950px;
+  margin-top: 400px;
+  font-size: 45px;
+}
+#tc{ 
+  text-align: justify;
+  margin-left: 80px;
+  font-size: 20px;
+  margin-top: -37px;
 }
 
 .container {
@@ -42,43 +93,19 @@ footer {
 }
 
 
-/*.hero-img {
-  height: inherit;
-  margin: 0 auto;
-  background-image: url(../img/hero.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  opacity: 0.9;
-}*/
-
-
-#title {
-  width: inherit;
-  color: rgb(235, 16, 16);
-  text-align: center;
-  font-size: 60px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1.15;
-  margin-bottom: -1px;
-  margin-left: -300px;
-  margin-top: 45px;
-}
-
-#e{
-  color: rgb(0, 0, 0);
-  margin-bottom: 10px ;
-  margin-left: -20px;
-  padding: auto;
+.resultTracks{
+  text-align: justify;
+  margin-left: 820px;
+  margin-top: 10px;
+  font-size: 37px;
 }
 
 .emojis {
   text-align: center;
-  margin-top: 0px;
-  margin-left: 830px;
-  color: rgb(255, 255, 255);
-  font-size: 37px;
+  margin-top: 70px;
+  margin-left: 780px;
+  color: rgb(1, 1, 1);
+  font-size: 70px;
 }
 
 .happy {
@@ -97,28 +124,29 @@ footer {
   height: 70px;
 }
 
-#navbar {
+#navbar { /*Feel The Beat!*/
   width: inherit;
-  color: #0004ff;
-  text-align: right;
-  font-size: 95px;
+  color: rgb(255,81,0);
+  text-align: left;
+  font-size: 60px;
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.15;
-  margin-bottom: 20px;
-  margin-left: 100px;
+  margin-top: 10px;
+  margin-bottom: -15px;
+  margin-left: 20px;
 }
 
 .submitButton {
   width: 260px;
   margin: 0 auto;
   color: white;
-  background-color: #f71cff;
+  background-color: rgb(12, 16, 253);
   padding: 18px 42px 18px;
   border: 0px;
   border-radius: 500px;
-  margin-top: 40px;
-  margin-left: 500px;
+  margin-top: -60px;
+  margin-left: 540px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 18px;
@@ -126,27 +154,9 @@ footer {
   letter-spacing: 2px;
   transition-duration: 0.3s;
 }
-.skipButton {
-  width: 260px;
-  margin: 0 auto;
-  color: white;
-  background-color: #f71cff;
-  border: 0px;
-  border-radius: 500px;
-  padding: 18px 42px 18px;
-  margin-top: 10px;
-  margin-left: 1000px;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 1;
-  letter-spacing: 2px;
-  transition-duration: 0.3s;
-}
-.submitButton:hover,
-.skipButton:hover {
+.submitButton:hover {
   cursor: pointer;
-  background-color: #091dff;
+  background-color: #ff9009;
 }
 
 /* ---------------------5 recently played tracks----------------------- */
@@ -160,9 +170,13 @@ footer {
 
 .container-recently-tracks{
   text-align: justify;
-  margin-left: 200px;
-  margin-top: 0px;
-  font-size: 15px;
+  margin-left: 100px;
+  margin-top: -160px;
+  font-size: 37px;
+ /* border-style: solid;
+  border-radius: 5px;
+  width: 600px;
+  border-color: orange;*/
 }
 
 /* Create a custom radio button */
@@ -174,6 +188,7 @@ footer {
   width: 25px;
   background-color: #eee;
   border-radius: 50%;
+  
 }
 
 /* On mouse-over, add a grey background color */

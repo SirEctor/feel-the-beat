@@ -19,6 +19,7 @@ from werkzeug.urls import url_parse
 
 from datetime import date
 from datetime import datetime
+
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -108,12 +109,8 @@ def add_user():
 def submit():
     if request.method == "POST":
         user_id = current_user.id
-        print(user_id)
-<<<<<<< HEAD
         mood = request.form["radioe"]
-        print(mood)
         song_uri = request.form["songRadio"]
-        print(song_uri)
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
         print(dat)
