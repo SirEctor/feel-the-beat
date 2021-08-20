@@ -3,6 +3,8 @@ from flask_login import current_user
 import requests
 import json
 from . import db
+
+import datetime as dt
 from .table_datatypes import *
 
 
@@ -109,7 +111,8 @@ def get_5_latest_songs(access_token):
             db.session.commit()
         tracks.append(song_name_and_artist)
         tracks.append(song_uri)
-
+    t = dt.date.today().strftime("%a, %B %d %Y")
+    tracks.append(t)
     return tracks
 
 
@@ -135,5 +138,6 @@ def error_handling(r, type):
             song_uri_3=storage[7],
             track4_Name=storage[8],
             song_uri_4=storage[9],
+            tday=storage[10],
         )
     return render_template("result.html")

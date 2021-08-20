@@ -6,7 +6,7 @@
 }
 
 html {
-  font-size: 80%;
+  font-size: 60%;
 }
 nav {
   height: 100px;
@@ -79,17 +79,7 @@ p{
   width: 1170px;
   margin: 0 auto;
   padding: 0 15px;
-  display: inline-block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  height: inherit;
+  display: flex;
 }
 
 
@@ -99,7 +89,6 @@ p{
   margin-top: 10px;
   font-size: 37px;
 }
-
 .emojis {
   text-align: center;
   margin-top: 70px;
@@ -113,12 +102,14 @@ p{
 }
 .angry {
   height: 70px;
+  color: #FF5100;
 }
 .sad {
   height: 70px;
 }
 .inlove {
   height: 70px;
+  color: #9C1A1C !important;
 }
 .normal {
   height: 70px;
@@ -149,7 +140,7 @@ p{
   margin-left: 540px;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1;
   letter-spacing: 2px;
   transition-duration: 0.3s;
@@ -160,6 +151,19 @@ p{
 }
 
 /* ---------------------5 recently played tracks----------------------- */
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 /* Hide the browser's default radio button */
 .container input {
@@ -223,104 +227,4 @@ p{
   background: white;
 }
 
-/* -------------------- calendar ----------------------- */
 
-.calendar-container {
-  align-items: center;
-  color: #12121f;
-  display: flex;
-  height: 700px;
-  justify-content: left;
-  width: 100%;
-  padding-left: 350px;
-  padding-bottom: 20px;
-  background:linear-gradient( #fd3802 -31%, #b837f0 100%);
-}
-
-.calendar {
-  background-color: #ededf5;
-  height: 640px;
-  width: 550px;
-}
-
-.monthAndYear {
-  align-items: center;
-  background-color: #ff7904;
-  display: flex;
-  height: 120px;
-  justify-content: space-between;
-  padding: 0 20px;
-  text-align: center;
-  width: 100%;
-}
-
-.monthAndYear i {
-  cursor: pointer;
-  font-size: 25px;
-}
-
-.monthAndYear h1 {
-  font-size: 30px;
-  font-weight: 400;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-
-.weekdays {
-  align-items: center;
-  background-color: #ef11ce;
-  display: flex;
-  height: 50px;
-  padding: 0 4px;
-  width: 100%;
-}
-
-.weekdays div {
-  align-items: center;
-  display: flex;
-  font-size: 15px;
-  font-weight: 400;
-  justify-content: center;
-  letter-spacing: 1px;
-  width: calc(542px / 7);
-}
-
-.days {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 2px;
-  width: 100%;
-}
-
-.days button {
-  align-items: center;
-  display: flex;
-  font-size: 14px;
-  height: 70px;
-  justify-content: center;
-  margin: 3px;
-  width: calc(502px / 7);
-}
-
-.days button:hover:not(.todayButton) {
-  background-color: #d5d5dd;
-  border: 2px solid #2b2b2e;
-  cursor: pointer;
-}
-
-.todayButton {
-  background-color: #0b2ee0;
-  opacity: .8;
-}
-
-.todayButton:hover {
-  background-color: #fe1de4;
-  border: 2px solid #1cff10ec;
-  cursor: pointer;
-}
-
-.prevDateButton,
-.nextDateButton {
-  opacity: 0.5;
-}

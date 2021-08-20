@@ -37,4 +37,4 @@ CREATE TABLE daily_records (
   user_id INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT daily_record_of_user PRIMARY KEY(user_id, date)
-);
+); 
