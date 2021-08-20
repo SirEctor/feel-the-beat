@@ -162,7 +162,7 @@ function formatDateAPI(d) {
 }
 
 function checkMood() {
-  const url = "https://feelthebeat.tech/api/daily-record";
+  const url = "https://0.0.0.0/api/daily-record";
 
   const otherPram = {
     headers: {
