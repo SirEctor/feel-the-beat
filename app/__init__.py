@@ -123,7 +123,7 @@ def submit():
             ).update(
                 {
                     Daily_Record.mood: mood,
-                    Daily_Record.song_uri: mood_uri,
+                    Daily_Record.song_uri: song_uri,
                 }
             )
         else:
