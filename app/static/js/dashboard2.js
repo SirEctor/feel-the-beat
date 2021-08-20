@@ -27,9 +27,9 @@ const months = [
   "December",
 ];
 
-const cors = require("cors"); //check
+/* const cors = require("cors"); //check
 const app = express();
-app.use(cors());
+app.use(cors()); */
 
 let date = new Date();
 let day = date.getDate();
