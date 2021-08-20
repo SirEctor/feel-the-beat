@@ -1,91 +1,117 @@
-const firstDate = new Date();
-const todaysDate = new Date();
+const date_picker_element = document.querySelector('.date-picker');
+const selected_date_element = document.querySelector('.date-picker .selected-date');
+const dates_element = document.querySelector('.date-picker .dates');
+const mth_element = document.querySelector('.date-picker .dates .month .mth');
+const next_mth_element = document.querySelector('.date-picker .dates .month .next-mth');
+const prev_mth_element = document.querySelector('.date-picker .dates .month .prev-mth');
+const days_element = document.querySelector('.date-picker .dates .days');
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const displayCalendar = () => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+let date = new Date();
+let day = date.getDate();
+let month = date.getMonth();
+let year = date.getFullYear();
 
-  firstDate.setDate(1);
+let selectedDate = date;
+let selectedDay = day;
+let selectedMonth = month;
+let selectedYear = year;
 
-  document.querySelector("#title").innerHTML = new Date().toDateString();
+mth_element.textContent = months[month] + ' ' + year;
 
-  document.querySelector(".date h1").innerHTML =
-    months[firstDate.getMonth()] + " " + firstDate.getFullYear();
+selected_date_element.textContent = formatDate(date);
+selected_date_element.dataset.value = selectedDate;
 
-  // current month - last day
-  const lastDay = new Date(
-    firstDate.getFullYear(),
-    firstDate.getMonth() + 1,
-    0
-  ).getDate();
+populateDates();
 
-  // previous month - last day
-  const prevLastDay = new Date(
-    firstDate.getFullYear(),
-    firstDate.getMonth(),
-    0
-  ).getDate();
+// EVENT LISTENERS
+date_picker_element.addEventListener('click', toggleDatePicker);
+next_mth_element.addEventListener('click', goToNextMonth);
+prev_mth_element.addEventListener('click', goToPrevMonth);
 
-  // current month - first day of the week (Sun, Mon, etc)
-  const lastDayIndex = new Date(
-    firstDate.getFullYear(),
-    firstDate.getMonth() + 1,
-    0
-  ).getDay();
+// FUNCTIONS
+function toggleDatePicker (e) {
+	if (!checkEventPathForClass(e.path, 'dates')) {
+		dates_element.classList.toggle('active');
+	}
+}
 
-  const nextDays = 7 - lastDayIndex - 1;
+function goToNextMonth (e) {
+	month++;
+	if (month > 11) {
+		month = 0;
+		year++;
+	}
+	mth_element.textContent = months[month] + ' ' + year;
+	populateDates();
+}
 
-  let days = "";
-  const firstDayIndex = firstDate.getDay();
+function goToPrevMonth (e) {
+	month--;
+	if (month < 0) {
+		month = 11;
+		year--;
+	}
+	mth_element.textContent = months[month] + ' ' + year;
+	populateDates();
+}
 
-  // get prev month days
-  for (let x = firstDayIndex; x > 0; x--) {
-    days += `<button class="prevDateButton">${prevLastDay - x + 1}</button>`;
-  }
+function populateDates (e) {
+	days_element.innerHTML = '';
+	let amount_days = 31;
 
-  // get current month days
-  for (let i = 1; i <= lastDay; i++) {
-    if (
-      i === new Date().getDate() &&
-      firstDate.getMonth() === new Date().getMonth() &&
-      firstDate.getFullYear() === new Date().getFullYear()
-    ) {
-      days += `<button class="todayButton">${i}</button>`;
-    } else {
-      days += `<button>${i}</button>`;
-    }
-  }
+	if (month == 1) {
+		amount_days = 28;
+	}
 
-  const monthDays = document.querySelector(".days");
+	for (let i = 0; i < amount_days; i++) {
+		const day_element = document.createElement('div');
+		day_element.classList.add('day');
+		day_element.textContent = i + 1;
 
-  //get next month days
-  for (let j = 1; j <= nextDays; j++) {
-    days += `<button class="nextDateButton">${j}</button>`;
-    monthDays.innerHTML = days;
-  }
-};
+		if (selectedDay == (i + 1) && selectedYear == year && selectedMonth == month) {
+			day_element.classList.add('selected');
+		}
 
-document.querySelector(".backwardArrow").addEventListener("click", () => {
-  firstDate.setMonth(firstDate.getMonth() - 1);
-  displayCalendar();
-});
+		day_element.addEventListener('click', function () {
+			selectedDate = new Date(year + '-' + (month + 1) + '-' + (i + 1));
+			selectedDay = (i + 1);
+			selectedMonth = month;
+			selectedYear = year;
 
-document.querySelector(".forwardArrow").addEventListener("click", () => {
-  firstDate.setMonth(firstDate.getMonth() + 1);
-  displayCalendar();
-});
+			selected_date_element.textContent = formatDate(selectedDate);
+			selected_date_element.dataset.value = selectedDate;
 
-displayCalendar();
+			populateDates();
+		});
+
+		days_element.appendChild(day_element);
+	}
+}
+
+// HELPER FUNCTIONS
+function checkEventPathForClass (path, selector) {
+	for (let i = 0; i < path.length; i++) {
+		if (path[i].classList && path[i].classList.contains(selector)) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+function formatDate (d) {
+	let day = d.getDate();
+	if (day < 10) {
+		day = '0' + day;
+	}
+
+	let month = d.getMonth() + 1;
+	if (month < 10) {
+		month = '0' + month;
+	}
+
+	let year = d.getFullYear();
+
+	return day + ' / ' + month + ' / ' + year;
+}

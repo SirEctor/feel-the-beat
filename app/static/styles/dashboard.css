@@ -1,25 +1,23 @@
 * {
   box-sizing: border-box;
-  font-family: Zapf Chancery, cursive;
+  font-family: "Quicksand", sans-serif;
   margin: 0;
   padding: 0;
 }
 
 html {
-  font-size: 80%;
+  font-size: 60%;
 }
 nav {
-  height: 100px;
-  background-color: rgb(255, 135, 6);
-  margin-bottom: -10px;
+  height: 80px;
 }
 header {
-  height: 500px;
-  background:linear-gradient(#37f050 -20%, #0213fd 140%);
+  height: 805px;
+  background: linear-gradient(#37f050 -60%, #0213fd 140%);
 }
 
 footer {
-  height: 0px;
+  height: 100px;
   background-color: black;
 }
 
@@ -28,21 +26,10 @@ footer {
   width: 1170px;
   margin: 0 auto;
   padding: 0 15px;
-  display: inline-block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  height: inherit;
+  display: flex;
 }
 
-
-/*.hero-img {
+.hero-img {
   height: inherit;
   margin: 0 auto;
   background-image: url(../img/hero.svg);
@@ -50,33 +37,47 @@ footer {
   background-position: center;
   background-size: cover;
   opacity: 0.9;
-}*/
+}
 
+table,
+th,
+td {
+  border: 2px solid rgb(19, 241, 19);
+  text-align: justify;
+  margin-left: 30px;
+}
+table {
+  width: 50%;
+}
+th {
+  height: 70px;
+  color: #fa9521;
+}
 
 #title {
   width: inherit;
-  color: rgb(235, 16, 16);
+  color: rgb(186, 22, 153);
   text-align: center;
-  font-size: 60px;
+  font-size: 80px;
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.15;
-  margin-bottom: -1px;
-  margin-left: -300px;
-  margin-top: 45px;
+  margin-bottom: 20px;
+  margin-left: -200px;
+  margin-top: 10px;
 }
 
-#e{
-  color: rgb(0, 0, 0);
-  margin-bottom: 10px ;
-  margin-left: -20px;
-  padding: auto;
+.tables {
+  text-align: justify;
+  color: rgb(255, 255, 255);
+  font-size: 35px;
+  margin-top: -150px;
+  margin-left: 30px;
 }
-
 .emojis {
   text-align: center;
-  margin-top: 0px;
-  margin-left: 830px;
+  margin-top: -630px;
+  margin-left: 850px;
   color: rgb(255, 255, 255);
   font-size: 37px;
 }
@@ -99,29 +100,29 @@ footer {
 
 #navbar {
   width: inherit;
-  color: #0004ff;
+  color: #fa9521;
   text-align: right;
-  font-size: 95px;
+  font-size: 80px;
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.15;
   margin-bottom: 20px;
-  margin-left: 100px;
+  margin-right: -200px;
 }
 
 .submitButton {
   width: 260px;
   margin: 0 auto;
   color: white;
-  background-color: #f71cff;
+  background-color: #fa9521;
   padding: 18px 42px 18px;
   border: 0px;
   border-radius: 500px;
-  margin-top: 40px;
-  margin-left: 500px;
+  margin-top: 550px;
+  margin-right: -210px;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1;
   letter-spacing: 2px;
   transition-duration: 0.3s;
@@ -130,15 +131,14 @@ footer {
   width: 260px;
   margin: 0 auto;
   color: white;
-  background-color: #f71cff;
+  background-color: #fa9521;
   border: 0px;
   border-radius: 500px;
   padding: 18px 42px 18px;
   margin-top: 10px;
-  margin-left: 1000px;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1;
   letter-spacing: 2px;
   transition-duration: 0.3s;
@@ -146,23 +146,29 @@ footer {
 .submitButton:hover,
 .skipButton:hover {
   cursor: pointer;
-  background-color: #091dff;
+  background-color: #d71eb8;
 }
 
 /* ---------------------5 recently played tracks----------------------- */
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 /* Hide the browser's default radio button */
 .container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
-}
-
-.container-recently-tracks{
-  text-align: justify;
-  margin-left: 200px;
-  margin-top: 0px;
-  font-size: 15px;
 }
 
 /* Create a custom radio button */
@@ -208,104 +214,4 @@ footer {
   background: white;
 }
 
-/* -------------------- calendar ----------------------- */
 
-.calendar-container {
-  align-items: center;
-  color: #12121f;
-  display: flex;
-  height: 700px;
-  justify-content: left;
-  width: 100%;
-  padding-left: 350px;
-  padding-bottom: 20px;
-  background:linear-gradient( #fd3802 -31%, #b837f0 100%);
-}
-
-.calendar {
-  background-color: #ededf5;
-  height: 640px;
-  width: 550px;
-}
-
-.monthAndYear {
-  align-items: center;
-  background-color: #ff7904;
-  display: flex;
-  height: 120px;
-  justify-content: space-between;
-  padding: 0 20px;
-  text-align: center;
-  width: 100%;
-}
-
-.monthAndYear i {
-  cursor: pointer;
-  font-size: 25px;
-}
-
-.monthAndYear h1 {
-  font-size: 30px;
-  font-weight: 400;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-
-.weekdays {
-  align-items: center;
-  background-color: #ef11ce;
-  display: flex;
-  height: 50px;
-  padding: 0 4px;
-  width: 100%;
-}
-
-.weekdays div {
-  align-items: center;
-  display: flex;
-  font-size: 15px;
-  font-weight: 400;
-  justify-content: center;
-  letter-spacing: 1px;
-  width: calc(542px / 7);
-}
-
-.days {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 2px;
-  width: 100%;
-}
-
-.days button {
-  align-items: center;
-  display: flex;
-  font-size: 14px;
-  height: 70px;
-  justify-content: center;
-  margin: 3px;
-  width: calc(502px / 7);
-}
-
-.days button:hover:not(.todayButton) {
-  background-color: #d5d5dd;
-  border: 2px solid #2b2b2e;
-  cursor: pointer;
-}
-
-.todayButton {
-  background-color: #0b2ee0;
-  opacity: .8;
-}
-
-.todayButton:hover {
-  background-color: #fe1de4;
-  border: 2px solid #1cff10ec;
-  cursor: pointer;
-}
-
-.prevDateButton,
-.nextDateButton {
-  opacity: 0.5;
-}
