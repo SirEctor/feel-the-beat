@@ -47,10 +47,10 @@ When the user visits the site, if they have not already submitted their mood and
 #### Home Page
 In the Home Page you can find the cover page of Feel The Beat!, the register and the login box where you have to create an user and a password or just login into the site.
 
-<img  src="/app/static/img/HomePage.png" width="900"></img>
+<img  src="/app/static/img/HomePage.png" width="750"></img>
 
-<img  src="/app/static/img/Login.png" width="400"></img>
-<img  src="/app/static/img/Register.png" width="400"></img>
+<img  src="/app/static/img/Login.png" width="350"></img>
+<img  src="/app/static/img/Register.png" width="350"></img>
 
 #### Spotify 
 After you login into the site it redirects you to an authorization link from Spotify where you put your email and password from your Spotify account.
@@ -60,7 +60,7 @@ After you login into the site it redirects you to an authorization link from Spo
 #### Dashboard 
 Once you put your Spotify data it redirects to the Feel The Beat! dashboard where you can see your most recently played tracks from the day and choose an emoji mood to that song.
 
-<img  src="/app/static/img/dashboard.png" width="700"></img>
+<img  src="/app/static/img/dashboard.png" width="750"></img>
 
 After you click the Submit button it will appear a confirm message at the top of the page.
 
@@ -68,7 +68,7 @@ After you click the Submit button it will appear a confirm message at the top of
 
 And if you click on a date from the calendar you can see the song and the mood you had in that certain date.
 
-<img  src="/app/static/img/calendar.png" width="700"></img>
+<img  src="/app/static/img/calendar.png" width="750"></img>
 
 ## Technology Stack
 * Python, Flask
