@@ -4,7 +4,7 @@ import requests
 import json
 from . import db
 
-
+import datetime as dt
 from .table_datatypes import *
 
 def get_all_analytics(access_token):
@@ -101,7 +101,7 @@ def get_5_latest_songs(access_token):
             db.session.commit()
         tracks.append(song_name_and_artist)
         tracks.append(song_uri)
-    t = datetime.date.today().strftime("%a, %B %d %Y")
+    t = dt.date.today().strftime("%a, %B %d %Y")
     tracks.append(t)
     return tracks
 
