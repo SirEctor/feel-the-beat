@@ -52,23 +52,21 @@ def load_user(id):
 
 @app.route("/")
 def home():
-    logout_user()
-
+    if current_user.is_authenticated:
+        return redirect("/dashboard")
     return render_template("index.html")
 
-
-   
 @app.route('/login')
 def login():
     if current_user.is_authenticated:
-        return render_template("index.html")
+        return redirect("/dashboard")
     return render_template("login.html")
 
 
 @app.route("/register")
 def register():
     if current_user.is_authenticated:
-        return render_template("index.html")
+        return redirect("/dashboard")
     return render_template("register.html")
 
 
@@ -122,7 +120,7 @@ def submit():
         db.session.add(entry)
         db.session.commit()
     flash("Your mood and song are saved!")
-    return render_template("dashboard.html")
+    return redirect("dashboard")
 
 
 @app.route("/confirm_login", methods=["POST"])
@@ -148,21 +146,7 @@ def confirm_login():
             login_user(user)
             next_page = request.args.get("next")
             if not next_page or url_parse(next_page).netloc != "":
-                refreshToken = user.give_refresh_token()
-
-                data = {
-                    "client_id": os.getenv("CLIENT_ID"),
-                    "client_secret": os.getenv("CLIENT_SECRET"),
-                    "grant_type": "refresh_token",
-                    "refresh_token": refreshToken,
-                    "redirect_uri": os.getenv("REDIRECT_URI"),
-                }
-
-                r = requests.post("https://accounts.spotify.com/api/token", data=data)
-                return error_handling(r, "confirm_login")
-
-
-            return redirect(next_page)
+                return redirect("/dashboard")
         flash(msg)
         return render_template("login.html")
 
@@ -170,7 +154,7 @@ def confirm_login():
 @app.route('/logout')
 def logout():  
     logout_user()
-    return render_template("index.html")
+    return redirect("/")
 
 
 @app.route("/dashboard")
@@ -184,35 +168,30 @@ def dashboard():
         currentUser.set_auth_code(authorization_code)
         db.session.commit()
         login_user(currentUser)
-        return redirect("/test_analytics")
+        authorization_code = session["authorization_code"]
+        data = {
+            "client_id": os.getenv("CLIENT_ID"),
+            "client_secret": os.getenv("CLIENT_SECRET"),
+            "grant_type": "authorization_code",
+            "code": authorization_code,
+            "redirect_uri": os.getenv("REDIRECT_URI"),
+        }
+        r = requests.post("https://accounts.spotify.com/api/token", data=data)
+        r_text = r.json()
+        refresh_token = r_text['refresh_token']
+        current_user.set_refresh_token(refresh_token)
+        db.session.commit()
+        return redirect(request.path)
 
-    return render_template("dashboard.html")
+    refreshToken = current_user.give_refresh_token()
 
-
-
-@app.route("/test_analytics")
-def test_analytics():
-    authorization_code = session["authorization_code"]
     data = {
         "client_id": os.getenv("CLIENT_ID"),
         "client_secret": os.getenv("CLIENT_SECRET"),
-        "grant_type": "authorization_code",
-        "code": authorization_code,
+        "grant_type": "refresh_token",
+        "refresh_token": refreshToken,
         "redirect_uri": os.getenv("REDIRECT_URI"),
     }
+
     r = requests.post("https://accounts.spotify.com/api/token", data=data)
-    return error_handling(r, "test_analytics")
-
-@app.route('/submit_mood')
-def submit_mood_song():
-    if "code" in request.url:
-        equalIndex = request.url.index("=")
-        authorization_code = request.url[equalIndex + 1 :]
-        currentUser = User.query.filter_by(username=session.get("username")).first()
-
-        session["authorization_code"] = authorization_code
-        currentUser.set_auth_code(authorization_code)
-        db.session.commit()
-        login_user(currentUser)
-        return redirect("/test_analytics")
-    return render_template('dashboard.html')
+    return error_handling(r)

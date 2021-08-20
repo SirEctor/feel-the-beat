@@ -105,15 +105,10 @@ def get_5_latest_songs(access_token):
     tracks.append(t)
     return tracks
 
-def error_handling(r, type):
+def error_handling(r):
     if r.status_code == 200:
         r_text = r.json()
-        access_token = r_text['access_token']
-        if type == 'test_analytics':
-            refresh_token = r_text['refresh_token']
-            current_user.set_refresh_token(refresh_token)
-            db.session.commit()
-            
+        access_token = r_text['access_token']            
         storage = get_5_latest_songs(access_token)
         return render_template('dashboard.html', track0_Name=storage[0], song_uri_0=storage[1],track1_Name=storage[2], song_uri_1=storage[3],track2_Name=storage[4], song_uri_2=storage[5],track3_Name=storage[6],song_uri_3=storage[7], track4_Name=storage[8],song_uri_4=storage[9],tday=storage[10])
     return render_template('result.html')
