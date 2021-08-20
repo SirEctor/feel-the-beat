@@ -1,7 +1,5 @@
 from flask_login import UserMixin
-from flask_sqlalchemy import SQLAlchemy
 from . import db
-from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -40,9 +38,6 @@ class User(UserMixin, db.Model):
 
     def is_authenticated(self):
         return self.authenticated
-
-    def is_active(self):
-        return self.id
 
 
 class Song(db.Model):

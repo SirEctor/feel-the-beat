@@ -1,5 +1,4 @@
 from flask import render_template
-from flask_login import current_user
 import requests
 import json
 from . import db
@@ -29,7 +28,8 @@ def get_all_analytics(access_token):
 
     # Get recently reproduces tracks
     resTracks = requests.get(
-        "https://api.spotify.com/v1/me/player/recently-played?limit=3", headers=headers
+        "https://api.spotify.com/v1/me/player/recently-played?limit=3", \
+            headers=headers
     )
     resTracks_Text = json.loads(resTracks.text)
 
@@ -37,21 +37,18 @@ def get_all_analytics(access_token):
     trackArtist0 = resTracks_Text["items"][0]["track"]["album"]["artists"][0]["name"]
     trackName0 = trackN0 + "  -  " + trackArtist0
     trackId0 = resTracks_Text["items"][0]["track"]["id"]
-
     storage["trackName0"] = trackName0
 
     trackN1 = resTracks_Text["items"][1]["track"]["name"]
     trackArtist1 = resTracks_Text["items"][1]["track"]["album"]["artists"][0]["name"]
     trackName1 = trackN1 + "  -  " + trackArtist1
     trackId1 = resTracks_Text["items"][1]["track"]["id"]
-
     storage["trackName1"] = trackName1
 
     trackN2 = resTracks_Text["items"][2]["track"]["name"]
     trackArtist2 = resTracks_Text["items"][2]["track"]["album"]["artists"][0]["name"]
     trackName2 = trackN2 + "  -  " + trackArtist2
     trackId2 = resTracks_Text["items"][2]["track"]["id"]
-
     storage["trackName2"] = trackName2
 
     # Get Audio Features for a Track
@@ -86,7 +83,6 @@ def get_all_analytics(access_token):
 
 
 def get_5_latest_songs(access_token):
-
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -95,7 +91,8 @@ def get_5_latest_songs(access_token):
 
     # Get recently reproduces tracks
     resTracks = requests.get(
-        "https://api.spotify.com/v1/me/player/recently-played?limit=5", headers=headers
+        "https://api.spotify.com/v1/me/player/recently-played?limit=5", \
+            headers=headers
     )
     resTracks_Text = resTracks.json()
 
@@ -122,17 +119,17 @@ def error_handling(r):
         access_token = r_text["access_token"]
         storage = get_5_latest_songs(access_token)
         return render_template(
-            "dashboard.html",
-            track0_Name=storage[0],
-            song_uri_0=storage[1],
-            track1_Name=storage[2],
-            song_uri_1=storage[3],
-            track2_Name=storage[4],
-            song_uri_2=storage[5],
-            track3_Name=storage[6],
-            song_uri_3=storage[7],
-            track4_Name=storage[8],
-            song_uri_4=storage[9],
-            tday=storage[10],
+            "dashboard.html", 
+            track0_Name=storage[0], 
+            song_uri_0=storage[1], 
+            track1_Name=storage[2], 
+            song_uri_1=storage[3], 
+            track2_Name=storage[4], 
+            song_uri_2=storage[5], 
+            track3_Name=storage[6], 
+            song_uri_3=storage[7], 
+            track4_Name=storage[8], 
+            song_uri_4=storage[9], 
+            tday=storage[10], 
         )
     return render_template("result.html")
