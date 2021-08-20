@@ -4,7 +4,6 @@ import requests
 import json
 from . import db
 
-from flask_login import current_user
 
 from .table_datatypes import *
 
