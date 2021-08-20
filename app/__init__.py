@@ -1,11 +1,14 @@
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, url_for, redirect, session
 from flask_login import (
     LoginManager,
+    UserMixin,
+    login_required,
     login_user,
     logout_user,
     current_user,
 )
 import requests
+import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -54,8 +57,7 @@ def home():
         return redirect("/dashboard")
     return render_template("index.html")
 
-
-@app.route("/login")
+@app.route('/login')
 def login():
     if current_user.is_authenticated:
         return redirect("/dashboard")
@@ -114,17 +116,24 @@ def submit():
         song_uri = request.form["songRadio"]
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
-        entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
 
-        db.session.add(entry)
+        if(db.session.query(daily_records).filter(daily_records.date == dat).first()):
+            db.session.query(daily_records).filter(
+                daily_records.date == dat
+            ).update(
+                {
+                    daily_records.mood: mood,
+                    daily_records.song_uri: mood_uri,
+                }
+            )
+        else:
+            entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
+            db.session.add(entry)
+        
         db.session.commit()
     flash("Your mood and song are saved!")
-<<<<<<< HEAD
     tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
-    return render_template("dashboard.html")
-=======
-    return redirect("dashboard")
->>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
+    return render_template("dashboard")
 
 
 @app.route("/confirm_login", methods=["POST"])
@@ -155,8 +164,8 @@ def confirm_login():
         return render_template("login.html")
 
 
-@app.route("/logout")
-def logout():
+@app.route('/logout')
+def logout():  
     logout_user()
     return redirect("/")
 
@@ -182,7 +191,7 @@ def dashboard():
         }
         r = requests.post("https://accounts.spotify.com/api/token", data=data)
         r_text = r.json()
-        refresh_token = r_text["refresh_token"]
+        refresh_token = r_text['refresh_token']
         current_user.set_refresh_token(refresh_token)
         db.session.commit()
         return redirect(request.path)
