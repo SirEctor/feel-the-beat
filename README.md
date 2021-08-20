@@ -42,6 +42,22 @@ The application requires visitors to create accounts on the site in order for it
 ### Mood Tracking Calendar
 When the user visits the site, if they have not already submitted their mood and song for the day, they are given a list of their five most recently played songs on spotify and are asked to select one and their current mood. Once they submit, that data is stored in the database so that when they click on specific dates on the calendar, they can see their mood and song for the day. This is so they can see how they were feeling on a certain day, and if there's any type of songs they like to listen to in particular moods.
 
+### Site
+
+#### Home Page
+In the Home Page you can find the cover page of Feel The Beat!, the register and the login box where you have to create an user and a password or just login into the site.
+
+<img  src="/app/static/img/HomePage.png" width="750"></img>
+
+#### Dashboard 
+Once you put your Spotify data it redirects to the Feel The Beat! dashboard where you can see your most recently played tracks from the day and choose an emoji mood to that song.After you click the Submit button it will appear a confirm message at the top of the page.
+
+<img  src="/app/static/img/dashboard.png" width="750"></img>
+
+And if you click on a date from the calendar you can see the song and the mood you had in that certain date.
+
+<img  src="/app/static/img/calendar.png" width="750"></img>
+
 ## Technology Stack
 * Python, Flask
 * Javascript

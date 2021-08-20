@@ -1,78 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
 
-    <meta property="og:title" content="Spotify Recommendation" />
-    <meta property="og:description" content="Spotify Recommendation" />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" <meta property="og:title"
+    content="Spotify Recommendation" />
+  <meta property="og:description" content="Spotify Recommendation" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- TITLE Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <!-- TITLE Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <!-- Favicon for the browser tab -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <!-- Favicon for the browser tab -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-    <!-- Custom styling for this page -->
-    <!--<link lang="sass" rel="stylesheet" href="./static/styles/main.css" />-->
-    <link rel="stylesheet" href="../static/styles/index.css" />
+  <!-- Custom styling for this page -->
+  <!--<link lang="sass" rel="stylesheet" href="./static/styles/main.css" />-->
+  <link rel="stylesheet" href="../static/styles/index.css" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-      crossorigin="anonymous"
-    />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
 
-    <!-- Calendar links -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/darkly/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+  <!-- Calendar links -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/darkly/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
-    <title>
-      Feel the Beat! | Dashboard | Track your music according to your mood and
-      open up a world of statistics about your listening habits.
-    </title>
-  </head>
-  <!-- End Header -->
-  <body>
+  <title>
+    Feel the Beat! | Dashboard | Track your music according to your mood and
+    open up a world of statistics about your listening habits.
+  </title>
+</head>
+<!-- End Header -->
+
+<body>
   <!-- Navigation bar -->
   <nav class="navbar sticky-top navbar-dark navbar-expand-md container-fluid">
+<<<<<<< HEAD
+    <div class="container-fluid"><a class="navbar-brand" href="/">Feel the Beat!</a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link active">Today is {{ tday }}</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        <li><a href="/"><button type="button" class="btn btn-primary logout-menu-button submitButton"
+              style="border-radius: 30px;font-size: 25px;">Logout</button></a></li>
+      </ul>
+    </div>
+=======
       <div class="container-fluid"><a class="navbar-brand" href="/">Feel the Beat!</a>
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link active">Today is {{ tday }}</a></li>
@@ -81,18 +70,46 @@
                   <li><a href="{{ url_for('logout')}}"><button type="button" class="btn btn-primary logout-menu-button submitButton" style="border-radius: 30px;font-size: 25px;">Logout</button></a></li>
               </ul>
       </div>
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
   </nav>
   <div class="container container-fluid emojis">
-          {% extends "layout.html" %}
+    {% extends "layout.html" %}
     {% block body %}
     {% if error %}
     <p class=error><strong>Error:</strong> {{ error }}
       {% endif %}
     </p>
-        <!-- ALL CONTENT EXCEPT FOR THE NAVBAR ARE CONTAINED IN A FORM -->
-      <form action="{{ url_for('submit')}}" method="POST">
-          <!-- TOP ROW -->
+    <!-- ALL CONTENT EXCEPT FOR THE NAVBAR ARE CONTAINED IN A FORM -->
+    <form action="{{ url_for('submit')}}" method="POST">
+      <!-- TOP ROW -->
       <div class="row set-mood-today">
+<<<<<<< HEAD
+        <!-- END RECENTLY PLAYED TRACKS COLUMN -->
+        <div class="col-md-6 recently-played">
+          <h3>Recently Played Tracks</h3>
+          <p>First, choose a favorite song from your 5 most recently played songs.</p>
+          <div class="column radio-choices">
+            <label class="line-item">
+              <input type="radio" name="songRadio" value="{{ song_uri_0 }}">
+              <span class="checkmark">{{ track0_Name }}</span>
+            </label><br>
+            <label class="line-item">
+              <input type="radio" name="songRadio" value="{{ song_uri_1 }}">
+              <span class="checkmark">{{ track1_Name }}</span>
+            </label><br>
+            <label class="line-item">
+              <input type="radio" name="songRadio" value="{{ song_uri_2 }}">
+              <span class="checkmark">{{ track2_Name }}</span>
+            </label><br>
+            <label class="line-item">
+              <input type="radio" name="songRadio" value="{{ song_uri_3 }}">
+              <span class="checkmark">{{ track3_Name }}</span>
+            </label><br>
+            <label class="line-item">
+              <input type="radio" name="songRadio" value="{{ song_uri_4 }}">
+              <span class="checkmark">{{ track4_Name }}</span>
+            </label><br>
+=======
           <!-- END RECENTLY PLAYED TRACKS COLUMN -->
           <div class="col-md-6 recently-played">
               <h3>Recently Played Tracks</h3>
@@ -148,17 +165,74 @@
                   </label>
               </ul>
               <button type="submit" class="btn btn-primary logout-menu-button" style="border-radius: 30px;font-size: 25px;">Submit</button>
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
           </div>
         </div>
-      </form>
-          <!-- END SELECT A MOOD COLUMN -->
-          <!-- END TOP ROW -->
-        <!-- BOTTOM ROW -->
+        <!-- END RECENTLY PLAYED TRACKS COLUMN -->
+        <!-- SELECT A MOOD COLUMN -->
+        <div class="col-md-6 recent-mood">
+          <h3>Mood for this Track</h3>
+          <p>Second, select a Mood that sums up your most recent daily music.</p>
+          <ul class="emoji-list">
+            <label>
+              <input type="radio" name="radioe" value="inlove">
+              <i class="far fa-grin-hearts emoji love" alt="inlove"></i>
+            </label>
+            <label>
+              <input type="radio" name="radioe" value="happy">
+              <i class="far fa-laugh-beam emoji happy" alt="happy"></i>
+            </label>
+            <label>
+              <input type="radio" name="radioe" value="normal">
+              <i class="far fa-meh emoji normal" alt="normal"></i>
+            </label>
+            <label>
+              <input type="radio" name="radioe" value="sad">
+              <i class="far fa-frown emoji sad" alt="sad"></i>
+            </label>
+            <label>
+              <input type="radio" name="radioe" value="angry">
+              <i class="far fa-angry emoji angry" alt="angry"></i>
+            </label>
+          </ul>
+        </div>
+        <!-- END SELECT A MOOD COLUMN -->
+      </div>
+      <!-- END TOP ROW -->
+      <!-- BOTTOM ROW -->
       <div class="row recent-tracks previous-mood-calendar">
-          <div class="col recent-tracks" style="text-align: center;">
+        <div class="col recent-tracks" style="text-align: center;">
 
+        </div>
+
+<<<<<<< HEAD
+        <div class="row calendar-row">
+          <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
+          <div class="col-md-6 dash-mood" style="text-align: center;">
+            <h3 id="e">Mood</h3>
+            <p>On this day, your mood was:</p>
+            <!--all the images became bottons-->
+            <i class="far fa-grin-hearts emoji love"></i>
           </div>
-
+          <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
+          <!-- NEW CALENDAR COLUMN -->
+          <div class="col-md-6 dash-calendar" style="text-align: center;">
+            <h3>Past Mood</h3>
+            <p>Select a date to see what your mood was on that day.</p>
+            <a href="/"><button type="button" class="btn btn-primary logout-menu-button"
+                style="border-radius: 30px;font-size: 25px;">Submit</button></a>
+            <div class="date-picker">
+              <div class="selected-date"></div>
+              <div class="dates">
+                <div class="month">
+                  <div class="arrows prev-mth">&lt;</div>
+                  <div class="mth"></div>
+                  <div class="arrows next-mth">&gt;</div><br>
+                </div>
+                <div class="days"></div>
+              </div>
+            </div>
+=======
           <div class="row calendar-row">
               <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
               <div class="col-md-6 dash-mood" style="text-align: center">
@@ -185,17 +259,30 @@
                         <div class="days"></div>
 		            </div>
 	            </div>
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
 
-              </div>
-              <!-- END NEW CALENDAR COLUMN -->
           </div>
+          <!-- END NEW CALENDAR COLUMN -->
+        </div>
+        <div class="col-md-6 dash-mood" style="text-align: center">
+          <h3 id="e">Mood</h3>
+          <p>On this day, your mood was:</p>
+          <h1 class="dayMood"></h1>
+          <!--all the images became bottons-->
+          <div id="moodEmogi"></div>
+
+          <p>The song listened was:</p>
+          <h1 class="songArtist"></h1>
         </div>
       </div>
-    </div>
-      <!-- END BOTTOM ROW -->
+  </div>
+  </div>
+  <!-- END BOTTOM ROW -->
+  </form>
   </div>
 
   <script src="../static/js/dashboard2.js"></script>
   {% endblock %}
-  </body>
+</body>
+
 </html>

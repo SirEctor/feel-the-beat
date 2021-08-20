@@ -36,20 +36,34 @@ def get_all_analytics(access_token):
     trackArtist0 = resTracks_Text["items"][0]["track"]["album"]["artists"][0]["name"]
     trackName0 = trackN0 + "  -  " + trackArtist0
     trackId0 = resTracks_Text["items"][0]["track"]["id"]
+<<<<<<< HEAD
+
+=======
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
     storage["trackName0"] = trackName0
 
     trackN1 = resTracks_Text["items"][1]["track"]["name"]
     trackArtist1 = resTracks_Text["items"][1]["track"]["album"]["artists"][0]["name"]
     trackName1 = trackN1 + "  -  " + trackArtist1
     trackId1 = resTracks_Text["items"][1]["track"]["id"]
+<<<<<<< HEAD
+
+=======
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
     storage["trackName1"] = trackName1
 
     trackN2 = resTracks_Text["items"][2]["track"]["name"]
     trackArtist2 = resTracks_Text["items"][2]["track"]["album"]["artists"][0]["name"]
     trackName2 = trackN2 + "  -  " + trackArtist2
     trackId2 = resTracks_Text["items"][2]["track"]["id"]
+<<<<<<< HEAD
+
     storage["trackName2"] = trackName2
 
+=======
+    storage["trackName2"] = trackName2
+
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
     # Get Audio Features for a Track
     track0_Charact = requests.get(
         "https://api.spotify.com/v1/audio-features/" + trackId0, headers=headers
@@ -82,6 +96,10 @@ def get_all_analytics(access_token):
 
 
 def get_5_latest_songs(access_token):
+<<<<<<< HEAD
+
+=======
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -96,9 +114,20 @@ def get_5_latest_songs(access_token):
 
     tracks = []
     for i in range(5):
-        song_uri = resTracks_Text["items"][i]["track"]["uri"]
+<<<<<<< HEAD
+        song_uri = resTracks_Text["items"][i]["track"]["album"]["artists"][0]["uri"]
         song_name = resTracks_Text["items"][i]["track"]["name"]
         song_artist = resTracks_Text["items"][i]["track"]["album"]["artists"][0]["name"]
+=======
+        song_uri = resTracks_Text["items"][i]["track"]["uri"]
+<<<<<<< HEAD
+        song_name = resTracks_Text['items'][i]['track']['name']
+        song_artist = resTracks_Text['items'][i]['track']['album']['artists'][0]['name']
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
+=======
+        song_name = resTracks_Text["items"][i]["track"]["name"]
+        song_artist = resTracks_Text["items"][i]["track"]["album"]["artists"][0]["name"]
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
         song_name_and_artist = song_name + " - " + song_artist
         if not Song.query.filter_by(uri=song_uri).first():
             new_song = Song(uri=song_uri, name=song_name, artist=song_artist)
@@ -110,11 +139,31 @@ def get_5_latest_songs(access_token):
     tracks.append(t)
     return tracks
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+def error_handling(r, type):
+    if r.status_code == 200:
+        r_text = r.json()
+        access_token = r_text["access_token"]
+        if type == "test_analytics":
+            refresh_token = r_text["refresh_token"]
+            current_user.set_refresh_token(refresh_token)
+            db.session.commit()
+
+=======
+def error_handling(r):
+    if r.status_code == 200:
+        r_text = r.json()
+        access_token = r_text['access_token']            
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
+=======
 
 def error_handling(r):
     if r.status_code == 200:
         r_text = r.json()
         access_token = r_text["access_token"]
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
         storage = get_5_latest_songs(access_token)
         return render_template(
             "dashboard.html",
