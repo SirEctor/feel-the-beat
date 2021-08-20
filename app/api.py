@@ -1,9 +1,8 @@
 import flask
-from flask import request, jsonify, session
+from flask import request, jsonify
 from datetime import datetime
 from . import app
 from .table_datatypes import *
-import json
 from flask_login import current_user
 
 
