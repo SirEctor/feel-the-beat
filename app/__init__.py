@@ -116,16 +116,10 @@ def submit():
         song_uri = request.form["songRadio"]
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
-
-        if(db.session.query(Daily_Record).filter(Daily_Record.date == dat).first() != None):
-            db.session.query(Daily_Record).filter(
-                Daily_Record.date == dat
-            ).update(
-                {
-                    Daily_Record.mood: mood,
-                    Daily_Record.song_uri: song_uri,
-                }
-            )
+        record = Daily_Record.query.filter_by(user_id = current_user.id, date = dat).first() 
+        if record:
+            record.mood = mood
+            record.song_uri= song_uri
         else:
             entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
             db.session.add(entry)
