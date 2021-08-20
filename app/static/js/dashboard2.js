@@ -58,6 +58,7 @@ function toggleDatePicker(e) {
   if (!checkEventPathForClass(e.path, "dates")) {
     dates_element.classList.toggle("active");
   }
+  checkMood();
 }
 
 function goToNextMonth(e) {
