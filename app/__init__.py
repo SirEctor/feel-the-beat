@@ -16,7 +16,8 @@ import urllib.parse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-#from tkinter import *
+
+# from tkinter import *
 
 
 from datetime import date
@@ -57,7 +58,8 @@ def home():
         return redirect("/dashboard")
     return render_template("index.html")
 
-@app.route('/login')
+
+@app.route("/login")
 def login():
     if current_user.is_authenticated:
         return redirect("/dashboard")
@@ -116,17 +118,19 @@ def submit():
         song_uri = request.form["songRadio"]
         dt = date.today()
         dat = datetime.combine(dt, datetime.min.time())
-        record = Daily_Record.query.filter_by(user_id = current_user.id, date = dat).first() 
+        record = Daily_Record.query.filter_by(user_id=current_user.id, date=dat).first()
         if record:
             record.mood = mood
-            record.song_uri= song_uri
+            record.song_uri = song_uri
         else:
-            entry = Daily_Record(user_id=user_id, mood=mood, song_uri=song_uri, date=dat)
+            entry = Daily_Record(
+                user_id=user_id, mood=mood, song_uri=song_uri, date=dat
+            )
             db.session.add(entry)
-        
+
         db.session.commit()
     flash("Your mood and song are saved!")
-    #tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
+    # tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
     return redirect("/dashboard")
 
 
@@ -158,8 +162,8 @@ def confirm_login():
         return render_template("login.html")
 
 
-@app.route('/logout')
-def logout():  
+@app.route("/logout")
+def logout():
     logout_user()
     return redirect("/")
 
@@ -185,7 +189,7 @@ def dashboard():
         }
         r = requests.post("https://accounts.spotify.com/api/token", data=data)
         r_text = r.json()
-        refresh_token = r_text['refresh_token']
+        refresh_token = r_text["refresh_token"]
         current_user.set_refresh_token(refresh_token)
         db.session.commit()
         return redirect(request.path)
