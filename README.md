@@ -1,5 +1,7 @@
 # Feel The Beat!
 
+<img  src="/app/static/img/feelthebeatanimals.svg" width="500"></img>
+
 [Feel the Beat!](http://feelthebeat.tech/) is a tool that allows you to track your mood for each day along with the song you feel best represents how you're feeling, in order to see patterns of your moods and listening habits. Feel the Beat! draws on the Spotify API and thus requires users to have a Spotify account. 
 
 ## Getting Started
@@ -31,4 +33,22 @@ Make sure you have [Docker](https://docs.docker.com/engine/install/) installed a
 ```bash
 $ docker-compose up
 ```
+## Features
 
+### Users
+
+The application requires visitors to create accounts on the site in order for it to be used. Upon registration, the user is redirected to an authorization link provided by Spotify that allows them to either accept or decline our application accessing certain data about their Spotify listening history. Each user on our application will thus be linked to their Spotify account. This is so that users are able to retrieve specific data about their listening habits.
+
+### Mood Tracking Calendar
+When the user visits the site, if they have not already submitted their mood and song for the day, they are given a list of their five most recently played songs on spotify and are asked to select one and their current mood. Once they submit, that data is stored in the database so that when they click on specific dates on the calendar, they can see their mood and song for the day. This is so they can see how they were feeling on a certain day, and if there's any type of songs they like to listen to in particular moods.
+
+## Technology Stack
+* Python, Flask
+* Javascript
+* HTML/CSS, Bootstrap
+* PostgreSQL
+* Docker
+* cAdvisor
+* Prometheus
+* Grafana
+* NGINX
