@@ -47,7 +47,7 @@ When the user visits the site, if they have not already submitted their mood and
 #### Home Page
 In the Home Page you can find the cover page of Feel The Beat!, the register and the login box where you have to create an user and a password or just login into the site.
 
-<img  src="/app/static/img/HomePage.png" width="700"></img>
+<img  src="/app/static/img/HomePage.png" width="900"></img>
 
 <img  src="/app/static/img/Login.png" width="400"></img>
 <img  src="/app/static/img/Register.png" width="400"></img>
