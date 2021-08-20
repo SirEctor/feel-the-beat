@@ -82,6 +82,5 @@ Here we can see Prometheus listed as a source.
 From there, the dashboard is created. We can see both a compiled, total memory usage graph, as well as individual graphs for the memory usage of each of the containers. The same is true with respect to the 
 CPU usage.
 ![image](https://user-images.githubusercontent.com/70787342/130286408-da2f4e67-3eb1-46e4-a924-a9fc9bfa5239.png)
-![image](https://user-images.githubusercontent.com/70787342/130286556-e9789cd9-f1c9-4e12-a6bf-2cf38ac18bb7.png)
 
 
