@@ -52,23 +52,21 @@ def load_user(id):
 
 @app.route("/")
 def home():
-    logout_user()
-
+    if current_user.is_authenticated:
+        return redirect("/dashboard")
     return render_template("index.html")
 
-
-   
 @app.route('/login')
 def login():
     if current_user.is_authenticated:
-        return render_template("index.html")
+        return redirect("/dashboard")
     return render_template("login.html")
 
 
 @app.route("/register")
 def register():
     if current_user.is_authenticated:
-        return render_template("index.html")
+        return redirect("/dashboard")
     return render_template("register.html")
 
 
@@ -156,7 +154,7 @@ def confirm_login():
 @app.route('/logout')
 def logout():  
     logout_user()
-    return render_template("index.html")
+    return redirect("/")
 
 
 @app.route("/dashboard")
