@@ -16,10 +16,6 @@ import urllib.parse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-
-
-
-
 from datetime import date
 from datetime import datetime
 
