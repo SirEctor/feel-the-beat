@@ -144,6 +144,22 @@ function formatDate(d) {
   return day + " / " + month + " / " + year;
 }
 
+function formatDateAPI(d) {
+  let day = d.getDate();
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  let month = d.getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  let year = d.getFullYear();
+
+  return year + "-" + month + "-" + day + " 00:00:00";
+}
+
 function checkMood() {
   const url = "https://feelthebeat.tech/api/daily-record";
 
@@ -152,6 +168,7 @@ function checkMood() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      //date: formatDateAPI,
       date: "2021-08-19 00:00:00",
     }),
     method: "POST",
@@ -163,12 +180,11 @@ function checkMood() {
     })
     .then((data) => {
       console.log(data);
+      var song = data.get("mood");
+      var artist = data.get("name");
+
+      document.querySelector(".dayMood").innerHTML = data.get("mood");
+      document.querySelector(".songArtist").innerHTML = song + "-" + artist;
     })
     .catch((error) => console.log(error), console.error("Can't access to API"));
-
-  var song = data.get("mood");
-  var artist = data.get("name");
-
-  document.querySelector(".dayMood").innerHTML = data.get("mood");
-  document.querySelector(".songArtist").innerHTML = song + "-" + artist;
 }
