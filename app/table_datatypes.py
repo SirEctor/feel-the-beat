@@ -13,25 +13,25 @@ class User(UserMixin, db.Model):
     authorization_code = db.Column(db.String, default=None)
     refresh_token = db.Column(db.String, default=None)
     authenticated = db.Column(db.Boolean, default=False)
-    
+
     def set_refresh_token(self, refresh_token):
         self.refresh_token = refresh_token
-    
+
     def set_auth_code(self, authorization_code):
         self.authorization_code = authorization_code
-        
+
     def give_refresh_token(self):
         return self.refresh_token
-        
+
     def give_auth_code(self):
         return self.authorization_code
-    
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-        
+
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
+
     def is_active(self):
         return self.is_active()
 
@@ -43,6 +43,7 @@ class User(UserMixin, db.Model):
 
     def is_active(self):
         return self.id
+
 
 class Song(db.Model):
     __tablename__ = "songs"
@@ -62,9 +63,10 @@ class Song(db.Model):
     duration_ms = db.Column(db.Integer, default=None)
     time_signature = db.Column(db.Integer, default=None)
 
+
 class Daily_Record(db.Model):
     __tablename__ = "daily_records"
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
     date = db.Column(db.DateTime, primary_key=True, autoincrement=False)
-    mood = db.Column(db.String, nullable = False)
+    mood = db.Column(db.String, nullable=False)
     song_uri = db.Column(db.String, db.ForeignKey("songs.uri"))
