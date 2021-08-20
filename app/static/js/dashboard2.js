@@ -194,24 +194,24 @@ function checkMood() {
         document.querySelector(".songArtist").innerHTML = name + "-" + artist;
 
         switch (mood) {
-          case love:
+          case "love":
             document.getElementById("moodEmogi").innerHTML =
               '<i class="far fa-grin-hearts emoji love"></i>';
             break;
-          case happy:
+          case "happy":
             document.getElementById("moodEmogi").innerHTML =
               '<i class="far fa-laugh-beam emoji happy"></i>';
             break;
-          case valor2:
+          case "normal":
             document.getElementById("moodEmogi").innerHTML =
               '<i class="far fa-meh emoji normal"></i>';
             break;
-          case sad:
+          case "sad":
             document.getElementById("moodEmogi").innerHTML =
               '<i class="far fa-frown emoji sad"></i>';
             break;
 
-          case angry:
+          case "angry":
             document.getElementById("moodEmogi").innerHTML =
               '<i class="far fa-angry emoji angry"></i>';
             break;
