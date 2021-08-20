@@ -16,7 +16,8 @@ import urllib.parse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.urls import url_parse
-#from tkinter import *
+from tkinter import *
+from tkinter import messagebox
 
 
 from datetime import date
@@ -126,7 +127,7 @@ def submit():
         
         db.session.commit()
     flash("Your mood and song are saved!")
-    #tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
+    tkinter.messagebox.showinfo(title=Info, message="We are only considering your last submission of each day", **options)
     return redirect("/dashboard")
 
 
