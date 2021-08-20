@@ -60,8 +60,7 @@ Once you put your Spotify data it redirects to the Feel The Beat! dashboard wher
 After you click the Submit button it will appear a confirm message at the top of the page.
 <img  src="/app/static/img/message.png" width="200"></img>
 And if you click on a date from the calendar you can see the song and the mood you had in that certain date.
-<img  src="/app/static/img/calendar.png" width="200"></img>
-
+<img  src="/app/static/img/calendar.png" width="250"></img>
 
 ## Technology Stack
 * Python, Flask
