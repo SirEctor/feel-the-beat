@@ -130,4 +130,8 @@ def error_handling(r):
             song_uri_4=storage[9],
             tday=storage[10],
         )
+<<<<<<< HEAD
     return render_template("result.html")
+=======
+    return render_template("result.html")
+>>>>>>> 8d0fecda81c472fd94485dc95a73db977d401a6b

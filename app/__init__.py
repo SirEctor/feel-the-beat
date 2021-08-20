@@ -1,14 +1,11 @@
-from flask import Flask, render_template, request, flash, url_for, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session
 from flask_login import (
     LoginManager,
-    UserMixin,
-    login_required,
     login_user,
     logout_user,
     current_user,
 )
 import requests
-import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -57,7 +54,8 @@ def home():
         return redirect("/dashboard")
     return render_template("index.html")
 
-@app.route('/login')
+
+@app.route("/login")
 def login():
     if current_user.is_authenticated:
         return redirect("/dashboard")
@@ -157,8 +155,8 @@ def confirm_login():
         return render_template("login.html")
 
 
-@app.route('/logout')
-def logout():  
+@app.route("/logout")
+def logout():
     logout_user()
     return redirect("/")
 
@@ -184,7 +182,7 @@ def dashboard():
         }
         r = requests.post("https://accounts.spotify.com/api/token", data=data)
         r_text = r.json()
-        refresh_token = r_text['refresh_token']
+        refresh_token = r_text["refresh_token"]
         current_user.set_refresh_token(refresh_token)
         db.session.commit()
         return redirect(request.path)
