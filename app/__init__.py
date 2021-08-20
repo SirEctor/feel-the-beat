@@ -1,14 +1,11 @@
-from flask import Flask, render_template, request, flash, url_for, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session
 from flask_login import (
     LoginManager,
-    UserMixin,
-    login_required,
     login_user,
     logout_user,
     current_user,
 )
 import requests
-import json
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -57,11 +54,16 @@ def home():
     return render_template("index.html")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 @app.route("/login")
 =======
 @app.route('/login')
 >>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
+=======
+
+@app.route("/login")
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
 def login():
     if current_user.is_authenticated:
         return redirect("/dashboard")
@@ -200,7 +202,7 @@ def dashboard():
         }
         r = requests.post("https://accounts.spotify.com/api/token", data=data)
         r_text = r.json()
-        refresh_token = r_text['refresh_token']
+        refresh_token = r_text["refresh_token"]
         current_user.set_refresh_token(refresh_token)
         db.session.commit()
         return redirect(request.path)
@@ -242,4 +244,7 @@ def submit_mood_song():
 
     r = requests.post("https://accounts.spotify.com/api/token", data=data)
     return error_handling(r)
+<<<<<<< HEAD
 >>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
+=======
+>>>>>>> 720a25d13fe666ac4a4bc59bca8c24a1ce5c3f99
