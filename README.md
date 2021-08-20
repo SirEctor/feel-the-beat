@@ -69,7 +69,6 @@ And if you click on a date from the calendar you can see the song and the mood y
 * Grafana
 * NGINX
 
-
 ### Monitoring 
 This project was monitored through a combination of cAdvisor, Prometheus and Grafana. 
 First, cAdvisor was setup as a basic monitoring system of the docker containers.
@@ -83,4 +82,11 @@ From there, the dashboard is created. We can see both a compiled, total memory u
 CPU usage.
 ![image](https://user-images.githubusercontent.com/70787342/130286408-da2f4e67-3eb1-46e4-a924-a9fc9bfa5239.png)
 
+## What is Production Engineering?
+"Production Engineering was created at Facebook to work with engineering teams and partners to champion the Reliability, Scalability, Performance, and Security posture of production services. PEs are hybrid software and systems engineers; they are the glue holding things together, whether that’s infrastructure and software or teams and processes.
+
+The true power of Production Engineering comes from developing strong relationships with partner engineering teams and valuing collaboration and knowledge sharing to build technical expertise and community. PE’s write production code and solve hard problems in systems serving billions of people across Facebook, services like Instagram, WhatsApp, and Oculus, and in diverse infrastructure areas like machine learning/inference, storage, and networking."(Production Engineering Archives, 2021)
+
+#### Works Cited:
+“Production Engineering Archives.” -Facebook Engineering-, 15 July 2021, [engineering.fb.com/category/production-engineering/](https://engineering.fb.com/category/production-engineering/). 
 
