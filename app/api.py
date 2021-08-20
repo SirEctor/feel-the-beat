@@ -1,5 +1,5 @@
 import flask
-from flask import request, jsonify
+from flask import request
 from datetime import datetime
 from . import app
 from .table_datatypes import *
