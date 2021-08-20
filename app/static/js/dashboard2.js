@@ -55,7 +55,7 @@ prev_mth_element.addEventListener("click", goToPrevMonth);
 
 // FUNCTIONS
 function toggleDatePicker(e) {
-  if (!checkEventPathForClass(e.path, "dates")) {
+  if (!checkEventPathForClass(e.path || (e.composedPath && e.composedPath()), "dates")) {
     dates_element.classList.toggle("active");
   }
   checkMood();
