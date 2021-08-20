@@ -195,30 +195,25 @@ function checkMood() {
 
         switch (mood) {
           case love:
-            document.querySelector(".moodEmogi").innerHTML = (
-              <i class="far fa-grin-hearts emoji love"></i>
-            );
+            document.querySelector(".moodEmogi").innerHTML =
+              '<i class="far fa-grin-hearts emoji love"></i>';
             break;
           case happy:
-            document.querySelector(".moodEmogi").innerHTML = (
-              <i class="far fa-laugh-beam emoji happy"></i>
-            );
+            document.querySelector(".moodEmogi").innerHTML =
+              '<i class="far fa-laugh-beam emoji happy"></i>';
             break;
           case valor2:
-            document.querySelector(".moodEmogi").innerHTML = (
-              <i class="far fa-meh emoji normal"></i>
-            );
+            document.querySelector(".moodEmogi").innerHTML =
+              '<i class="far fa-meh emoji normal"></i>';
             break;
           case sad:
-            document.querySelector(".moodEmogi").innerHTML = (
-              <i class="far fa-frown emoji sad"></i>
-            );
+            document.querySelector(".moodEmogi").innerHTML =
+              '<i class="far fa-frown emoji sad"></i>';
             break;
 
           case angry:
-            document.querySelector(".moodEmogi").innerHTML = (
-              <i class="far fa-angry emoji angry"></i>
-            );
+            document.querySelector(".moodEmogi").innerHTML =
+              '<i class="far fa-angry emoji angry"></i>';
             break;
           default:
             break;
