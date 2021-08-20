@@ -78,7 +78,7 @@
           <li class="nav-item"><a class="nav-link active">Today is {{ tday }}</a></li>
         </ul>
               <ul class="navbar-nav">
-                  <li><a href="/"><button type="button" class="btn btn-primary logout-menu-button submitButton" style="border-radius: 30px;font-size: 25px;">Logout</button></a></li>
+                  <li><a href="{{ url_for('logout')}}"><button type="button" class="btn btn-primary logout-menu-button submitButton" style="border-radius: 30px;font-size: 25px;">Logout</button></a></li>
               </ul>
       </div>
   </nav>
@@ -128,23 +128,23 @@
               <ul class="emoji-list">
                     <label>
                         <input type="radio" name="radioe" value="inlove">
-                        <i class="far fa-grin-hearts emoji love" alt="inlove"></i>
+                        <i class="far fa-grin-hearts emoji love" alt="inlove" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="happy">
-                      <i class="far fa-laugh-beam emoji happy" alt="happy"></i>
+                      <i class="far fa-laugh-beam emoji happy" alt="happy" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="normal">
-                      <i class="far fa-meh emoji normal" alt="normal"></i>
+                      <i class="far fa-meh emoji normal" alt="normal" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="sad">
-                      <i class="far fa-frown emoji sad" alt="sad"></i>
+                      <i class="far fa-frown emoji sad" alt="sad" style="color: rgba(56, 56, 56, 0.678);"></i>
                     </label>
                   <label>
                       <input type="radio" name="radioe" value="angry">
-                      <i class="far fa-angry emoji angry" alt="angry"></i>
+                      <i class="far fa-angry emoji angry" alt="angry" style="color: rgba(56, 56, 56, 0.678);"></i>
                   </label>
               </ul>
               <button type="submit" class="btn btn-primary logout-menu-button" style="border-radius: 30px;font-size: 25px;">Submit</button>
@@ -172,8 +172,8 @@
               <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
               <!-- NEW CALENDAR COLUMN -->
               <div class="col-md-6 dash-calendar" style="text-align: center;">
-                  <h3>Past Mood</h3>
-                  <p style="color: black;">Select a date to see what your mood was on that day.</p>
+                  <h3>Past Moods</h3>
+                  <p style="color: black;">Select a date to see what your mood and chosen song was on that day.</p>
 	            <div class="date-picker">
 		            <div class="selected-date"></div>
 		            <div class="dates">
