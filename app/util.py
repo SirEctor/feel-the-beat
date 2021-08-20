@@ -101,9 +101,15 @@ def get_5_latest_songs(access_token):
 
     tracks = []
     for i in range(5):
+<<<<<<< HEAD
         song_uri = resTracks_Text["items"][i]["track"]["album"]["artists"][0]["uri"]
         song_name = resTracks_Text["items"][i]["track"]["name"]
         song_artist = resTracks_Text["items"][i]["track"]["album"]["artists"][0]["name"]
+=======
+        song_uri = resTracks_Text["items"][i]["track"]["uri"]
+        song_name = resTracks_Text['items'][i]['track']['name']
+        song_artist = resTracks_Text['items'][i]['track']['album']['artists'][0]['name']
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
         song_name_and_artist = song_name + " - " + song_artist
         if not Song.query.filter_by(uri=song_uri).first():
             new_song = Song(uri=song_uri, name=song_name, artist=song_artist)
@@ -115,6 +121,7 @@ def get_5_latest_songs(access_token):
     tracks.append(t)
     return tracks
 
+<<<<<<< HEAD
 
 def error_handling(r, type):
     if r.status_code == 200:
@@ -125,6 +132,12 @@ def error_handling(r, type):
             current_user.set_refresh_token(refresh_token)
             db.session.commit()
 
+=======
+def error_handling(r):
+    if r.status_code == 200:
+        r_text = r.json()
+        access_token = r_text['access_token']            
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
         storage = get_5_latest_songs(access_token)
         return render_template(
             "dashboard.html",

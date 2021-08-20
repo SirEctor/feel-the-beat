@@ -39,6 +39,10 @@
 
 }
 
+#song{
+  margin-top: -165px;
+}
+
  ul .emoji-list li {
     display: inline-block;
 }

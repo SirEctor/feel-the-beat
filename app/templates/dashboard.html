@@ -51,6 +51,7 @@
 <body>
   <!-- Navigation bar -->
   <nav class="navbar sticky-top navbar-dark navbar-expand-md container-fluid">
+<<<<<<< HEAD
     <div class="container-fluid"><a class="navbar-brand" href="/">Feel the Beat!</a>
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link active">Today is {{ tday }}</a></li>
@@ -60,6 +61,16 @@
               style="border-radius: 30px;font-size: 25px;">Logout</button></a></li>
       </ul>
     </div>
+=======
+      <div class="container-fluid"><a class="navbar-brand" href="/">Feel the Beat!</a>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active">Today is {{ tday }}</a></li>
+        </ul>
+              <ul class="navbar-nav">
+                  <li><a href="{{ url_for('logout')}}"><button type="button" class="btn btn-primary logout-menu-button submitButton" style="border-radius: 30px;font-size: 25px;">Logout</button></a></li>
+              </ul>
+      </div>
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
   </nav>
   <div class="container container-fluid emojis">
     {% extends "layout.html" %}
@@ -72,6 +83,7 @@
     <form action="{{ url_for('submit')}}" method="POST">
       <!-- TOP ROW -->
       <div class="row set-mood-today">
+<<<<<<< HEAD
         <!-- END RECENTLY PLAYED TRACKS COLUMN -->
         <div class="col-md-6 recently-played">
           <h3>Recently Played Tracks</h3>
@@ -97,6 +109,63 @@
               <input type="radio" name="songRadio" value="{{ song_uri_4 }}">
               <span class="checkmark">{{ track4_Name }}</span>
             </label><br>
+=======
+          <!-- END RECENTLY PLAYED TRACKS COLUMN -->
+          <div class="col-md-6 recently-played">
+              <h3>Recently Played Tracks</h3>
+              <p style="color: black;">First, choose a favorite song from your 5 most recently played songs.</p>
+              <div class="column radio-choices">
+                  <label class="line-item">
+                      <input type="radio" name="songRadio" value="{{ song_uri_0 }}">
+                      <span class="checkmark">{{ track0_Name }}</span>
+                  </label><br>
+                  <label class="line-item">
+                      <input type="radio" name="songRadio" value="{{ song_uri_1 }}">
+                      <span class="checkmark">{{ track1_Name }}</span>
+                  </label><br>
+                  <label class="line-item">
+                      <input type="radio" name="songRadio" value="{{ song_uri_2 }}">
+                      <span class="checkmark">{{ track2_Name }}</span>
+                  </label><br>
+                  <label class="line-item">
+                      <input type="radio" name="songRadio" value="{{ song_uri_3 }}">
+                      <span class="checkmark">{{ track3_Name }}</span>
+                  </label><br>
+                  <label class="line-item">
+                      <input type="radio" name="songRadio" value="{{ song_uri_4 }}">
+                      <span class="checkmark">{{ track4_Name }}</span>
+                  </label><br>
+              </div>
+          </div>
+          <!-- END RECENTLY PLAYED TRACKS COLUMN -->
+          <!-- SELECT A MOOD COLUMN -->
+          <div class="col-md-6 recent-mood">
+              <h3>Mood for this Track</h3>
+              <p style="color: black;">Second, select a Mood that sums up your most recent daily music.</p>
+              <ul class="emoji-list">
+                    <label>
+                        <input type="radio" name="radioe" value="inlove">
+                        <i class="far fa-grin-hearts emoji love" alt="inlove" style="color: rgba(56, 56, 56, 0.678);"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="happy">
+                      <i class="far fa-laugh-beam emoji happy" alt="happy" style="color: rgba(56, 56, 56, 0.678);"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="normal">
+                      <i class="far fa-meh emoji normal" alt="normal" style="color: rgba(56, 56, 56, 0.678);"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="sad">
+                      <i class="far fa-frown emoji sad" alt="sad" style="color: rgba(56, 56, 56, 0.678);"></i>
+                    </label>
+                  <label>
+                      <input type="radio" name="radioe" value="angry">
+                      <i class="far fa-angry emoji angry" alt="angry" style="color: rgba(56, 56, 56, 0.678);"></i>
+                  </label>
+              </ul>
+              <button type="submit" class="btn btn-primary logout-menu-button" style="border-radius: 30px;font-size: 25px;">Submit</button>
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
           </div>
         </div>
         <!-- END RECENTLY PLAYED TRACKS COLUMN -->
@@ -136,6 +205,7 @@
 
         </div>
 
+<<<<<<< HEAD
         <div class="row calendar-row">
           <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
           <div class="col-md-6 dash-mood" style="text-align: center;">
@@ -162,6 +232,34 @@
                 <div class="days"></div>
               </div>
             </div>
+=======
+          <div class="row calendar-row">
+              <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
+              <div class="col-md-6 dash-mood" style="text-align: center">
+                <p style="color: black;">On this day, your mood was:</p>
+                <h1 class="dayMood"></h1>
+                <!--all the images became bottons-->
+                <div id="moodEmogi"></div>
+                <p id="song" style="color: black;">The song listened to was:</p>
+                <h1 class="songArtist"></h1>
+              </div>
+              <!-- ON THIS DAY YOUR MOOD WAS COLUMN-->
+              <!-- NEW CALENDAR COLUMN -->
+              <div class="col-md-6 dash-calendar" style="text-align: center;">
+                  <h3>Past Moods</h3>
+                  <p style="color: black;">Select a date to see what your mood and chosen song was on that day.</p>
+	            <div class="date-picker">
+		            <div class="selected-date"></div>
+		            <div class="dates">
+			            <div class="month">
+				            <div class="arrows prev-mth">&lt;</div>
+				            <div class="mth"></div>
+				            <div class="arrows next-mth">&gt;</div><br>
+			            </div>
+                        <div class="days"></div>
+		            </div>
+	            </div>
+>>>>>>> 6c4d08ec0cdf9d6b7d62ad92979a933eeaad34a5
 
           </div>
           <!-- END NEW CALENDAR COLUMN -->
