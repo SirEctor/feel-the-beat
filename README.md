@@ -82,6 +82,6 @@ From there, the dashboard is created. We can see both a compiled, total memory u
 CPU usage.
 ![image](https://user-images.githubusercontent.com/70787342/130286408-da2f4e67-3eb1-46e4-a924-a9fc9bfa5239.png)
 
-##AWS Configuration (Security)
+## AWS Configuration (Security)
 ![image](https://user-images.githubusercontent.com/70787342/130305460-a5dd8f2a-e98b-4b47-8f7d-2cc8dfbac8a0.png)
 
